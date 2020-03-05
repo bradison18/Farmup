@@ -1,0 +1,130 @@
+/*###################################
+  ---------- HOME ORGANIC -----------
+  ##################################*/
+
+.grid-box{
+    background-color: #46866C;
+    padding: 0px;
+    width: 100%;
+    height: auto;
+}
+
+.grid-img img{
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+}
+.grid-img{
+    overflow: hidden;
+}
+
+.grid-img img{
+    width: 100%;
+    cursor: pointer;
+}
+
+.grid-icon-circle{
+    width: 80px;
+    height: 80px;
+    border: solid 2px #FFF;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+}
+
+.organic-icon{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.organic-icon img{
+    width: 100%;
+}
+
+.grid-info{
+    position: relative;
+}
+
+.inner-grid-info-2{
+    position: relative;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0px 25px;
+}
+
+.inner-grid-info-2 h4{
+    font-size: 0.90rem;
+    margin: 15px 0px 5px;
+    color: #FFF;
+}
+
+.inner-grid-info-2 p{
+    color: #FFF;
+    margin-bottom: 0px;
+    line-height: 1.7;
+}
+
+.image-hover figure {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	overflow: hidden;
+}
+    
+.image-hover figure:hover+span {
+	bottom: -36px;
+	opacity: 1;
+}
+
+.hover-effects figure img {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+    
+.hover-effects figure:hover img {
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.wide-section-bg{ 
+    background-image: url("../img/images/organic12.jpg");
+    height: 500px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.wide-section-bg:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom right, #000, #000);
+    opacity: .4;
+}
+
+.farm-bg{ 
+    background-image: url("../img/images/farm-bg.jpg");
+    height: 600px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+

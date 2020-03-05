@@ -1,0 +1,153 @@
+/*###################################
+  ---------- HOME VEGETABLES --------
+  ##################################*/
+
+.section-title-2{
+    margin: auto auto 1.5rem;
+}
+
+.section-title-2 h2{
+    text-align: center;
+}
+
+.section-title-2 p{
+    line-height: 1.8;
+    text-align: center;
+}
+
+.section-title-2 h2:after {
+	background: #EEC344;
+	content: '';
+	display: block;
+	height: 3px;
+	margin: 15px auto;
+	width: 80px;
+}
+
+.section-title-2 span{
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.item-icon{
+    width: 60px;
+    margin: auto;
+}
+
+.item-icon img{
+    width: 100%;
+}
+
+.inner-item .caption{
+    text-align: center;
+    margin-top: 15px; 
+}
+
+.grid-box{
+    background-color: #F7FAFA;
+    padding: 0px;
+    width: 100%;
+    height: auto;
+}
+
+.grid-img img{
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+}
+.grid-img{
+    overflow: hidden;
+}
+
+.grid-img img{
+    width: 100%;
+    cursor: pointer;
+}
+
+.grid-icon-circle{
+    width: 80px;
+    height: 80px;
+    border: solid 2px #46866C;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+}
+
+.organic-icon{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.organic-icon img{
+    width: 100%;
+}
+
+.grid-info{
+    position: relative;
+}
+
+.inner-grid-info{
+    position: relative;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0px 25px;
+}
+
+.inner-grid-info h2{
+    margin: 15px 0px 5px;
+    color: #46866C;
+    font-weight: 400;
+}
+
+.inner-grid-info span{
+    font-weight: 700;
+}
+
+.inner-grid-info p{
+    margin-bottom: 0px;
+    line-height: 1.7;
+}
+
+.image-hover figure {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	overflow: hidden;
+}
+    
+.image-hover figure:hover+span {
+	bottom: -36px;
+	opacity: 1;
+}
+
+.hover-effects figure img {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+    
+.hover-effects figure:hover img {
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.farm-bg{ 
+    background-image: url("../img/images/farm-bg.jpg");
+    height: 600px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
