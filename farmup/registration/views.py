@@ -20,13 +20,13 @@ def home(request):
     return render(request, 'registration/index.html',user)
 
 def register_display(request):
-    return render(request, 'registration/test.html')
+    return render(request, 'registration/registration.html')
 
 def test(request):
     return render(request, 'registration/test.html')
 
 def login_display(request):
-    return render(request, 'registration/login2.html')
+    return render(request, 'registration/login.html')
 
 
 def dashboard(request):

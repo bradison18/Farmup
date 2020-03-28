@@ -1,0 +1,96 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+
+  {% block head %}    
+  <!-- ==============================================
+  TITLE AND META TAGS
+  =============================================== -->
+  <title>Agrom - Organic & Agriculture Food HTML Template</title>
+      <meta name="description" content="">
+      <meta name="keywords" content="">
+      <meta name="author" content="Quickdev">
+      <meta name="theme-color" content="#EEC344">
+
+  <!-- ==============================================
+  FAVICON
+  =============================================== -->  
+      <link rel="shortcut icon" href="{% static 'homepage/img/master/favicon.png' %}">
+            
+  <!-- ==============================================
+  CSS
+  =============================================== -->  
+      <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %} ">
+      <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+      <link rel="stylesheet" href="{% static 'homepage/css/custom.css' %}">
+      <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
+      <script src="{% static 'homepage/js/modernizr-custom.js' %}"></script>
+    {% endblock %} 
+    
+  {% block body %}
+  <!-- LOADER -->
+  {% comment %} <div id="loader-wrapper">
+      <div class="loader">
+        <div class="square" ></div>
+        <div class="square"></div>
+        <div class="square last"></div>
+        <div class="square clear"></div>
+        <div class="square"></div>
+        <div class="square last"></div>
+        <div class="square clear"></div>
+        <div class="square "></div>
+        <div class="square last"></div>
+      </div>
+  </div> {% endcomment %}
+  <!-- LOADER -->
+  
+  <div class="page">
+      
+      <!--COUNT DOWN START-->
+      <div class="countdown-col col">
+        <ul style="color: #003300;font-size:25px;padding-top:13%;padding-left:3%;list-style-type:square;font-weight:bold;text-shadow:-3px 1px #00FFFF">
+          <li>Farmer's empowerment</li><br>
+          <li>Promote farming, Save farmers</li><br>
+          <li>Be Organic</li>
+        </ul>
+      </div>
+      <!--COUNT DOWN END-->
+      
+      <!--SUBSCRIPTION START-->
+      <div class="newsletter-col col">
+        <div class="newsletter middle">
+          <div>
+            <figure class="logo"><img src="{% static 'background/img/master/logo-2.png' %}" alt=""></figure>
+          </div>
+          <h3>LOGIN<h3>
+          <form>
+            <div class="form-group">
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Password">
+            </div>
+              <div class="btn-more-box"><a class="btn-hover-corner" href="#">Login</a></div>
+              <br><br><br><br><br>
+          </form>
+        </div>
+      </div>
+      <!--SUBSCRIPTION END-->
+      
+  </div>
+  
+<!-- ==============================================
+JAVASCRIPTS
+=============================================== -->
+  <script src="{% static 'homepage/js/plugins.js' %}"></script>
+  <script src="{% static 'homepage/js/bootstrap.min.js' %}"></script>    
+  <script src="{% static 'homepage/js/agrom.js' %}"></script>
+{% comment %} 
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-101241150-1', 'auto');
+    ga('send', 'pageview');
+  </script>  {% endcomment %}
+  {% endblock %}
