@@ -1,2 +1,2 @@
 # Farmup
-A website for farmers and landlords.
+A website for the Farmers and landlords.
