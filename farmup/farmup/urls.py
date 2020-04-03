@@ -26,4 +26,5 @@ urlpatterns = [
     path('landing/',views.dashboard,name='landing'),
     path('registration/',include(('registration.urls','registration'))),
     path('test',views.test,name='test'),
+    path('crop_selling/',include('crop_selling_portal.urls')),
 ]
