@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registration',
-    
-    'social_django',
+    'crop_selling_portal',
 ]
 
 MIDDLEWARE = [

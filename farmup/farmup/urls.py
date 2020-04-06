@@ -26,5 +26,5 @@ urlpatterns = [
     path('landing/',views.dashboard,name='landing'),
     path('registration/',include(('registration.urls','registration'))),
     path('test',views.test,name='test'),
-    url('', include('social.apps.django_app.urls', namespace='social')),
+    path('crop_selling/',include('crop_selling_portal.urls')),
 ]
