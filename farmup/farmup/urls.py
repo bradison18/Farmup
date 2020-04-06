@@ -18,7 +18,7 @@ from django.urls import path ,include
 from django.conf import settings
 from django.conf.urls.static import static
 from registration import views
-
+import social_django
 from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('landing/',views.dashboard,name='landing'),
     path('registration/',include(('registration.urls','registration'))),
     path('test',views.test,name='test'),
+    url('', include('social.apps.django_app.urls', namespace='social')),
 ]
