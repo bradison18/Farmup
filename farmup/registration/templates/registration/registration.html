@@ -24,7 +24,7 @@
       <link rel="stylesheet" href="{% static 'homepage/css/custom.css' %}">
       <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
       <script src="{% static 'homepage/js/modernizr-custom.js' %}"></script>
-    {% endblock %} 
+    {% endblock %}
     
   {% block body %}
   <!-- LOADER -->
@@ -58,28 +58,44 @@
       <!--SUBSCRIPTION START-->
       <div class="newsletter-col col">
         <div class="newsletter middle">
-          <figure class="logo"><img src="{% static 'background/img/master/logo-2.png' %}" alt=""></figure>
-          <h3>SIGN UP<h3>
-          <form>
+          <!--<figure class="logo"><img src="{% static 'background/img/master/logo-2.png' %}" alt=""></figure>-->
+          <br>
+            <h3>SIGN UP<h3>
+            {% if messages %}
+					<ul class="messages">
+					{% for message in messages %}
+					<div class="w3-panel w3-grey w3-display-container">
+
+						<h10 class="{{ message.tags }}" style="color: #de5246;size:10px"> {{ message }}</h10>
+
+					</div>
+					{% endfor %}
+					</ul>
+					{% endif %}
+
+
+          <form method="post" action="{% url 'registration:register' %}">
+              {% csrf_token %}
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Username">
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" name="username">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Password">
+              <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Password" name="password">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Re-enter Password">
+              <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Re-enter Password" name="repassword">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="City,State">
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="City,State" name = "address">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Pincode">
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Pincode" maxlength="6" name="pincode">
             </div>
-              <div class="btn-more-box"><a class="btn-hover-corner" href="#">Login</a></div>
+              <div class="btn-more-box"><input type="submit" class="btn-hover-corner" style="color:bisque;background-color:black" value="SignUP"></div>
+
           </form>
         </div>
       </div>
