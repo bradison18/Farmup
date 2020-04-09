@@ -2,15 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c09b5e3c-b76b-47be-aa96-c79a3c88c855" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Farmup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Farmup.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/crop_selling_portal/templates/crop_selling_portal/sellingpage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/crop_selling_portal/templates/crop_selling_portal/shop.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/crop_selling_portal/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/crop_selling_portal/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/farmup/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/media/photos/IMG_20171225_205228.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/email_confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/email_confirmation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/farmup/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +33,7 @@
     <expand />
     <select />
   </component>
+<<<<<<< HEAD
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -108,6 +110,8 @@
       </file>
     </leaf>
   </component>
+=======
+>>>>>>> d1a6040a5c7a119de964d6e5ef182f70160fd1dc
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -116,6 +120,7 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="FindInProjectRecents">
     <findStrings>
       <find>head</find>
@@ -162,12 +167,18 @@
       </list>
     </option>
   </component>
+=======
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+>>>>>>> d1a6040a5c7a119de964d6e5ef182f70160fd1dc
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="670" />
     <option name="y" value="28" />
     <option name="width" value="696" />
     <option name="height" value="740" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -219,6 +230,9 @@
       <pane id="Scope" />
     </panes>
   </component>
+=======
+  <component name="ProjectId" id="1aGfEO3WcbAm08ydXozM6aUHhPn" />
+>>>>>>> d1a6040a5c7a119de964d6e5ef182f70160fd1dc
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -259,6 +273,7 @@
       <workItem from="1582645228604" duration="3392000" />
       <workItem from="1582711301922" duration="3334000" />
       <workItem from="1582721419302" duration="29428000" />
+<<<<<<< HEAD
       <workItem from="1583935202103" duration="2159000" />
       <workItem from="1586411173562" duration="9468000" />
     </task>
@@ -514,5 +529,24 @@
         </state>
       </provider>
     </entry>
+=======
+      <workItem from="1586366743348" duration="2978000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+>>>>>>> d1a6040a5c7a119de964d6e5ef182f70160fd1dc
   </component>
 </project>
