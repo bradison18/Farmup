@@ -75,46 +75,55 @@ def register(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
     re_password = request.POST.get('repassword')
-
-    if (username  and email and password  and re_password ):
+    city = request.POST.get('address')
+    pincode = request.POST.get('pincode')
+    print(username,email,password,re_password,city,pincode)
+    if (username  and email and password  and re_password and city and pincode ):
         if (password == re_password):
-
-            dynamodb = boto3.resource('dynamodb')
-            table = dynamodb.Table('user')
-
-            response = table.scan(
-                ProjectionExpression="email",
-                FilterExpression=Attr('email').eq(email)
-            )
-            password = hashlib.sha256(password.encode())
-            password = password.hexdigest()
-
-            if (len(response['Items']) == 0):
-                response = table.put_item(
-                    Item={
-                        'username': username,
-                        'email': email,
-                        'password': password,
-                        'is_active': False,
-                    }
+            if(len(pincode)==6 and pincode.isdecimal()):
+                dynamodb = boto3.resource('dynamodb')
+                table = dynamodb.Table('user')
+                no_users = table.scan()
+                print(len(no_users['Items']))
+                response = table.scan(
+                    ProjectionExpression="email",
+                    FilterExpression=Attr('email').eq(email)
                 )
+                password = hashlib.sha256(password.encode())
+                password = password.hexdigest()
+
+                if (len(response['Items']) == 0):
+                    response = table.put_item(
+                        Item={
+                            'id': str(len(no_users['Items'])+1),
+                            'username': username,
+                            'email': email,
+                            'password': password,
+                            'is_active': False,
+                            'address':city,
+                            'pincode':pincode,
+                        }
+                    )
 
 
-                current_site = get_current_site(request)
-                mail_subject = 'Activate your account.'
-                message = render_to_string('registration/acc_active_email.html', {
-                    'user': username,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(email)).decode(),
-                    'token': account_activation_token.make_token(email),
-                })
+                    current_site = get_current_site(request)
+                    mail_subject = 'Activate your account.'
+                    message = render_to_string('registration/acc_active_email.html', {
+                        'user': username,
+                        'domain': current_site.domain,
+                        'uid': urlsafe_base64_encode(force_bytes(email)).decode(),
+                        'token': account_activation_token.make_token(email),
+                    })
 
-                send_mail(mail_subject, message, 'tripplanneread@gmail.com', [email])
-                return render(request, 'registration/email_confirmation.html')
+                    send_mail(mail_subject, message, 'farmup04@gmail.com', [email])
+                    return render(request, 'registration/email_confirmation.html')
 
 
+                else:
+                    messages.success(request, 'The email ID is already registerd')
+                    return redirect('registration:register_display')
             else:
-                messages.success(request, 'The email ID is already registerd')
+                messages.success(request,'Invalid pincode')
                 return redirect('registration:register_display')
         else:
             messages.success(request, 'Failed to register as the password and confirm password do not match')
@@ -136,13 +145,15 @@ def activate(request, uidb64, token):
         )
         if (len(response['Items']) != 0):
             user = response['Items'][0]
+        print(user)
     except(TypeError, ValueError, OverflowError):
         user = None
     if user is not None and account_activation_token.check_token(user['email'], token):
 
         response = table.update_item(
             Key={
-                'email': user['email'],
+                'id': user['id'],
+                'email':user['email']
             },
             UpdateExpression="set is_active = :r",
             ExpressionAttributeValues={
@@ -201,6 +212,7 @@ def verify_reset_password(request, uidb64, token):
         users = table.scan(FilterExpression=Attr('email').eq(uid))
         if(len(users['Items'])!=0):
             user = users['Items'][0]
+        print(user)
     except(TypeError, ValueError, OverflowError):
         user = None
     if user is not None and account_activation_token.check_token(user['email'], token):
@@ -223,6 +235,7 @@ def save_password(request):
     response = table.update_item(
         Key={
             'email': user['email'],
+            'id' : user['id']
         },
         UpdateExpression="set password = :r, is_active = :t",
         ExpressionAttributeValues={
