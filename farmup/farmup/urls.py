@@ -26,5 +26,4 @@ urlpatterns = [
     path('registration/',include(('registration.urls','registration'))),
     path('test',views.test,name='test'),
     path('crop_selling/',include('shopping_cart.urls')),
-
 ]
