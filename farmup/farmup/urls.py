@@ -18,7 +18,6 @@ from django.urls import path ,include
 from django.conf import settings
 from django.conf.urls.static import static
 from registration import views
-import social_django
 from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
