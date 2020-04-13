@@ -1,9 +1,7 @@
 from django.shortcuts import render,redirect
 import boto3
-from decimal import *
 from django.contrib.auth.decorators import login_required
 from boto3.dynamodb.conditions import Key, Attr
-import datetime
 from django.urls import reverse
 
 def addCropElements(request,**kwargs):
@@ -12,7 +10,11 @@ def addCropElements(request,**kwargs):
     id = kwargs.get('slug')
     table_crop = dynamodb.Table('cropinfo')
     crops_id = table_crop.scan()['Items']
-    no_of_orders = table.scan()
+    # no_of_orders = table.scan()
+    order_ids = []
+    for k in table.scan()['Items']:
+        order_ids.append(k['order_id'])
+    # print(order_ids)
     c_id = 0
     order_cost = 0
     for i in crops_id:
@@ -21,7 +23,7 @@ def addCropElements(request,**kwargs):
             c_id += i['crop_id']
     table.put_item(
         Item = {
-            'order_id':len(no_of_orders['Items']) + 1,
+            'order_id':max(order_ids) + 1,
             'crop_id':c_id,
             'username':request.session['username'],
             'email':request.session['email'],

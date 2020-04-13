@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c09b5e3c-b76b-47be-aa96-c79a3c88c855" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/cart.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/static/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/farmup/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/farmup/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/shop.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,7 +82,7 @@
       <workItem from="1582711301922" duration="3334000" />
       <workItem from="1582721419302" duration="29428000" />
       <workItem from="1586366743348" duration="2978000" />
-      <workItem from="1586605108579" duration="34556000" />
+      <workItem from="1586605108579" duration="35851000" />
     </task>
     <servers />
   </component>
