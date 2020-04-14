@@ -112,19 +112,6 @@ const quantityInputs = document.querySelectorAll('[data-type="quan"]');
 const total = document.querySelector('[data-type="total"] span');
 
 // For simplicity, we calculate the total in a separate function.
-const calculateTotal = () => {
-  // Find all the subtotals.
-  const subtotals = document.querySelectorAll('[data-type="subtotal"]');
-  let calculatedTotal = 0;
-
-  // Loop through all the subtotals, and add them to the final total.
-  Array.from(subtotals).forEach((subtotal) => {
-    calculatedTotal += Number(subtotal.textContent);
-  });
-
-  // Then return the total.
-  return calculatedTotal;
-}
 
 // As above, we use a separate function to calculate the subtotal for a product.
 const calculateSubtotal = (product) => {
