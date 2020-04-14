@@ -88,13 +88,13 @@
 					</tbody>
         {% endfor %}
 					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center" data-type="total"><strong>Total <span>0</span></strong></td>
-						</tr>
+<!--						<tr class="visible-xs">-->
+<!--							<td class="text-center" data-type="total"><strong>Total <span></span></strong></td>-->
+<!--						</tr>-->
 						<tr>
 							<td><a href="{% url 'shopping_cart:buyingpage' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center" data-type="total"><strong>Total <span></span></strong></td>
+							<td class="hidden-xs text-center" data-type="total"><strong>Total <span>0</span></strong></td>
 							<td><a href="https://www.paypal.com/webapps/hermes?token=5EY097812P7754247&useraction=commit&mfid=1546377013907_cf1dec6830d7" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
@@ -129,24 +129,34 @@ const calculateTotal = () => {
 // As above, we use a separate function to calculate the subtotal for a product.
 const calculateSubtotal = (product) => {
   // The input event will fire when the value of the quantity field is changed.
+  const subtotals = document.querySelectorAll('[data-type="subtotal"]');
   product.addEventListener('input', () => {
     /*
      * With multiple prices and subtototals, we need to look for them going
+
      * upwards from the quantity field, using the parent elements (first the
      * table cell, then the table row).
      */
+      const subtotals = document.querySelectorAll('[data-type="subtotal"]');
+		let tl = 0;
     const parentRow = product.parentNode.parentNode;
+
 
     // Then find the price and subtotal for this product.
     const price = parentRow.querySelector('[data-type="price"]');
     const subtotal = parentRow.querySelector('[data-type="subtotal"]');
 
     // And finally, update the subtotal and the total.
-    subtotal.textContent = price.textContent * product.value;
-    total.textContent = calculateTotal();
-  });
-}
+	//   tl += price.textContent * product.value;
+	  subtotal.textContent = price.textContent * product.value;
+	  Array.from(subtotals).forEach((subtotal) => {
+		tl += Number(subtotal.textContent);
+	  });
 
+    total.textContent = tl;
+    // document.write(subtotal.value);
+  });
+};
 // Loop through all the quantity inputs and wait for the subtotal to change.
 Array.from(quantityInputs).forEach((element) => calculateSubtotal(element));
 </script>
