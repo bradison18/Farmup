@@ -1,16 +1,14 @@
-
-
-<!DOCTYPE html>
-<html lang="en">
 {% load static %}
 <!-- Mirrored from askbootstrap.com/preview/osahan-grocery-v1-4/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Apr 2020 16:22:55 GMT -->
-<head>
+{% block head %}
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="description" content="Askbootstrap">
       <meta name="author" content="Askbootstrap">
-      <title>Groci - Organic Food & Grocery Market Template</title>
+      <title>Cart</title>
       <!-- Favicon Icon -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
       <link rel="icon" type="image/png" href="https://askbootstrap.com/preview/osahan-grocery-v1-4/img/favicon.png">
       <!-- Bootstrap core CSS -->
       <link href="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,53 +22,8 @@
       <!-- Owl Carousel -->
       <link rel="stylesheet" href="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/owl-carousel/owl.carousel.css">
       <link rel="stylesheet" href="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/owl-carousel/owl.theme.css">
-   </head>
-   <body>
-       <header>
-        <!--NAVIGATION-->
-        <div class="main-nav">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg">
-                  <a class="navbar-brand" href="{% url 'landing' %}"><div class="logo-brand"><img src="{% static 'homepage/img/images/logo1.png' %}" alt=""></div></a>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'landing' %}" style="color:green;">HOME</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#" style="color:green;">ABOUT</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#" style="color:green;">SERVICES</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#" style="color:green;">BLOG</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#" style="color:green;">CONTACT</a>
-                      </li>
-                        {% if request.session.username %}
-                             <li class="nav-item">
-                        <a href="#" class="nav-link" style="color:green;" >Welcome {{ username }}</a>
-                      </li>
-                            <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registration:logout' %}">LOG OUT</a>
-                      </li>
-                        {% elif not username %}
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registration:login_display' %}">LOG IN</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'registration:register_display' %}">SIGN UP</a>
-                      </li>
-                        {% endif %}
-                    </ul>
-                  </div>
-                </nav>
-            </div>
-        </div>
-        <!--NAVIGATION END-->
-    </header>
+   {% endblock %}
+	{% block body %}
 
       <section class="shop-list section-padding">
          <div class="container">
@@ -221,10 +174,11 @@
 				</div>
                <div class="col-md-9">
                   <div class="row no-gutters">
-                     {% for crop_name,crop_cost,crop_amount,crop_image_link in crop_info %}
+
+                     {% for crop_id,crop_name,crop_cost,crop_amount,crop_image_link in crop_info %}
                      <div class="col-md-4">
                         <div class="product">
-                           <a href="https://askbootstrap.com/preview/osahan-grocery-v1-4/single.html">
+<!--                           <a href="https://askbootstrap.com/preview/osahan-grocery-v1-4/single.html">-->
                               <div class="product-header">
                                  <img class="img-fluid" src={{ crop_image_link }} alt="">
                               </div>
@@ -233,10 +187,20 @@
                                  <h6><strong><span class="mdi mdi-approval"></span> Available in</strong> {{ crop_amount }} gm</h6>
                               </div>
                               <div class="product-footer">
-                                 <button type="button" class="btn btn-secondary btn-sm float-right"> Add To Cart</button>
+                                {% if crop_id in order_ids %}
+								  <a href="{% url 'shopping_cart:cart'%}">
+                                  <button type="button" class="btn btn-secondary btn-sm float-right" > Go To Cart <i class="fa fa-shopping-cart" style="font-size:15px"></i>
+</button>
+                                  </a>
+								  {% else %}
+                                  <a href="{% url 'shopping_cart:add_to_cart' crop_name %}">
+
+                                  <button type="button" class="btn btn-secondary btn-sm float-right" > Add To Cart</button>
+                           </a>
+                                  {% endif %}
+
                                  <p class="offer-price mb-0">Rs. {{ crop_cost }}<br><br></p>
                               </div>
-                           </a>
                         </div>
                      </div>
                      {% endfor %}
@@ -272,7 +236,5 @@
       <script src="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/owl-carousel/owl.carousel.js"></script>
       <!-- Custom -->
       <script src="https://askbootstrap.com/preview/osahan-grocery-v1-4/js/custom.js"></script>
-   </body>
-
+{% endblock %}
 <!-- Mirrored from askbootstrap.com/preview/osahan-grocery-v1-4/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Apr 2020 16:22:55 GMT -->
-</html>
