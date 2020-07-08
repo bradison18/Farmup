@@ -3,7 +3,26 @@ import boto3
 from django.contrib.auth.decorators import login_required
 from boto3.dynamodb.conditions import Key, Attr
 from django.urls import reverse
+from django.http import HttpResponse
 
+def add(request):
+    # print('ad')
+    dynamodb=boto3.resource('dynamodb')
+    table=dynamodb.Table('cropinfo')
+    print(table)
+    table.put_item(
+        Item={
+            'crop_id': 1,
+            'name': 'apple',
+            # 'image_link': 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.indiamart.com%2Fproddetail%2Ffresh-apple-19064424133.html&psig=AOvVaw2pBviwjNUtAqwViRfenKVB&ust=1594295018426000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMDTkPXJveoCFQAAAAAdAAAAABAD',
+            # 'cost':30,
+            # 'stock':20
+        }
+    )
+    return HttpResponse('add products')
+
+
+# @login_required(login_url='registration:login')
 def addCropElements(request,**kwargs):
     dynamodb=boto3.resource('dynamodb')
     table=dynamodb.Table('Order')
@@ -34,6 +53,7 @@ def addCropElements(request,**kwargs):
     return redirect(reverse('shopping_cart:buyingpage'))
 
 
+# @login_required(login_url='registration:login')
 
 def checkout(request):
     dynamodb = boto3.resource('dynamodb')
@@ -62,6 +82,10 @@ def checkout(request):
         'total':total_crops_ordered
     }
     return render(request,'shopping_cart/cart.html',context)
+
+
+
+# @login_required(login_url='registration:login')
 
 def buyingpage(request):
     dynamodb=boto3.resource('dynamodb')
@@ -93,6 +117,8 @@ def buyingpage(request):
         'order_ids':order_ids
     }
     return render(request,'shopping_cart/shop.html',context)
+
+# @login_required(login_url='registration:login')
 
 def delete_from_cart(request,item_name):
     dynamodb = boto3.resource('dynamodb')
