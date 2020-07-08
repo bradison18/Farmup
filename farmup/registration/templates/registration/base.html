@@ -87,7 +87,7 @@
                       <li class="nav-item">
                         <a class="nav-link" href="#" style="color:green;">CONTACT</a>
                       </li>
-                        {% if username %}
+                        {% if request.session.username %}
                              <li class="nav-item">
                         <a href="#" class="nav-link" style="color:green;" >Welcome {{ username }}</a>
                       </li>

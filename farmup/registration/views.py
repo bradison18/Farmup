@@ -91,20 +91,26 @@ def register(request):
                 )
                 password = hashlib.sha256(password.encode())
                 password = password.hexdigest()
-
+                user_id = len(no_users['Items'])+1
+                enc_user_id = hashlib.sha224(str(user_id).encode())
+                farmer_id = str(1)+enc_user_id.hexdigest()
+                land_lord_id = str(2)+enc_user_id.hexdigest()
                 if (len(response['Items']) == 0):
                     response = table.put_item(
                         Item={
-                            'id': str(len(no_users['Items'])+1),
+                            'id': str(user_id),
                             'username': username,
                             'email': email,
                             'password': password,
                             'is_active': False,
+                            'is_farmer':False,
+                            'is_land_lord':False,
+                            'farmer_id':farmer_id,
+                            'land_lord_id':land_lord_id,
                             'address':city,
                             'pincode':pincode,
                         }
                     )
-
 
                     current_site = get_current_site(request)
                     mail_subject = 'Activate your account.'
@@ -153,7 +159,7 @@ def activate(request, uidb64, token):
         response = table.update_item(
             Key={
                 'id': user['id'],
-                'email':user['email']
+                #'email':user['email']
             },
             UpdateExpression="set is_active = :r",
             ExpressionAttributeValues={
@@ -234,7 +240,7 @@ def save_password(request):
     password = password.hexdigest()
     response = table.update_item(
         Key={
-            'email': user['email'],
+            #'email': user['email'],
             'id' : user['id']
         },
         UpdateExpression="set password = :r, is_active = :t",
