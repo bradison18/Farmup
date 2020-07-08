@@ -10,15 +10,20 @@ def add(request):
     dynamodb=boto3.resource('dynamodb')
     table=dynamodb.Table('cropinfo')
     print(table)
-    table.put_item(
-        Item={
-            'crop_id': 1,
-            'name': 'apple',
-            # 'image_link': 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.indiamart.com%2Fproddetail%2Ffresh-apple-19064424133.html&psig=AOvVaw2pBviwjNUtAqwViRfenKVB&ust=1594295018426000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMDTkPXJveoCFQAAAAAdAAAAABAD',
-            # 'cost':30,
-            # 'stock':20
-        }
-    )
+    items = ['tomato','potato','carrot','watermelon']
+    cost = ['40','20','45','35']
+    stock = [10,30,20,30]
+    links = ['https://uploads.scratch.mit.edu/users/avatars/443/3561.png','https://3.imimg.com/data3/OE/IJ/MY-331481/potato-250x250.jpg','https://www.fondation-louisbonduelle.org/wp-content/uploads/2016/10/carotte_222805396.png','https://lh3.googleusercontent.com/proxy/K6e0y7jx1yU2gtlPntCMPCVW327GNnKcsk26RDSA_PvCVqzHq8hvIECZP4Rs-O6xHIXpDngdgYlnahn8l7UiIZI4ZA05258I38m8r-RU3tIWyEYthJER1FbayHWHbEc']
+    for i in range(len(items)):
+        table.put_item(
+            Item={
+                'crop_id': str(i+1),
+                'name': items[i],
+                'image_link': links[i],
+                'cost':cost[i],
+                'stock':stock[i]
+            }
+        )
     return HttpResponse('add products')
 
 
@@ -73,8 +78,8 @@ def checkout(request):
     for j in crops['Items']:
         for k in ord_id:
             if j['crop_id']==k:
-                crops_ordered_images.append(j['crop_image_link'])
-                crops_ordered_names.append(j['crop_name'])
+                crops_ordered_images.append(j['image_link'])
+                crops_ordered_names.append(j['name'])
                 crops_ordered_cost.append(j['cost'])
                 crops_ava.append(j['crop_amount'])
     total_crops_ordered = zip(crops_ordered_names,crops_ordered_images,crops_ordered_cost,crops_ava)
@@ -91,6 +96,7 @@ def buyingpage(request):
     dynamodb=boto3.resource('dynamodb')
     crop_table=dynamodb.Table('cropinfo')
     order_table = dynamodb.Table('Order')
+    print(request.session)
     responses = order_table.scan(
         FilterExpression = Attr('email').eq(request.session['email'])
     )
@@ -106,7 +112,7 @@ def buyingpage(request):
 
     for i in range(len(crop_table_elements)):
         crop_id.append(crop_table_elements[i]['crop_id'])
-        crop_name.append(crop_table_elements[i]['crop_name'])
+        crop_name.append(crop_table_elements[i]['name'])
         crop_cost.append(crop_table_elements[i]['cost'])
         crop_amount.append(crop_table_elements[i]['crop_amount'])
         crop_image_link.append(crop_table_elements[i]['crop_image_link'])
