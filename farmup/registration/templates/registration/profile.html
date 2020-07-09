@@ -1,0 +1,107 @@
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Admin</title>
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+<link href="{% static 'registration/css/admin-style.css' %}" rel="stylesheet">
+
+  <!-- JQuery -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" rel="stylesheet"></script>
+<script type="text/javascript" src="{% static 'registration/js/admin-script.js' %}"></script>
+</head>
+
+<body>
+<div class="container-fluid p-0 d-flex wrapper">
+
+
+            <!-- content starts here-->
+            <div class="content my-3">
+                <div class="row">
+                    <div class="col">
+                            <div class="card">
+                                    <div class="card-header">
+                                      <h5 class="title">Profile</h5>
+                                    </div>
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col col-4 pt-4">
+                                          <img src="{% static 'homepage/img/photo.jpg' %}" class="profile-img">
+                                        </div>
+                                        <div class="col col-6">
+                                          <div class="row my-2">
+                                            <div class="col ">Name</div>
+                                            <div class="col">:</div>
+                                            <div class="col ">{{ username }}</div>
+                                          </div>
+                                          <div class="row my-5">
+                                            <div class="col">phone number</div>
+                                            <div class="col">:</div>
+                                            <div class="col">{{ phone_number }}</div>
+                                          </div>
+                                          <div class="row my-5">
+                                            <div class="col col-4">Email</div>
+                                            <div class="col">:</div>
+                                            <div class="col">{{ email}}</div>
+                                          </div>
+                                          <div class="row my-5">
+                                            <div class="col col-4">City</div>
+                                            <div class="col">:</div>
+                                            <div class="col">{{ city }}</div>
+                                          </div>
+                                          <div class="row my-5">
+                                            <div class="col col-4">Pincode</div>
+                                            <div class="col">:</div>
+                                            <div class="col">{{ pincode }}</div>
+                                          </div>
+
+                                        </div>
+                                    </div>
+
+                                  <form action="result1" method="post" class="text-center">
+                                    {% csrf_token %}
+
+                                  <button class="btn btn-primary "  >Edit Profile</button>
+
+                                  </form>
+                                    </div>
+
+                                  </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- content ends here-->
+        </div>
+
+
+</div>
+
+
+<!-- SCRIPTS -->
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+<script>
+
+</script>
+</body>
+
+</html>

@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'verify_reset_password/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',views.verify_reset_password, name='verify_reset_password'),
     path('reset_display/',views.reset_display,name='reset_display'),
     path('reset_password/',views.reset_password,name='reset_password'),
-    path('save_password/',views.save_password,name='save_password')
+    path('save_password/',views.save_password,name='save_password'),
+    path('my_profile/',views.display_profile,name='my_profile')
     ]
