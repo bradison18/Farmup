@@ -14,6 +14,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import send_mail
+from .login_required import is_loggedin
 
 def home(request):
     user = {}
@@ -28,13 +29,26 @@ def test(request):
 def login_display(request):
     return render(request, 'registration/login.html')
 
+def display_profile(request):
+    if is_loggedin(request):
+        email = request.session['email']
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('user')
+
+        response = table.scan(
+            FilterExpression=Attr('email').eq(email)
+        )
+        if (len(response['Items']) != 0):
+            user = response['Items'][0]
+        context = {'username':user['username'],'email':user['email'],'city':user['address'],'pincode':user['pincode'],'phone_number':user['phone_number']}
+        return render(request,'registration/profile.html',context)
+    else:
+        return redirect('home')
 
 def dashboard(request):
-    try:
-        if request.session['email']:
-            user = {'username':request.session['username'],'email':request.session['email']}
-            return render(request,'registration/index.html',user)
-    except:
+    if is_loggedin(request):
+        return render(request,'registration/index.html',{})
+    else:
         return redirect('home')
 
 def login(request):
@@ -109,6 +123,7 @@ def register(request):
                             'land_lord_id':land_lord_id,
                             'address':city,
                             'pincode':pincode,
+                            'phone_number':'',
                         }
                     )
 
