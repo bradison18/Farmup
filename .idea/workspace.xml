@@ -2,15 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c09b5e3c-b76b-47be-aa96-c79a3c88c855" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Farmup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Farmup.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/contact.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/crowdsourcing.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/download.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/load-more-button.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/load.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/pending_pay.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/pending_pay_paypal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/pending_redeem.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/statement.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/temp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/underconstruction.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/underconstruction1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/farmup/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/farmup/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +84,7 @@
       <list>
         <option value="CSS File" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -154,7 +174,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="C:/sem-5/SOAD/project/activity" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -192,13 +212,8 @@
       <workItem from="1582711301922" duration="3334000" />
       <workItem from="1582721419302" duration="29428000" />
       <workItem from="1586366743348" duration="2978000" />
-      <workItem from="1586605108579" duration="52891000" />
-      <workItem from="1593841197473" duration="539000" />
-      <workItem from="1593857408865" duration="2218000" />
-      <workItem from="1593945046428" duration="4595000" />
-      <workItem from="1594096151880" duration="4773000" />
-      <workItem from="1594139307441" duration="1480000" />
-      <workItem from="1594272662671" duration="686000" />
+      <workItem from="1586605108579" duration="60458000" />
+      <workItem from="1587467516377" duration="309000" />
     </task>
     <servers />
   </component>
