@@ -19,6 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from registration import views
 from django.conf.urls import url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
@@ -26,4 +28,8 @@ urlpatterns = [
     path('registration/',include(('registration.urls','registration'))),
     path('test',views.test,name='test'),
     path('crop_selling/',include('shopping_cart.urls')),
-]
+    path('geo_search/',include('geosearch.urls')),
+    path('credits/',include('credits.urls')),
+]+ static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

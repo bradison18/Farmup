@@ -74,11 +74,11 @@
 									</div>
 								</div>
 							</td>
-							<td data-th="Price" id="price">{{crops_ordered_cost}}</td>
+							<td data-th="Price" data-type="price">{{crops_ordered_cost}}</td>
 							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" id="quan"  min="1" max="{{crops_ava}}">
+								<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}">
 							</td>
-							<td data-th="Subtotal" class="text-center" id="subtotal"></td>
+							<td data-th="Subtotal" class="text-center" data-type="subtotal"></td>
 							<td class="actions" data-th="">
                                 <a href="{% url 'shopping_cart:delete_item' crops_ordered_names%}">
 								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
@@ -88,18 +88,17 @@
 					</tbody>
         {% endfor %}
 					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99</strong></td>
-						</tr>
+<!--						<tr class="visible-xs">-->
+<!--							<td class="text-center" data-type="total"><strong>Total <span></span></strong></td>-->
+<!--						</tr>-->
 						<tr>
 							<td><a href="{% url 'shopping_cart:buyingpage' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center" id="total"><strong>Total </strong></td>
-							<td><a href="https://www.paypal.com/webapps/hermes?token=5EY097812P7754247&useraction=commit&mfid=1546377013907_cf1dec6830d7" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							<td class="hidden-xs text-center" data-type="total"><strong>Total <span>0</span></strong></td>
+							<td><a href="" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
 				</table>
-    <input name="test1" value="1.77" type="hidden" >
 
 </div>
      <!-- ==============================================
@@ -109,10 +108,44 @@ JAVASCRIPTS
   <script src="{% static 'homepage/js/bootstrap.min.js' %}"></script>    
   <script src="{% static 'homepage/js/agrom.js' %}"></script>
 <script>
-    var x = document.getElementById("quan");
-    var price = document.getElementById("price").value;
-    var quan = document.getElementById("quan").value;
+const quantityInputs = document.querySelectorAll('[data-type="quan"]');
+const total = document.querySelector('[data-type="total"] span');
 
+// For simplicity, we calculate the total in a separate function.
+
+// As above, we use a separate function to calculate the subtotal for a product.
+const calculateSubtotal = (product) => {
+  // The input event will fire when the value of the quantity field is changed.
+  const subtotals = document.querySelectorAll('[data-type="subtotal"]');
+  product.addEventListener('input', () => {
+    /*
+     * With multiple prices and subtototals, we need to look for them going
+
+     * upwards from the quantity field, using the parent elements (first the
+     * table cell, then the table row).
+     */
+      const subtotals = document.querySelectorAll('[data-type="subtotal"]');
+		let tl = 0;
+    const parentRow = product.parentNode.parentNode;
+
+
+    // Then find the price and subtotal for this product.
+    const price = parentRow.querySelector('[data-type="price"]');
+    const subtotal = parentRow.querySelector('[data-type="subtotal"]');
+
+    // And finally, update the subtotal and the total.
+	//   tl += price.textContent * product.value;
+	  subtotal.textContent = price.textContent * product.value;
+	  Array.from(subtotals).forEach((subtotal) => {
+		tl += Number(subtotal.textContent);
+	  });
+
+    total.textContent = tl;
+    // document.write(subtotal.value);
+  });
+};
+// Loop through all the quantity inputs and wait for the subtotal to change.
+Array.from(quantityInputs).forEach((element) => calculateSubtotal(element));
 </script>
 {% comment %} 
   <script>

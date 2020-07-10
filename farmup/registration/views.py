@@ -14,6 +14,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import send_mail
+from .login_required import is_loggedin
 
 def home(request):
     user = {}
@@ -28,13 +29,26 @@ def test(request):
 def login_display(request):
     return render(request, 'registration/login.html')
 
+def display_profile(request):
+    if is_loggedin(request):
+        email = request.session['email']
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('user')
+
+        response = table.scan(
+            FilterExpression=Attr('email').eq(email)
+        )
+        if (len(response['Items']) != 0):
+            user = response['Items'][0]
+        context = {'username':user['username'],'email':user['email'],'city':user['address'],'pincode':user['pincode'],'phone_number':user['phone_number']}
+        return render(request,'registration/profile.html',context)
+    else:
+        return redirect('home')
 
 def dashboard(request):
-    try:
-        if request.session['email']:
-            user = {'username':request.session['username'],'email':request.session['email']}
-            return render(request,'registration/index.html',user)
-    except:
+    if is_loggedin(request):
+        return render(request,'registration/index.html',{})
+    else:
         return redirect('home')
 
 def login(request):
@@ -91,20 +105,27 @@ def register(request):
                 )
                 password = hashlib.sha256(password.encode())
                 password = password.hexdigest()
-
+                user_id = len(no_users['Items'])+1
+                enc_user_id = hashlib.sha224(str(user_id).encode())
+                farmer_id = str(1)+enc_user_id.hexdigest()
+                land_lord_id = str(2)+enc_user_id.hexdigest()
                 if (len(response['Items']) == 0):
                     response = table.put_item(
                         Item={
-                            'id': str(len(no_users['Items'])+1),
+                            'id': str(user_id),
                             'username': username,
                             'email': email,
                             'password': password,
                             'is_active': False,
+                            'is_farmer':False,
+                            'is_land_lord':False,
+                            'farmer_id':farmer_id,
+                            'land_lord_id':land_lord_id,
                             'address':city,
                             'pincode':pincode,
+                            'phone_number':'',
                         }
                     )
-
 
                     current_site = get_current_site(request)
                     mail_subject = 'Activate your account.'
@@ -153,7 +174,7 @@ def activate(request, uidb64, token):
         response = table.update_item(
             Key={
                 'id': user['id'],
-                'email':user['email']
+                #'email':user['email']
             },
             UpdateExpression="set is_active = :r",
             ExpressionAttributeValues={
@@ -234,7 +255,7 @@ def save_password(request):
     password = password.hexdigest()
     response = table.update_item(
         Key={
-            'email': user['email'],
+            #'email': user['email'],
             'id' : user['id']
         },
         UpdateExpression="set password = :r, is_active = :t",
