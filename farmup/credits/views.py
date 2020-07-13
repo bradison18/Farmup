@@ -32,16 +32,19 @@ def have_internet():
 
 def index(request):
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('user_balance')
+    table = dynamodb.Table('Balances')
     print('session when not loggied in ',request.session)
     cur = request.session['email']
+    user = request.session['username']
     response = table.scan(
         FilterExpression = Attr('email').eq(cur)
     )
     print(response)
     if len(response['Items'])>0:
         balance = response['Items'][0]['balance']
+        print('if')
     else:
+        print('else')
         cur_ids = []
         for i in response["Items"]:
             cur_ids.append(i['id'])
@@ -52,6 +55,7 @@ def index(request):
         responses = table.put_item(
             Item = {
                 'id':max_id,
+                'user':user,
                 'balance':100,
                 'email':cur
             }
@@ -61,6 +65,9 @@ def index(request):
     return render(request,'credits/index.html',context=balances)
 
 def pending_redeem(request):
+    amount = request.POST.get('amounts')
     redeem_amount = request.POST['redeem_amount']
     seed()
     code = get_random_string(length=6,allowed_chars='1234567890')
+    print(redeem_amount)
+    return HttpResponse('into pending redeem')

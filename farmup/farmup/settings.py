@@ -137,3 +137,5 @@ EMAIL_HOST_USER = 'farmup04@gmail.com'
 EMAIL_HOST_PASSWORD = 'farmup@123'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+LOGIN_URL  = '/registration/login_display/'

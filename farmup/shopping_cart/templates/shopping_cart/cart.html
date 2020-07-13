@@ -51,6 +51,8 @@
   <!-- LOADER -->
 
 <div class="container">
+<form action="{% url 'shopping_cart:checkout' %}" method="post">
+{% csrf_token %}
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -76,7 +78,7 @@
 							</td>
 							<td data-th="Price" data-type="price">{{crops_ordered_cost}}</td>
 							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}">
+								<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" required>
 							</td>
 							<td data-th="Subtotal" class="text-center" data-type="subtotal"></td>
 							<td class="actions" data-th="">
@@ -93,13 +95,15 @@
 <!--						</tr>-->
 						<tr>
 							<td><a href="{% url 'shopping_cart:buyingpage' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center" data-type="total"><strong>Total <span>0</span></strong></td>
-							<td><a href="" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							<td colspan="2" ></td>
+							<td class="hidden-xs text-center" data-type="total"><strong>Total <span>0</span></strong> <input type="hidden"  id="amounts"  value="0" name="amounts"> </td>
+
+{#							<td><a href="" class="btn btn-success btn-block">Submit </a></td>#}
+                            <td><input  class="btn btn-success btn-block" type="submit" value="Checkout"> </td>
 						</tr>
 					</tfoot>
 				</table>
-
+</form>
 </div>
      <!-- ==============================================
 JAVASCRIPTS
@@ -141,7 +145,10 @@ const calculateSubtotal = (product) => {
 	  });
 
     total.textContent = tl;
+    {#document.write(tl);#}
     // document.write(subtotal.value);
+      {#$('input[name=amounts]').val(tl);#}
+      document.getElementById('amounts').value = tl;
   });
 };
 // Loop through all the quantity inputs and wait for the subtotal to change.
