@@ -5,12 +5,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from random import *
 from boto3.dynamodb.conditions import Key, Attr
-import uuid
-import string
-from datetime import datetime
 from twilio.rest import Client
+
 from django.utils.crypto import get_random_string
-from django.contrib.auth.decorators import login_required
 import boto3
 # Create your views here.
 
@@ -20,54 +17,53 @@ except:
     import http.client as httplib
 
 
-def have_internet():
-    conn = httplib.HTTPConnection("www.google.com", timeout=5)
-    try:
-        conn.request("HEAD", "/")
-        conn.close()
-        return True
-    except:
-        conn.close()
-        return False
-
 def index(request):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('Balances')
-    print('session when not loggied in ',request.session)
     cur = request.session['email']
+    redeem_table = dynamodb.Table('pending_redeem')
+    redeem_response = redeem_table.scan(
+        FilterExpression = Attr('email').eq(cur)
+    )
+    print(redeem_response['Items'])
     user = request.session['username']
     response = table.scan(
         FilterExpression = Attr('email').eq(cur)
     )
-    print(response)
     if len(response['Items'])>0:
         balance = response['Items'][0]['balance']
         print('if')
     else:
-        print('else')
-        cur_ids = []
-        for i in response["Items"]:
-            cur_ids.append(i['id'])
-        if cur_ids:
-            max_id = max(cur_ids)
-        else:
-            max_id = 1
-        responses = table.put_item(
-            Item = {
-                'id':max_id,
-                'user':user,
-                'balance':100,
-                'email':cur
-            }
-        )
+        # print('else')
+        # cur_ids = []
+        # for i in response["Items"]:
+        #     cur_ids.append(i['id'])
+        # if cur_ids:
+        #     max_id = max(cur_ids)
+        # else:
+        #     max_id = 1
+        # responses = table.put_item(
+        #     Item = {
+        #         'id':max_id,
+        #         'user':user,
+        #         'balance':100,
+        #         'email':cur
+        #     }
+        # )
         balance = 100
-    balances = {'bal':balance}
+    if request.method=='POST':
+        print('post yes')
+        amount = request.POST['amounts']
+        print(amount)
+        balances = {'bal':balance}
+    else:
+        print(redeem_response)
+        # print(redeem_response[0])
+        balances = {'bal': balance,'amount':redeem_response['Items'][0]['amount']}
     return render(request,'credits/index.html',context=balances)
 
 def pending_redeem(request):
-    amount = request.POST.get('amounts')
-    redeem_amount = request.POST['redeem_amount']
-    seed()
-    code = get_random_string(length=6,allowed_chars='1234567890')
-    print(redeem_amount)
+    print(request.method)
+    if request.method=='POST':
+        amount = request.POST.get('redeem_amount',False)
     return HttpResponse('into pending redeem')
