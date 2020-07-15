@@ -62,8 +62,9 @@
                 <th style="width:10%"></th>
             </tr>
             </thead>
+            <tbody>
+
             {% for crops_ordered_names,crops_ordered_images,crops_ordered_cost,crops_ava,crops_order_sub_cost,crops_quant in total %}
-                <tbody>
                 <tr>
                     <td data-th="Product">
                         <div class="row">
@@ -90,23 +91,48 @@
                         </a>
                     </td>
                 </tr>
-                </tbody>
             {% endfor %}
+            </tbody>
+            <br>
             <form action="{% url 'shopping_cart:checkout' %}" method="post">
                 {% csrf_token %}
                 <tfoot>
+
                 <tr>
+
                     <td><a href="{% url 'shopping_cart:buyingpage' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                     <td colspan="2" ></td>
 
                     <td class="hidden-xs text-center"><strong>Total {{ total_cost }}</strong> <input type="hidden"  id="amounts"  value="{{ total_cost }}" name="amounts"> </td>
                     <td><input  class="btn btn-success btn-block" type="submit" value="Checkout"> </td>
+                </tr>
+                <tr>
 
                 </tr>
                 </tfoot>
+                <table style="width: 100%; background-color: black">
+                    <tr style="width:100% ;">
+                        <input type="text" name="username" placeholder="Username">
+                        <input type="text" name="Email" placeholder="Email">
+                    </tr><br>
+                    <tr style="width:100%;">
+                        <input type="text" name="Address1" placeholder="Address Line 1">
+                    </tr>
+                    <tr style="width:100% ;">
+                        <input type="text" name="Address2" placeholder="Address Line 2">
+                    </tr>
+                    <tr style="width:100% ;">
+                        <input type="text" name="state" placeholder="state">
+                        <input type="text" name="city" placeholder="city">
+                        <input type="number" name="Pincode" placeholder="pincode">
+                    </tr>
+                </table>
             </form>
+
         </table>
+
     </div>
+
     <!-- ==============================================
 JAVASCRIPTS
 =============================================== -->

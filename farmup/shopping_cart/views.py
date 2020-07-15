@@ -39,14 +39,12 @@ def addCropElements(request):
     order_ids = []
     for k in table.scan()['Items']:
         order_ids.append(int(k['order_id']))
-    # print(order_ids)
     c_id = 0
     order_cost = 0
     for i in crops_id:
         if i['name']==id:
             order_cost += int(i['cost'])
             c_id += int(i['crop_id'])
-    print(order_cost)
     if order_ids:
         ids = str(max(order_ids)+1)
     else:
@@ -58,7 +56,9 @@ def addCropElements(request):
             'username':request.session['username'],
             'email':request.session['email'],
             'quantity':quantity,
-            'cost':int(quantity)*order_cost
+            'cost':int(quantity)*order_cost,
+            'is_purchased':False
+
         }
     )
     return redirect(reverse('shopping_cart:buyingpage'))
@@ -78,16 +78,14 @@ def checkout(request):
     crops_order_sub_cost = []
     ord_id = []
     items = table_order.scan(
-        FilterExpression = Attr('email').eq(request.session['email'])
+        FilterExpression = Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
     )
-    print(items)
     for i in items['Items']:
         crops_quant.append(i['quantity'])
         crops_order_sub_cost.append(int(i['cost']))
     for i in range(len(items['Items'])):
         ord_id.append(items["Items"][i]['crop_id'])
-    print(ord_id)
-    print(crops['Items'])
+
     for j in crops['Items']:
         for k in ord_id:
             if j['crop_id']==str(k):
@@ -95,14 +93,11 @@ def checkout(request):
                 crops_ordered_names.append(j['name'])
                 crops_ordered_cost.append(j['cost'])
                 crops_ava.append(j['stock'])
-    print(crops_ordered_names)
-    print(crops_ordered_cost)
-    print(crops_order_sub_cost)
-    print(crops_quant)
+
     total_cost = 0
     for i in crops_order_sub_cost:
         total_cost += i
-    print(total_cost)
+
     total_crops_ordered = zip(crops_ordered_names,crops_ordered_images,crops_ordered_cost,crops_ava,crops_order_sub_cost,crops_quant)
     context = {
         'total':total_crops_ordered,
@@ -120,7 +115,7 @@ def buyingpage(request):
         order_table = dynamodb.Table('Order')
 
         responses = order_table.scan(
-            FilterExpression = Attr('email').eq(request.session['email'])
+            FilterExpression = Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
         )
         order_ids = []
         for i in responses['Items']:
@@ -133,7 +128,6 @@ def buyingpage(request):
         crop_image_link=[]
 
         for i in range(len(crop_table_elements)):
-            print(type(crop_table_elements[i]['crop_id']))
             crop_id.append(crop_table_elements[i]['crop_id'])
             crop_name.append(crop_table_elements[i]['name'])
             crop_cost.append(crop_table_elements[i]['cost'])
@@ -149,7 +143,6 @@ def buyingpage(request):
 
 
 def delete_from_cart(request,item_name):
-    print('item',item_name)
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('Order')
     crop_table = dynamodb.Table('cropinfo')
@@ -170,12 +163,46 @@ def delete_from_cart(request,item_name):
 
 
 def checkout_sub(request):
-    amount = request.POST.get('amounts')
-    transaction_id= "DR" + uuid.uuid4().hex[:9].upper()
-    print(transaction_id)
     dynamodb = boto3.resource('dynamodb')
+    amount = request.POST.get('amounts')
+    username = request.POST.get('username')
+    email = request.POST.get('email')
+    address1 = request.POST.get('Address1')
+    address2 = request.POST.get('Address2')
+    state = request.POST.get('state')
+    city = request.POST.get('city')
+    pincode = request.POST.get('pincode')
+    print('username',username)
+    billing_table = dynamodb.Table('billing_address')
+    billing_adds = billing_table.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )['Items']
+    if len(billing_adds)==0:
+        billing_table.put_item(
+            Item={
+                'username': request.session['username'],
+                'email': request.session['email'],
+                'address1': address1,
+                'address2': address2,
+                'state': state,
+                'city': city,
+                'pincode': pincode,
+            }
+        )
+    transaction_id= "DR" + uuid.uuid4().hex[:9].upper()
     orders_table = dynamodb.Table('pending_redeem')
     code = get_random_string(length=6,allowed_chars='0123456789')
+    redeem_responses = orders_table.scan(
+        FilterExpression = Attr('email').eq(request.session['email'])
+    )['Items']
+    all_transactions = [i['transaction_id'] for i in redeem_responses]
+    if len(all_transactions)>0:
+        for i in all_transactions:
+            orders_table.delete_item(
+                Key={
+                    'transaction_id':i
+                }
+            )
     orders_table.put_item(
         Item={
             'transaction_id': transaction_id,
@@ -193,7 +220,4 @@ def checkout_sub(request):
 def add_items(request):
     item = request.POST['quantity']
     id = request.POST['crop_name']
-    print(item)
-    print(id)
-    print(request.method)
     return redirect('shopping_cart:cart')

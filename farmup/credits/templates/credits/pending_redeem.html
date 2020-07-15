@@ -1,4 +1,4 @@
-{% extends 'authentication/layout.html' %}
+{#{% extends 'authentication/layout.html' %}#}
 {% block headblock %}
     <script>
          history.pushState(null, null, location.href);
@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content %}
     Please Enter the verification code below.
-    <form action="{% url 'credits.verify_sms' %}" method="post">
+    <form action="{% url 'verify_sms' %}" method="post">
         {% csrf_token %}
         Enter the code<br>
         <input name="code" id="code" type="text">

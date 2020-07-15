@@ -14,5 +14,6 @@ urlpatterns = [
     path('deleteitems/<item_name>',views.delete_from_cart,name="delete_item"),
     path('add',views.add),
     path('buyingportal/checkout/',views.checkout_sub,name='checkout'),
-    path('buyingportal/tempcheck/',views.add_items,name='temp')
+    path('buyingportal/tempcheck/',views.add_items,name='temp'),
+    # path('verify_sms/',views.)
 ]

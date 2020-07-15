@@ -62,6 +62,7 @@
             {% csrf_token %}
             Enter amount to redeem : <br>
             <input type="number" step="any" required name="redeem_amount" id="redeem_amount" value="{{ amount }}" readonly>
+            <input type="hidden" name="balance" value="{{ bal }}">
             <h6> You need to have atleast 200 credits to redeem </h6>
             <br><input type="submit" class="button3" value="Redeem"><br><br>
         </form>
