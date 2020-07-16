@@ -9,6 +9,11 @@ from twilio.rest import Client
 import datetime
 from django.utils.crypto import get_random_string
 import boto3
+import stripe
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.base import TemplateView
+
 # Create your views here.
 
 try:
@@ -55,13 +60,13 @@ def pending_redeem(request):
         balance = request.POST.get('balance',False)
         if int(balance) - int(amount) < 0:
             return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits"> You can add balance here. </a></html>')
-        auth_token = '9db2adb42474888f2d72068004f30e15'
+        auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
         account_sid = 'ACb702ef99316a96af55ee6415656e9486'
         client = Client(account_sid, auth_token)
-        # client.messages.create(
-        #     to="+91" + str(9121467576),
-        #     from_="+12025190638",
-        #     body="Use {} code for verification.Amount requested to redeem is {}".format(responses_redeem['Items'][0]['code'], amount))
+        client.messages.create(
+            to="+91" + str(9121467576),
+            from_="+12025190638",
+            body="Use {} code for verification.Amount requested to redeem is {}".format(responses_redeem['Items'][0]['code'], amount))
     return render(request,'credits/pending_redeem.html')
 
 def verify_sms(request):
@@ -139,3 +144,63 @@ def verify_sms(request):
         }
     )
     return HttpResponse('redeem sucess')
+
+
+def add_balance(request):
+    return render(request,'credits/add_balance.html')
+
+def home(request):
+    amount = request.POST['amount']
+    print(amount)
+    return render(request,'credits/home.html')
+
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+
+@csrf_exempt
+def create_checkout_session(request):
+    if request.method == 'GET':
+        domain_url = 'http://127.0.0.1:8000/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+            checkout_session = stripe.checkout.Session.create(
+                # success_url=domain_url + 'success',
+                success_url=domain_url + 'credits/success/{CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'credits/cancelled/',
+                payment_method_types=['card'],
+                # customer_email='santosh.265559@gmail.com',
+                billing_address_collection='required',
+                shipping_address_collection={
+                    'allowed_countries': ['IN'],
+                },
+                # shipping_address_collection='IN',
+                mode='payment',
+                line_items=[
+                    {
+                        'name': 'T-shirt',
+                        'quantity': 1,
+                        'currency': 'inr',
+                        'amount': '100',
+                    }
+                ]
+            )
+            print(checkout_session)
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
+
+
+def success(request,session_id):
+    print(session_id)
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    x = stripe.checkout.Session.retrieve(session_id)
+    print(x)
+    return render(request,'credits/success.html')
+def cancel(request):
+    return render(request,'credits/cancelled.html')
