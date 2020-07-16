@@ -10,7 +10,7 @@ urlpatterns = [
     path('home/',views.home,name='home'),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
-    path('success/<session_id>', views.success),
-    path('cancelled/', views.cancel),
+    path('success/<session_id>/<trans_id>', views.success),
+    path('cancelled/<session_id>/<trans_id>', views.cancel),
 
 ]

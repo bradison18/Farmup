@@ -7,6 +7,7 @@ from random import *
 from boto3.dynamodb.conditions import Key, Attr
 from twilio.rest import Client
 import datetime
+import uuid
 from django.utils.crypto import get_random_string
 import boto3
 import stripe
@@ -61,7 +62,9 @@ def pending_redeem(request):
         if int(balance) - int(amount) < 0:
             return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits"> You can add balance here. </a></html>')
         auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
+        # auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
         account_sid = 'ACb702ef99316a96af55ee6415656e9486'
+        # account_sid = ''
         client = Client(account_sid, auth_token)
         client.messages.create(
             to="+91" + str(9121467576),
@@ -139,7 +142,8 @@ def verify_sms(request):
             'email': request.session['email'],
             'date': datetime.date.today().strftime('%B %d,%Y'),
             'time': datetime.datetime.now().time().strftime('%H:%M:%S'),
-            'amount':amount
+            'amount':amount,
+            'type':'debit'
 
         }
     )
@@ -151,7 +155,36 @@ def add_balance(request):
 
 def home(request):
     amount = request.POST['amount']
-    print(amount)
+    dynamodb = boto3.resource('dynamodb')
+    # table_balance = dynamodb.Table('Balances')
+    table_pending = dynamodb.Table('pending_transactions')
+    pending_redeems = table_pending.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )['Items']
+    trans_ids = [i['transaction_id'] for i in pending_redeems]
+    if len(trans_ids)>0:
+        for i in trans_ids:
+            table_pending.delete_item(
+                Key={
+                    'transaction_id':i
+                }
+            )
+    trans_id = "CR" + uuid.uuid4().hex[:9].upper()
+
+    table_pending.put_item(
+        Item={
+            'transaction_id': trans_id,
+            'username': request.session['username'],
+            'email': request.session['email'],
+            'date': datetime.date.today().strftime('%B %d,%Y'),
+            'time': datetime.datetime.now().time().strftime('%H:%M:%S'),
+            'amount': amount,
+            # 'status':'pending'
+
+        }
+    )
+
+
     return render(request,'credits/home.html')
 
 @csrf_exempt
@@ -167,11 +200,19 @@ def create_checkout_session(request):
         domain_url = 'http://127.0.0.1:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
+            dynamodb = boto3.resource('dynamodb')
+            table_pending = dynamodb.Table('pending_transactions')
+            pending_redeems = table_pending.scan(
+                FilterExpression=Attr('email').eq(request.session['email'])
+            )['Items']
+            trans_id = pending_redeems[0]['transaction_id']
+            print('amount',pending_redeems[0]['amount'])
+            amt = int(pending_redeems[0]['amount'])*100
             # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
             checkout_session = stripe.checkout.Session.create(
                 # success_url=domain_url + 'success',
-                success_url=domain_url + 'credits/success/{CHECKOUT_SESSION_ID}',
-                cancel_url=domain_url + 'credits/cancelled/',
+                success_url=domain_url + 'credits/success/{CHECKOUT_SESSION_ID}/'+trans_id,
+                cancel_url=domain_url + 'credits/cancelled/{CHECKOUT_SESSION_ID}/'+trans_id,
                 payment_method_types=['card'],
                 # customer_email='santosh.265559@gmail.com',
                 billing_address_collection='required',
@@ -185,9 +226,14 @@ def create_checkout_session(request):
                         'name': 'T-shirt',
                         'quantity': 1,
                         'currency': 'inr',
-                        'amount': '100',
+                        'amount': str(amt),
                     }
                 ]
+            )
+            table_pending.delete_item(
+                Key={
+                    'transaction_id':trans_id
+                }
             )
             print(checkout_session)
             return JsonResponse({'sessionId': checkout_session['id']})
@@ -196,11 +242,45 @@ def create_checkout_session(request):
 
 
 
-def success(request,session_id):
+def success(request,session_id,trans_id):
     print(session_id)
+    print(trans_id)
+    dynamodb = boto3.resource('dynamodb')
+    table_balance = dynamodb.Table('Balances')
+    balance = table_balance.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )
+    balance_user = int(balance['Items'][0]['balance'])
+
+    table_transaction= dynamodb.Table('transactions')
+    pending_redeems = table_balance.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )['Items']
     stripe.api_key = settings.STRIPE_SECRET_KEY
     x = stripe.checkout.Session.retrieve(session_id)
-    print(x)
+    print(x['display_items'][0]['amount'])
+    table_transaction.put_item(
+        Item={
+            'transaction_id':trans_id,
+            'amount': int(x['display_items'][0]['amount']/100),
+            'date': datetime.date.today().strftime('%B %d,%Y'),
+            'time': datetime.datetime.now().time().strftime('%H:%M:%S'),
+            'username': request.session['username'],
+            'email': request.session['email'],
+            'type':'credit'
+        }
+    )
+    response = table_balance.update_item(
+        Key={
+            'email': request.session['email']
+        },
+        UpdateExpression="set balance = :r",
+        ExpressionAttributeValues={
+            ':r':int(balance_user) +  int(x['display_items'][0]['amount']/100),
+
+        },
+        ReturnValues="UPDATED_NEW"
+    )
     return render(request,'credits/success.html')
-def cancel(request):
+def cancel(request,session_id,trans_id):
     return render(request,'credits/cancelled.html')
