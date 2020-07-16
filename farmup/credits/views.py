@@ -284,3 +284,12 @@ def success(request,session_id,trans_id):
     return render(request,'credits/success.html')
 def cancel(request,session_id,trans_id):
     return render(request,'credits/cancelled.html')
+
+def transactions(request):
+    dynamodb = boto3.resource('dynamodb')
+    table_transactions = dynamodb.Table('transactions')
+    transactions = table_transactions.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )['Items']
+    # print(transactions)
+    return render(request,'credits/transaction.html',{'context':transactions})
