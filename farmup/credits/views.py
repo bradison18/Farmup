@@ -55,8 +55,8 @@ def pending_redeem(request):
         balance = request.POST.get('balance',False)
         if int(balance) - int(amount) < 0:
             return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits"> You can add balance here. </a></html>')
-        auth_token = 'b11d01c9e4f80b2a7364c45da84924cd'
-        # auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
+        # auth_token = '55f9a8db2286ced48a7203fd9b06b512'
+        auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
         account_sid = 'ACb702ef99316a96af55ee6415656e9486'
         # account_sid = ''
         client = Client(account_sid, auth_token)

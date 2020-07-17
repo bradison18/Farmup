@@ -206,11 +206,12 @@ def login(request):
                     request.session['username'] = response['Items'][0]['username']
                     request.session['email'] = response['Items'][0]['email']
                     print(request.session['username'], request.session['email'])
-                    if (response['Items'][0]['is_admin']):
-                        request.session['is_admin']=True
-                        return redirect('registration:verify_lands')
-                    else:
-                        request.session['is_admin']=False
+                    try:
+                        if (response['Items'][0]['is_admin']):
+                            request.session['is_admin']=True
+                            return redirect('registration:verify_lands')
+                    except:
+                        request.session['is_admin'] = True
                         return redirect('landing')
                 else:
                     messages.success(request, 'User not activated please confirm the email')

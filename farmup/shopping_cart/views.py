@@ -224,3 +224,37 @@ def add_items(request):
     item = request.POST['quantity']
     id = request.POST['crop_name']
     return redirect('shopping_cart:cart')
+
+
+def search(request):
+    dynamodb = boto3.resource('dynamodb')
+    crop_table = dynamodb.Table('cropinfo')
+    order_table = dynamodb.Table('Order')
+
+    responses = order_table.scan(
+        FilterExpression=Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
+    )
+    order_ids = []
+    for i in responses['Items']:
+        order_ids.append(str(i['crop_id']))
+    crop_table_elements = crop_table.scan()['Items']
+    crop_id = []
+    crop_name = []
+    crop_cost = []
+    crop_amount = []
+    crop_image_link = []
+
+    for i in range(len(crop_table_elements)):
+        crop_id.append(crop_table_elements[i]['crop_id'])
+        crop_name.append(crop_table_elements[i]['name'])
+        crop_cost.append(crop_table_elements[i]['cost'])
+        crop_amount.append(crop_table_elements[i]['stock'])
+        crop_image_link.append(crop_table_elements[i]['image_link'])
+
+    crop_info = zip(crop_id, crop_name, crop_cost, crop_amount, crop_image_link)
+    context = {
+        'crop_info': crop_info,
+        'order_ids': order_ids
+    }
+
+    return render(request,'shopping_cart/shop.html')

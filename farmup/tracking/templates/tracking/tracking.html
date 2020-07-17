@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'registration/base.html' %}
+
+{% block head %}
     <meta charset="UTF-8">
-    <title>Title</title>
+
     <style>
         .table1{
             width: 100%;
+            {#background-color: black;#}
             font-size: 25px;
             border-collapse: separate;
             border-spacing: 0 1em;
         }
     </style>
-</head>
-<body>
-
+{% endblock head %}
+{#<body>#}
+{% block body %}
 <table class="table1">
     <tr>
         <td style="padding: 10px">
@@ -95,6 +96,4 @@
    });
 });
 </script>
-
-</body>
-</html>
+{% endblock body %}

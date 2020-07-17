@@ -15,5 +15,6 @@ urlpatterns = [
     path('add',views.add),
     path('buyingportal/checkout/',views.checkout_sub,name='checkout'),
     path('buyingportal/tempcheck/',views.add_items,name='temp'),
+    path('search',views.search,name='search')
     # path('verify_sms/',views.)
 ]
