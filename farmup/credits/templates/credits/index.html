@@ -1,12 +1,6 @@
 {% load static from staticfiles %}
 
 {% block headblock %}
-    <script type="text/javascript" >
-        history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            history.go(1);
-        };
-    </script>
     <meta charset="UTF-8">
     <title>Credits</title>
     <style>
@@ -52,38 +46,27 @@
         <table>
             {% if bal %}
 
-                <trx
+                <tr>
                      <td>
-                        Total credits
+                        Available balance
                     </td>
                     <td>
-                           {{ bal.balance }}
+                           {{ bal }}
                     </td>
                 </tr>
             {% else %}
                 <p class="tabletype">Account not found.</p>
             {% endif %}
             </table>
-        <form action="" method="post">
+        <form action="{% url 'pending_redeem' %}" method="post">
             {% csrf_token %}
             Enter amount to redeem : <br>
-            <input type="number" step="any" required name="redeem_amount" id="redeem_amount">
+            <input type="number" step="any" required name="redeem_amount" id="redeem_amount" value="{{ amount }}" readonly>
+            <input type="hidden" name="balance" value="{{ bal }}">
             <h6> You need to have atleast 200 credits to redeem </h6>
             <br><input type="submit" class="button3" value="Redeem"><br><br>
         </form>
-        <form action="" method="post">
-             {% csrf_token %}
-            Enter credits to add into wallet: <br>
-            <input type="number" step="any" name="add_amount"  required id="add_amount">
-{#            <input type="email" name="email" placeholder="Enter your email here.." id="email" required>#}
-            <input type="submit" class="button3" value="Add into wallet">
-        </form> <br> <br>
-    <form action="' %}" method="post">
-             {% csrf_token %}
-            <input type="number" step="any" name="add_amount" required id="add_amount">
-{#            <input type="email" name="email" placeholder="Enter your email here.." id="email" required>#}
-            <input type="submit" class="button3" value="Add through paypal">
-        </form>
+<br> <br>
 </div>
     </center>
 {% endblock %}

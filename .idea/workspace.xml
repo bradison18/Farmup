@@ -2,17 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c09b5e3c-b76b-47be-aa96-c79a3c88c855" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/g_search.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/edit_profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/verify_lands.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/add_balance.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/cancelled.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/success.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/transaction.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/static/credits/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/templates/tracking/tracking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/farmup/tracking/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/credits/templates/credits/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/credits/templates/credits/pending_redeem.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/pending_redeem.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/credits/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/credits/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/mapper.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/mapper.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/geosearch/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/geosearch/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/farmup/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/farmup/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/shop.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -229,12 +245,12 @@
       <workItem from="1594809581858" duration="10663000" />
       <workItem from="1594889330267" duration="6262000" />
       <workItem from="1594909422938" duration="2872000" />
-      <workItem from="1594963121127" duration="1511000" />
+      <workItem from="1594963121127" duration="2437000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64567000" />
+    <option name="totallyTimeSpent" value="65493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="25" width="1309" height="743" extended-state="6" />
