@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<table>
+
+{% for land in lands %}
+    <tr>
+    <td>{{ land.landlord }}</td><td>{{ land.city }}</td><td>{{ land.state }}</td><td>{{ land.pincode }}</td>
+        <td>{{ land.type_of_soil }}</td><td> <form action="{% url 'registration:accept_land' land.land_id %}">{% csrf_token %} <button type="submit"> accept </button></form> </td><td><form action="{% url 'registration:reject_land' land.land_id %}"><button>reject</button></form></td>
+    </tr>
+{% endfor %}
+    <!--href="url 'registration:accept' {{land.land_id}}"-->
+</table>
+</body>
+</html>

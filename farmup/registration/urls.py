@@ -16,5 +16,10 @@ urlpatterns = [
     path('reset_display/',views.reset_display,name='reset_display'),
     path('reset_password/',views.reset_password,name='reset_password'),
     path('save_password/',views.save_password,name='save_password'),
-    path('my_profile/',views.display_profile,name='my_profile')
+    path('my_profile/',views.display_profile,name='my_profile'),
+    path('edit_profile_display',views.display_edit_profile,name='display_edit_profile'),
+    path('edit_profile',views.edit_profile,name="edit_profile"),
+    path('verify_lands',views.verify_lands,name="verify_lands"),
+    url(r'accept_land/(?P<id>[0-9]+)/',views.accept_land,name="accept_land"),
+    url(r'reject_land/(?P<id>[0-9]+)/',views.reject_land,name="reject_land")
     ]

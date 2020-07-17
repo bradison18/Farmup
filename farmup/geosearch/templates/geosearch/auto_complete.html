@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farmup</title>
+
+</head>
+<body>
+<form>
+<input id="autocomplete"
+             placeholder="Enter your address"
+             type="text"/>
+</form>
+<script>
+    function initAutocomplete() {
+  autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'), {types: ['geocode']});
+
+  // Avoid paying for data that you don't need by restricting the set of
+  // place fields that are returned to just the address components.
+  autocomplete.setFields(['address_component']);
+
+}
+
+    </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe2otGPKiUf4Qq35MmOfDWHaQm-Cjtopw&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+</body>
+</html>

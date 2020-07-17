@@ -45,9 +45,147 @@ def display_profile(request):
     else:
         return redirect('home')
 
+def display_edit_profile(request):
+    if is_loggedin(request):
+        email = request.session['email']
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('user')
+
+        response = table.scan(
+            FilterExpression=Attr('email').eq(email)
+        )
+        if (len(response['Items']) != 0):
+            user = response['Items'][0]
+        context = {'username':user['username'],'address':user['address'],'pincode':user['pincode'],'phone_number':user['phone_number']}
+        return render(request,'registration/edit_profile.html',context)
+    else:
+        return redirect('registration:login_display')
+
+def edit_profile(request):
+    username = request.POST.get('username')
+    address = request.POST.get('address')
+    pincode = request.POST.get('pincode')
+    phone_number = request.POST.get('phone_number')
+    if(username=='' or address=='' or pincode==''or phone_number==''):
+        messages.success(request, 'Fields can not be empty')
+        return redirect('registration:display_edit_profile')
+    else:
+        if (len(pincode)!=6 or not pincode.isdecimal()):
+
+            messages.success(request,'Invalid Pin Code')
+            return redirect('registration:display_edit_profile')
+        if (len(phone_number)!=10 or not phone_number.isdecimal()):
+            messages.success(request, 'Invalid Phone Number')
+            return redirect('registration:display_edit_profile')
+        else:
+            email = request.session['email']
+            dynamodb = boto3.resource('dynamodb')
+            table = dynamodb.Table('user')
+
+            response = table.scan(
+                FilterExpression=Attr('email').eq(email)
+            )
+            if (len(response['Items']) != 0):
+                user = response['Items'][0]
+            response = table.update_item(
+                Key={
+                    'id': user['id'],
+                },
+                UpdateExpression="set username = :r, address = :a, pincode = :p, phone_number = :t",
+                ExpressionAttributeValues={
+                    ':r': username,
+                    ':a': address,
+                    ':p': pincode,
+                    ':t': phone_number,
+                },
+                ReturnValues="UPDATED_NEW"
+            )
+            request.session['username'] = username
+            return redirect('registration:my_profile')
 def dashboard(request):
     if is_loggedin(request):
         return render(request,'registration/index.html',{})
+    else:
+        return redirect('home')
+
+def accept_land(request,id):
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('LandInfo')
+    response = table.update_item(
+        Key={
+            'land_id': id,
+        },
+        UpdateExpression="set is_active = :r",
+        ExpressionAttributeValues={
+            ':r': True,
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+    return redirect('registration:verify_lands')
+
+def reject_land(request,id):
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('LandInfo')
+    table.delete_item(
+        Key={
+            'land_id': id,
+        }
+    )
+    table = dynamodb.Table('Landlord')
+    response = table.scan()
+    for i in range(len(response['Items'])):
+        if int(id) in response['Items'][i]['lands_owned']:
+            if len(response['Items'][i]['lands_owned'])==1:
+                table.delete_item(
+                    Key={
+                        'land_lord_id':response['Items'][i]['land_lord_id']
+                    }
+                )
+            else:
+                owned_lands = response['Items'][i]['lands_owned']
+                owned_lands.remove(int(id))
+                response = table.put_item(
+                        Item={
+                    'land_lord_id':response['Items'][i]['land_lord_id'],
+                    'land_lord_name':response['Items'][i]['land_lord_name'],
+                    'lands_owned':owned_lands
+                    }
+                )
+
+    return redirect('registration:verify_lands')
+
+def verify_lands(request):
+    if request.session['is_admin']:
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('LandInfo')
+        search_for = False
+        response = table.scan(
+            FilterExpression=Attr('is_active').eq(search_for)
+        )
+        if(len(response['Items'])==0):
+            lands = []
+            return render(request,'registration/verify_lands.html',{'lands':lands})
+        lands = []
+
+        table_lords = dynamodb.Table('Landlord')
+        response_lords = table_lords.scan()
+        if len(response_lords['Items'])==0:
+            return HttpResponse('Could not connect to dynamo or Landlords table error')
+
+        for i in range(len(response['Items'])):
+            land_id = response['Items'][i]['land_id']
+            city = response['Items'][i]['city']
+            pincode = response['Items'][i]['land_pin_code']
+            state = response['Items'][i]['state']
+            type_of_soil = response['Items'][i]['type_of_soil']
+            for j in range(len(response_lords['Items'])):
+                if int(land_id) in response_lords['Items'][j]['lands_owned']:
+                    owner_name = response_lords['Items'][j]['land_lord_name']
+                    land_details = {'land_id':land_id,'landlord':owner_name,'city':city,'state':state,'pincode':pincode,'type_of_soil':type_of_soil}
+                    lands.append(land_details)
+                    break
+        print(response['Items'])
+        return render(request,'registration/verify_lands.html',{'lands':lands})
     else:
         return redirect('home')
 
@@ -68,8 +206,12 @@ def login(request):
                     request.session['username'] = response['Items'][0]['username']
                     request.session['email'] = response['Items'][0]['email']
                     print(request.session['username'], request.session['email'])
-
-                    return redirect('landing')
+                    if (response['Items'][0]['is_admin']):
+                        request.session['is_admin']=True
+                        return redirect('registration:verify_lands')
+                    else:
+                        request.session['is_admin']=False
+                        return redirect('landing')
                 else:
                     messages.success(request, 'User not activated please confirm the email')
                     return redirect('registration:login_display')

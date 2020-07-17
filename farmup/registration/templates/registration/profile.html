@@ -70,10 +70,10 @@
                                         </div>
                                     </div>
 
-                                  <form action="result1" method="post" class="text-center">
+                                  <form action="{% url 'registration:display_edit_profile' %}" method="post" class="text-center">
                                     {% csrf_token %}
 
-                                  <button class="btn btn-primary "  >Edit Profile</button>
+                                  <button class="btn btn-primary "   >Edit Profile</button>
 
                                   </form>
                                     </div>
