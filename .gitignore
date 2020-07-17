@@ -1,2 +1,6 @@
-
-farmup/db.sqlite3
+*.pyc
+.idea*
+*.log*
+*pycache*
+*migrations*
+venv/*
