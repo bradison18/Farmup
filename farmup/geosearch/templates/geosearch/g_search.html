@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farmup</title>
+
+</head>
+<body>
+     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe2otGPKiUf4Qq35MmOfDWHaQm-Cjtopw&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+
+      #map {
+        height: 100%;
+      }
+
+    </style>
+<script type="text/javascript">
+    var c_lat = "{{ lat|safe }}";
+    var c_lng = "{{ lng|safe }}";
+    var lands =  JSON.parse("{{ display_lands|escapejs  }}");
+    console.log(lands);
+    var max_zoom = 15;
+    var marker, i;
+    all_markers = [];
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: Number(c_lat), lng: Number(c_lng)},
+            zoom: 10
+        });
+
+        var iconBase =
+            'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+
+        var home_marker = new google.maps.Marker({
+            position: {lat: Number(c_lat), lng: Number(c_lng)},
+            map: map,
+            icon: iconBase + 'homegardenbusiness.png'
+        });
+
+        for (i = 0; i < lands.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lands[i]['lat'], lands[i]['lng']),
+                map: map
+            });
+            all_markers.push(marker);
+        }
+        google.maps.event.addListener(marker, 'click', function (event) {
+      if (marker!=null) {
+        marker.setMap(null);
+      }
+      // marker =  new google.maps.Marker({
+      //       position: event.latLng,
+      //       map: map,
+      //   });
+      // marker.setMap(map);
+    });
+    }
+    function setNewmarker(){
+        var d = document.getElementById('distance').value;
+
+        var d = Number(d);
+        var new_markers=[];
+        console.log(d);
+        for(i=0;i<lands.length;i++){
+            console.log(lands[i]['dist'],typeof(lands[i]['dist']));
+            if(lands[i]['dist']<d){
+                all_markers[i].setMap(map);
+            }
+            else{
+                all_markers[i].setMap(null);
+            }
+        }
+        // all_markers = new_markers;
+        map.setZoom(max_zoom-d);
+        map.setCenter({lat: Number(c_lat), lng: Number(c_lng)})
+        }
+
+
+
+
+</script>
+<div style="height: 500px;width: 500px" id="map"></div>
+
+<form>
+    <label>Enter radius:</label><input type="Number" id="distance" value="">
+    <button onClick="setNewmarker()" type="button">click</button>
+</form>
+
+</body>
+</html>

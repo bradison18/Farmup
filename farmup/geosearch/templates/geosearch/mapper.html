@@ -2,9 +2,10 @@
 <html>
   <head>
     <title>Simple Click Events</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM9hBBwzMOrDHqOB9harB9AqXS6HZdiX8&callback=initMap&libraries=&v=weekly"
+
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe2otGPKiUf4Qq35MmOfDWHaQm-Cjtopw&callback=initMap&libraries=&v=weekly"
       defer
     ></script>
     <style type="text/css">
@@ -15,42 +16,96 @@
       }
 
     </style>
-    <script>
-      (function(exports) {
-        "use strict";
+   <script>
+     function setCenter(){
+       city = document.getElementById("city").value
+       state = document.getElementById("state").value
+       if (city !='' && state!='') {
+         var geocoder = new google.maps.Geocoder();
+         geocoder.geocode(
 
-        function initMap() {
-          var myLatlng = {
-            lat: -25.363,
-            lng: 131.044
-          };
-          var map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 4,
-            center: myLatlng
-          });
-          var marker = new google.maps.Marker({
-            position: myLatlng,
+           {'address':city + ',' + state}, function(results, status) {
+             console.log(results[0].geometry.location)
+             if (status === "OK") {
+               map.setCenter(results[0].geometry.location);
+		map.setZoom(10);
+             }
+           }
+
+       )
+       }
+
+     }
+    function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 20.5937, lng: 78.9629 },
+        zoom: 5
+    });
+    var marker = null;
+
+    google.maps.event.addListener(map, 'click', function (event) {
+      if (marker!=null) {
+        marker.setMap(null);
+      }
+      marker =  new google.maps.Marker({
+            position: event.latLng,
             map: map,
-            title: "Click to zoom"
-          });
-          // map.addListener("center_changed", function() {
-          //   // 3 seconds after the center of the map has changed, pan back to the
-          //   // marker.
-          //   window.setTimeout(function() {
-          //     map.panTo(marker.getPosition());
-          //   }, 3000);
-          // });
-          marker.addListener("click", function() {
-            map.setZoom(8);
-            map.setCenter(marker.getPosition());
-          });
-        }
+        });
+      marker.setMap(map);
+      console.log(marker.getPosition)
+      document.getElementById('lat').value = marker.getPosition().lat()
+      document.getElementById('long').value = marker.getPosition().lng()
+    });
+}
+</script>
+    <!--<script>-->
+      <!--(function(exports) {-->
+        <!--"use strict";-->
 
-        exports.initMap = initMap;
-      })((this.window = this.window || {}));
-    </script>
+        <!--function initMap() {-->
+          <!--var myLatlng = {-->
+            <!--lat: -25.363,-->
+            <!--lng: 131.044-->
+          <!--};-->
+          <!--var map = new google.maps.Map(document.getElementById("map"), {-->
+            <!--zoom: 4,-->
+            <!--center: myLatlng-->
+          <!--});-->
+          <!--var marker = new google.maps.Marker({-->
+            <!--position: myLatlng,-->
+            <!--map: map,-->
+            <!--title: "Click to zoom"-->
+          <!--});-->
+          <!--// map.addListener("center_changed", function() {-->
+          <!--//   // 3 seconds after the center of the map has changed, pan back to the-->
+          <!--//   // marker.-->
+          <!--//   window.setTimeout(function() {-->
+          <!--//     map.panTo(marker.getPosition());-->
+          <!--//   }, 3000);-->
+          <!--// });-->
+          <!--marker.addListener("click", function() {-->
+            <!--map.setZoom(8);-->
+            <!--map.setCenter(marker.getPosition());-->
+          <!--});-->
+        <!--}-->
+
+        <!--exports.initMap = initMap;-->
+      <!--})((this.window = this.window || {AIzaSyBM9hBBwzMOrDHqOB9harB9AqXS6HZdiX8}));-->
+    <!--</script>-->
   </head>
   <body>
-    <div style="height: 500px;width: 500px" id="map"></div>
+  <form method="post" >
+    {% csrf_token %}
+    <label>City </label> <input type = "text" id="city"  value=""  required>
+    <label>State</label> <input type="text" id="state"  value=""  required>
+      <label>Latitude</label><input type="number" id="lat" value="" name="lat" required disabled >
+      <label>Longitude</label><input type ="number" id="long" value="" name="long" required disabled >
+    <button type="button" onclick="setCenter()">set map</button>
+    <button type="submit">Submit</button>
+    </form>
+    <br>
+    <br>
+
+  <div style="height: 500px;width: 500px" id="map"></div>
   </body>
 </html>

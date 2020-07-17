@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe2otGPKiUf4Qq35MmOfDWHaQm-Cjtopw&libraries=places&callback=initAutocomplete"
+            async defer></script>
+
+     <script>
+         var autocomplete;
+            function initAutocomplete() {
+          autocomplete = new google.maps.places.Autocomplete(
+              document.getElementById('autocomplete'), {types: ['geocode']});
+
+          // Avoid paying for data that you don't need by restricting the set of
+          // place fields that are returned to just the address components.
+          autocomplete.setFields(['address_component']);
+
+        }
+
+        </script>
+
+</head>
+<body>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <div class="w3-panel w3-grey w3-display-container">
+
+                <h10 class="{{ message.tags }}" style="color: #de5246;size:10px"> {{ message }}</h10>
+
+            </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form method="post" action="{% url 'registration:edit_profile' %}">
+    {% csrf_token %}
+    <label>User Name:</label><input type="text" name="username" value={{ username }}>
+    <label>Address :</label><input type="text" id="autocomplete" name="address"  value={{ address }}>
+    <label>Pincode :</label><input type="text" name="pincode" value={{ pincode }} >
+    <label>Phone Number : </label><input type="text" name="phone_number" value={{ phone_number }}>
+    <button type="submit" value="">Save and Continue</button>
+</form>
+</body>
+</html>

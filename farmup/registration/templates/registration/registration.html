@@ -10,7 +10,7 @@
       <meta name="keywords" content="">
       <meta name="author" content="Quickdev">
       <meta name="theme-color" content="#EEC344">
-
+        <meta charset="UTF-8">
   <!-- ==============================================
   FAVICON
   =============================================== -->  
@@ -23,12 +23,31 @@
       <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
       <link rel="stylesheet" href="{% static 'homepage/css/custom.css' %}">
       <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
-      <script src="{% static 'homepage/js/modernizr-custom.js' %}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe2otGPKiUf4Qq35MmOfDWHaQm-Cjtopw&libraries=places&callback=initAutocomplete"
+            async defer></script>
+
+     <script>
+         var autocomplete;
+            function initAutocomplete() {
+          autocomplete = new google.maps.places.Autocomplete(
+              document.getElementById('autocomplete'), {types: ['geocode']});
+
+          // Avoid paying for data that you don't need by restricting the set of
+          // place fields that are returned to just the address components.
+          autocomplete.setFields(['address_component']);
+
+        }
+
+        </script>
+
+
     {% endblock %}
     
   {% block body %}
   <!-- LOADER -->
-  {% comment %} <div id="loader-wrapper">
+  {% comment %}
+
+    <div id="loader-wrapper">
       <div class="loader">
         <div class="square" ></div>
         <div class="square"></div>
@@ -89,7 +108,7 @@
               <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Re-enter Password" name="repassword">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="City,State" name = "address">
+              <input type="text" class="form-control" id="autocomplete" placeholder="Enter address here" name = "address"/>
             </div>
             <div class="form-group">
               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Pincode" maxlength="6" name="pincode">
@@ -109,7 +128,9 @@ JAVASCRIPTS
   <script src="{% static 'homepage/js/plugins.js' %}"></script>
   <script src="{% static 'homepage/js/bootstrap.min.js' %}"></script>    
   <script src="{% static 'homepage/js/agrom.js' %}"></script>
-{% comment %} 
+{% comment %}
+
+
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
