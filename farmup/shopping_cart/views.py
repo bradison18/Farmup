@@ -57,7 +57,8 @@ def addCropElements(request):
             'email':request.session['email'],
             'quantity':quantity,
             'cost':int(quantity)*order_cost,
-            'is_purchased':False
+            'is_purchased':False,
+            'delivery_status':'Not Purchased'
 
         }
     )

@@ -1,19 +1,14 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.core.mail import send_mail
 from django.conf import settings
-from random import *
 from boto3.dynamodb.conditions import Key, Attr
 from twilio.rest import Client
 import datetime
 import uuid
-from django.utils.crypto import get_random_string
 import boto3
 import stripe
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.base import TemplateView
 
 # Create your views here.
 
@@ -101,8 +96,7 @@ def verify_sms(request):
         },
         UpdateExpression="set balance = :r",
         ExpressionAttributeValues={
-            ':r': balance_user-int(amount),
-
+            ':r': balance_user-int(amount)
         },
         ReturnValues="UPDATED_NEW"
     )
@@ -123,14 +117,12 @@ def verify_sms(request):
     for i in order_ids:
         res = table_order.update_item(
             Key={
-                # 'email': user['email'],
-                # 'user':user
                 'order_id': i
             },
-            UpdateExpression="set is_purchased = :r",
+            UpdateExpression="set is_purchased = :r, is_purchased = :t",
             ExpressionAttributeValues={
                 ':r': True,
-
+                ':t': 'Purchased'
             },
             ReturnValues="UPDATED_NEW"
         )

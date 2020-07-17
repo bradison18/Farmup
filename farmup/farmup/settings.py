@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shopping_cart',
     'geosearch',
     'credits',
+    'tracking'
 ]
 
 MIDDLEWARE = [
