@@ -4,3 +4,4 @@ geopy==2.0.0
 twilio==6.44.0
 stripe==2.48.0
 boto3==1.14.22
+textdistance
