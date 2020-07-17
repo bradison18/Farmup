@@ -9,18 +9,21 @@
             font-size: 25px;
             border-collapse: separate;
             border-spacing: 0 1em;
-            }
+        }
     </style>
 </head>
 <body>
-Tracking
-
-{{ orders }}
 
 <table class="table1">
     <tr>
         <td style="padding: 10px">
-            Transaction ID
+            Name
+        </td>
+        <td style="padding: 10px">
+            Cost
+        </td>
+        <td style="padding: 10px">
+            Quantity
         </td>
         <td>
             Amount
@@ -32,25 +35,66 @@ Tracking
             Time
         </td>
         <td>
-            Transaction Type
+            Delivery Status
         </td>
     </tr>
-        <tr class="">
-            <td style="padding: 10px">
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
+    {% for i in orders %}
+        {% for j in crop_orders%}
+            {#            {{ if i.crop_id ==  }}#}
+            {% if i.crop_id == j.crop_id|add:"0" %}
+                <tr class="">
+                    <td style="padding: 10px">
+                        {{ j.name|title }}
+                    </td>
+                    <td>
+                        {{ j.cost }}
+                    </td>
+                    <td>
+                        {{ i.quantity }}
+                    </td>
+                    <td>
+                        {{ i.cost }}
+                    </td>
+                    <td>
+                        {{ i.ordered_date }}
+                    </td>
+                    <td>
+                        {{ i.ordered_time }}
 
+                    </td>
+                    <td>
+                        {% if is_admin %}
+                            <form method="post" id="order-form" action="{% url 'tracking:change' %}" name="change">
+                            {% csrf_token %}
+                                <input type="hidden" value="{{ i.order_id }}" name="order_id">
+                                <select name="change" id="change" >
+                                    <option> Order Received </option>
+                                    <option> Order arrived at your nearest godown </option>
+                                    <option>  </option>
+                                    <option> Out for Delivery </option>
+                                    <option> Delivered </option>
+                                </select>
+                            <input id='submit' type="submit" name="submit" value="Submit">
+
+                            </form>
+                        {% else %}
+                            {{ i.delivery_status }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+    {% endfor %}
 
 </table>
-
+<script>
+    $(document).ready(function() {
+   $('#change').on('change', function() {
+     document.forms['change'].submit();
+   });
+});
+</script>
 
 </body>
 </html>

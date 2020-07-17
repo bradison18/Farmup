@@ -58,7 +58,9 @@ def addCropElements(request):
             'quantity':quantity,
             'cost':int(quantity)*order_cost,
             'is_purchased':False,
-            'delivery_status':'Not Purchased'
+            'delivery_status':'Not Purchased',
+            'ordered_date':datetime.date.today().strftime('%B %d,%Y'),
+            'ordered_time':datetime.datetime.now().time().strftime('%H:%M:%S')
 
         }
     )

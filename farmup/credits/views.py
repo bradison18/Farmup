@@ -9,7 +9,6 @@ import boto3
 import stripe
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
 # Create your views here.
 
 try:
@@ -56,7 +55,7 @@ def pending_redeem(request):
         balance = request.POST.get('balance',False)
         if int(balance) - int(amount) < 0:
             return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits"> You can add balance here. </a></html>')
-        auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
+        auth_token = 'b11d01c9e4f80b2a7364c45da84924cd'
         # auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
         account_sid = 'ACb702ef99316a96af55ee6415656e9486'
         # account_sid = ''
@@ -107,7 +106,7 @@ def verify_sms(request):
         }
     )
     user_orders = table_order.scan(
-        FilterExpression=Attr('email').eq(cur)
+        FilterExpression=Attr('email').eq(cur) and Attr('is_purchased').eq(False)
     )['Items']
     order_ids = []
     print(user_orders)
@@ -119,13 +118,16 @@ def verify_sms(request):
             Key={
                 'order_id': i
             },
-            UpdateExpression="set is_purchased = :r, is_purchased = :t",
+            UpdateExpression="set is_purchased = :r, delivery_status = :t, ordered_date = :d, ordered_time = :s",
             ExpressionAttributeValues={
                 ':r': True,
-                ':t': 'Purchased'
+                ':t': 'Purchased',
+                ':d': datetime.date.today().strftime('%B %d,%Y'),
+                ':s': datetime.datetime.now().time().strftime('%H:%M:%S')
             },
             ReturnValues="UPDATED_NEW"
         )
+
     table_tr = dynamodb.Table('transactions')
     table_tr.put_item(
         Item={
@@ -136,10 +138,9 @@ def verify_sms(request):
             'time': datetime.datetime.now().time().strftime('%H:%M:%S'),
             'amount':amount,
             'type':'debit'
-
         }
     )
-    return HttpResponse('redeem sucess')
+    return redirect('tracking:track')
 
 
 def add_balance(request):
