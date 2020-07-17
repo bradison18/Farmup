@@ -66,8 +66,10 @@
 
     <br><br>
     <center>
-    <form method="post">
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+    <form method="post" action="{% url 'shopping_cart:search' %}">
+        {% csrf_token %}
+<input type="text" id="myInput" placeholder="Search for names.." title="Type in a name" name="crop_name">
+        <input type="range" name="quan" min="0" max="100">
     <input type="submit" value="submit">
     </form>
     </center>
@@ -105,7 +107,7 @@
                                                         </td>
                                                         <td>
                                                             <input type="hidden" name="crop_name" value="{{ crop_name }}">
-                                                            <input type="number" style="width: 70px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required>
+                                                            <input type="number" style="width: 70px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required max="{{ crop_amount }}" min="1">
                                                             <input type="submit" class="btn btn-secondary btn-sm float-right" value="Add to Cart" >
 
                                                         </td>

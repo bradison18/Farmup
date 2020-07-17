@@ -8,6 +8,7 @@ from registration.login_required import is_loggedin
 import uuid
 from django.utils.crypto import get_random_string
 import datetime
+import textdistance
 def add(request):
     dynamodb=boto3.resource('dynamodb')
     table=dynamodb.Table('cropinfo')
@@ -244,12 +245,21 @@ def search(request):
     crop_amount = []
     crop_image_link = []
 
+    name = request.POST['crop_name']
+    try:
+        quan = request.POST['quan']
+        print(quan)
+    except:
+        pass
+    print(name)
     for i in range(len(crop_table_elements)):
-        crop_id.append(crop_table_elements[i]['crop_id'])
-        crop_name.append(crop_table_elements[i]['name'])
-        crop_cost.append(crop_table_elements[i]['cost'])
-        crop_amount.append(crop_table_elements[i]['stock'])
-        crop_image_link.append(crop_table_elements[i]['image_link'])
+        print(crop_table_elements[i]['name'])
+        if name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8:
+            crop_id.append(crop_table_elements[i]['crop_id'])
+            crop_name.append(crop_table_elements[i]['name'])
+            crop_cost.append(crop_table_elements[i]['cost'])
+            crop_amount.append(crop_table_elements[i]['stock'])
+            crop_image_link.append(crop_table_elements[i]['image_link'])
 
     crop_info = zip(crop_id, crop_name, crop_cost, crop_amount, crop_image_link)
     context = {
@@ -257,4 +267,7 @@ def search(request):
         'order_ids': order_ids
     }
 
-    return render(request,'shopping_cart/shop.html')
+    return render(request,'shopping_cart/shop.html',context)
+
+def distance(word1,word2):
+    return textdistance.jaro_winkler(word1,word2)
