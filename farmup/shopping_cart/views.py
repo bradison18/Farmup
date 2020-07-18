@@ -121,6 +121,9 @@ def buyingpage(request):
         responses = order_table.scan(
             FilterExpression = Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
         )
+        print(type(request.session['email']))
+        print(type(responses['Items'][0]['email']))
+        print(responses)
         order_ids = []
         for i in responses['Items']:
             order_ids.append(str(i['crop_id']))
@@ -153,10 +156,12 @@ def delete_from_cart(request,item_name):
     responses = crop_table.scan(
         FilterExpression = Attr('name').eq(item_name)
     )
+    print(item_name)
     crop_id = responses['Items'][0]['crop_id']
     delete_orders = table.scan(
         FilterExpression = Attr('crop_id').eq(Decimal(crop_id)) & Attr('email').eq(request.session['email'])
     )
+    print(delete_orders)
     order_id = delete_orders['Items'][0]['order_id']
     table.delete_item(
         Key={
@@ -246,15 +251,12 @@ def search(request):
     crop_image_link = []
 
     name = request.POST['crop_name']
-    try:
-        quan = request.POST['quan']
-        print(quan)
-    except:
-        pass
+    quan = request.POST['range']
+    print(quan)
     print(name)
     for i in range(len(crop_table_elements)):
-        print(crop_table_elements[i]['name'])
-        if name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8:
+        # print(crop_table_elements[i]['name'])
+        if (name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8) and crop_table_elements[i]['cost'] < quan:
             crop_id.append(crop_table_elements[i]['crop_id'])
             crop_name.append(crop_table_elements[i]['name'])
             crop_cost.append(crop_table_elements[i]['cost'])

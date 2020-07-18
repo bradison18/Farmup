@@ -1,11 +1,29 @@
+{% extends 'registration/base.html' %}
 {% load static %}
 
 {% block head %}
-    <!-- ==============================================
-    TITLE AND META TAGS
-    =============================================== -->
+{#    <link rel="stylesheet" type="text/css" href="{% static 'cart/main.css' %}">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'cart/f' %}">#}
     <title>Cart</title>
     <style>
+    .input1 {
+	 display: block;
+	 {#margin: 2em auto;#}
+	 border: none;
+	 padding: 0;
+	 width: 9ch;
+	 background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/ 8.5ch 2px no-repeat;
+	 font: 5ch droid sans mono, consolas, monospace;
+	 letter-spacing: 0.5ch;
+}
+ .input1:focus {
+	 outline: none;
+	 color: dodgerblue;
+}
+
+.mar{
+    margin-left: 150px
+}
     </style>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -15,7 +33,7 @@
     <!-- ==============================================
     FAVICON
     =============================================== -->
-    <link rel="shortcut icon" href="{% static 'homepage/img/master/favicon.png' %}">
+    {#    <link rel="shortcut icon" href="{% static 'homepage/img/master/favicon.png' %}">#}
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -34,21 +52,6 @@
 {% endblock %}
 
 {% block body %}
-    <!-- LOADER -->
-    {% comment %} <div id="loader-wrapper">
-      <div class="loader">
-        <div class="square" ></div>
-        <div class="square"></div>
-        <div class="square last"></div>
-        <div class="square clear"></div>
-        <div class="square"></div>
-        <div class="square last"></div>
-        <div class="square clear"></div>
-        <div class="square "></div>
-        <div class="square last"></div>
-      </div>
-  </div> {% endcomment %}
-    <!-- LOADER -->
 
     <div class="container">
         {% csrf_token %}
@@ -110,23 +113,69 @@
 
                 </tr>
                 </tfoot>
-                <table style="width: 100%; background-color: black">
-                    <tr style="width:100% ;">
-                        <input type="text" name="username" placeholder="Username">
-                        <input type="text" name="Email" placeholder="Email">
-                    </tr><br>
-                    <tr style="width:100%;">
-                        <input type="text" name="Address1" placeholder="Address Line 1">
-                    </tr>
-                    <tr style="width:100% ;">
-                        <input type="text" name="Address2" placeholder="Address Line 2">
-                    </tr>
-                    <tr style="width:100% ;">
-                        <input type="text" name="state" placeholder="state">
-                        <input type="text" name="city" placeholder="city">
-                        <input type="number" name="Pincode" placeholder="pincode">
-                    </tr>
-                </table>
+                <center>
+                    <table style="width: 100%; background-color: black">
+                        <tr style="width:100%;margin-left: 20px">
+                            <table>
+                                <tr style="width: 100%">
+                                    <td>
+                                        <label for="username" class="mar">Username </label>
+                                    </td>
+                                    <td>
+                                        <label for="email" class="mar" style="margin-left: 30px">Email </label><br>
+                                    </td>
+                                </tr>
+
+                                <tr style="width: 100%;">
+                                    <td>
+                                        <input type="text" id="username" class="mar" name="username" placeholder="Username" style="width: 400px">
+                                    </td>
+                                    <td>
+                                        <input type="text" id="email" name="Email" class="mar" placeholder="Email" style="width: 400px;margin-left: 30px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </tr><br>
+                        <tr style="width:100%;">
+                            <label for="add1" class="mar">Address Line1</label>
+                            <br>
+                            <input type="text" class="mar" id="add1" name="Address1" placeholder="Address Line 1" style="width: 830px"><br><br  >
+                        </tr>
+                        <tr style="width:100% ;">
+                            <label for="add2" class="mar">Address Line2</label>
+                            <br>
+                            <input type="text" class="mar" name="Address2" placeholder="Address Line 2"  id="add2" style="width: 830px"><br>
+                        </tr><br>
+                        <tr style="width:100% ;">
+                            <table>
+                                <tr style="width: 100%">
+                                    <td>
+                                        <label  class="mar" for="state">State </label><br>
+                                    </td>
+                                    <td>
+                                        <label class="mar" for="city" style="margin-left: 10px">City </label><br>
+                                    </td>
+                                    <td>
+                                        <label class="mar" for="pincode" style="margin-left: 10px">Pincode </label><br>
+                                    </td>
+                                </tr>
+
+                                <tr style="width: 100%;">
+                                    <td>
+                                        <input type="text" class="mar" name="state" placeholder="State"  style="width: 270px">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="mar" id="city" name="city" placeholder="City" style="width: 270px;margin-left: 10px">
+                                    </td>
+                                    <td>
+                                        <input type="text"  id="pincode" class="input1 mar" name="Pincode"   style="width: 270px;margin-left: 10px">
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </tr>
+                    </table>
+                </center>
             </form>
 
         </table>

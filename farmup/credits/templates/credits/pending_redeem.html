@@ -1,5 +1,22 @@
 {#{% extends 'authentication/layout.html' %}#}
 {% block headblock %}
+    <style>
+        .input1 {
+	 display: block;
+	 {#margin: 2em auto;#}
+	 border: none;
+	 padding: 0;
+	 width: 9ch;
+	 background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/ 8.5ch 2px no-repeat;
+	 font: 5ch droid sans mono, consolas, monospace;
+	 letter-spacing: 0.5ch;
+}
+ .input1:focus {
+	 outline: none;
+	 color: #070709;
+}
+
+    </style>
     <script>
          history.pushState(null, null, location.href);
          window.onpopstate = function () {
@@ -14,7 +31,7 @@
     <form action="{% url 'verify_sms' %}" method="post">
         {% csrf_token %}
         Enter the code<br>
-        <input name="code" id="code" type="text">
+        <input name="code" id="code" type="text" class="input1">
         <input type="submit" value="Submit">
         <a href="/credits/redeem_cancel">
         <input type="button" value="Cancel">
