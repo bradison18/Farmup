@@ -177,7 +177,7 @@ iframe {
 [ Contact ]*/
 
 .container-contact100 {
-  width: 100%;  
+  width: 50%;
   min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
@@ -189,7 +189,7 @@ iframe {
   align-items: center;
   padding: 15px;
   background: #f2f2f2;
-  
+
 }
 
 .wrap-contact100 {
@@ -237,7 +237,7 @@ iframe {
 [ Form ]*/
 
 .contact100-form {
-  width: 50%;
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -271,7 +271,7 @@ iframe {
 
 .rs1-wrap-input100,
 .rs2-wrap-input100 {
-  width: 50%;
+  width: 100%;
 }
 
 .rs2-wrap-input100 {
@@ -285,7 +285,7 @@ iframe {
   line-height: 1.5;
   text-transform: uppercase;
   letter-spacing: 1px;
-  
+
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -295,14 +295,14 @@ iframe {
   width: 100%;
   min-height: 55px;
   border: 1px solid #e6e6e6;
-  border-bottom: none; 
+  border-bottom: none;
   padding: 10px 25px;
   margin-top: 15px;
   margin-bottom: 0;
 }
 
-.input100 {
-  display: block;
+  .input100 {
+  /*display: block;*/
   width: 100%;
   background: transparent;
   font-family: Poppins-Regular;
@@ -454,9 +454,9 @@ textarea.input100 {
 /*------------------------------------------------------------------
 [ Alert validate ]*/
 
-.validate-input {
-  position: relative;
-}
+/*.validate-input {*/
+/*  position: relative;*/
+/*}*/
 
 .alert-validate::before {
   content: attr(data-validate);

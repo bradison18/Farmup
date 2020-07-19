@@ -82,8 +82,9 @@ def checkout(request):
     crops_order_sub_cost = []
     ord_id = []
     items = table_order.scan(
-        FilterExpression = Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
+        FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False)
     )
+    print(items)
     for i in items['Items']:
         crops_quant.append(i['quantity'])
         crops_order_sub_cost.append(int(i['cost']))
@@ -119,11 +120,11 @@ def buyingpage(request):
         order_table = dynamodb.Table('Order')
 
         responses = order_table.scan(
-            FilterExpression = Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
+            FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False)
         )
-        print(type(request.session['email']))
-        print(type(responses['Items'][0]['email']))
-        print(responses)
+        # print(type(request.session['email']))
+        # print(type(responses['Items'][0]['email']))
+        # print(responses)
         order_ids = []
         for i in responses['Items']:
             order_ids.append(str(i['crop_id']))
@@ -238,7 +239,7 @@ def search(request):
     order_table = dynamodb.Table('Order')
 
     responses = order_table.scan(
-        FilterExpression=Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
+        FilterExpression=Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False)
     )
     order_ids = []
     for i in responses['Items']:
@@ -253,10 +254,15 @@ def search(request):
     name = request.POST['crop_name']
     quan = request.POST['range']
     print(quan)
-    print(name)
     for i in range(len(crop_table_elements)):
         # print(crop_table_elements[i]['name'])
-        if (name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8) and crop_table_elements[i]['cost'] < quan:
+        print(name,crop_table_elements[i]['name'],name.lower() == crop_table_elements[i]['name'].lower())
+        print(name,crop_table_elements[i]['name'],name.lower() in crop_table_elements[i]['name'].lower())
+        print(name,crop_table_elements[i]['name'], distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8)
+        print(name,crop_table_elements[i]['name'],crop_table_elements[i]['cost']>quan,crop_table_elements[i]['cost'])
+        print((name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8))
+        if (name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8) and crop_table_elements[i]['cost'] <quan:
+            print('here')
             crop_id.append(crop_table_elements[i]['crop_id'])
             crop_name.append(crop_table_elements[i]['name'])
             crop_cost.append(crop_table_elements[i]['cost'])

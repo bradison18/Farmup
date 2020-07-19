@@ -1,4 +1,4 @@
-{#{% extends 'authentication/layout.html' %}#}
+{% extends 'registration/base.html' %}
 {% block headblock %}
     <style>
         .input1 {
@@ -26,15 +26,17 @@
     <meta charset="UTF-8">
     <title>Title</title>
 {% endblock %}
-{% block content %}
+{% block body %}
     Please Enter the verification code below.
     <form action="{% url 'verify_sms' %}" method="post">
         {% csrf_token %}
         Enter the code<br>
         <input name="code" id="code" type="text" class="input1">
         <input type="submit" value="Submit">
+        <input type="submit" class="btn btn-secondary btn-sm float-right" style="margin-left: 10px;border-radius:30px" value="submit">
+
         <a href="/credits/redeem_cancel">
         <input type="button" value="Cancel">
         </a>
     </form>
-{% endblock %}
+{% endblock body %}

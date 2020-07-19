@@ -1,11 +1,29 @@
+{#{% extends 'registration/base.html' %}#}
 {% load static from staticfiles %}
 
 {% block headblock %}
     <meta charset="UTF-8">
     <title>Credits</title>
+{#        <link rel="stylesheet" type="text/css" href="{% static 'cart/main.css' %}">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'cart/font-awesome.min.css' %}">#}
+        <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/home-1-styles.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/fonts/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/slick.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/animation.aos.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/animate.min.css' %}">
+        <script src="{% static 'homepage/js/modernizr-custom.js' %}"></script>
+
+        <script>document.getElementsByTagName("html")[0].className += " js";</script>
+
     <style>
+
     body{
-        background-image: url("{% static 'payment.jpeg' %}");
         position: relative;
         background-repeat: no-repeat;
         background-size: 100%;
@@ -38,7 +56,87 @@
         }
     </style>
     {% endblock %}
-{% block content %}
+{% block body %}
+        <header>
+        <!--NAVIGATION-->
+        <div class="main-nav">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg">
+                  <a class="navbar-brand" href="{% url 'landing' %}"><div class="logo-brand"><img src="{% static 'homepage/img/images/logo1.png' %}" alt=""></div></a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link  dropdown-toggle" href="{% url 'landing' %}" data-toggle="dropdown">HOME<span class="caret-drop"></span></a>
+                        <ul class="dropdown-menu">
+                          <li class="divider-top"></li>
+                          <li><a class="dropdown-item" href="#">Homepage One</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shopping_cart:buyingpage' %}">Store</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">SERVICES</a>
+                      </li>
+{#                      <li class="nav-item dropdown">#}
+{#                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">PAGES<span class="caret-drop"></span></a>#}
+{#                        <ul class="dropdown-menu">#}
+{#                          <li class="divider-top"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Gallery</a></li>#}
+{#                          <li class="divider"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Coming Soon</a></li>#}
+{#                          <li class="divider"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Faq</a></li>#}
+{#                          <li class="divider"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Error Page</a></li>#}
+{#                          <li class="divider"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Products</a></li>#}
+{#                          <li class="divider"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Products Details</a></li>#}
+{#                        </ul>#}
+{#                      </li>#}
+{#                      <li class="nav-item dropdown">#}
+{#                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">BLOG<span class="caret-drop"></span></a>#}
+{#                        <ul class="dropdown-menu">#}
+{#                          <li class="divider-top"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Blog Classic</a></li>#}
+{#                          <li class="divider"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Blog Grid</a></li>#}
+{#                          <li class="divider"></li>#}
+{#                          <li><a class="dropdown-item" href="#">Blog Single</a></li>#}
+{#                        </ul>#}
+{#                      </li>#}
+{#                      <li class="nav-item">#}
+{#                        <a class="nav-link" href="#">CONTACT</a>#}
+{#                      </li>#}
+                        {% if request.session.username %}
+                             <li class="nav-item">
+                        <a href="{% url 'registration:my_profile' %}" class="nav-link" >Welcome {{ request.session.username }}</a>
+                      </li>
+                            <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration:logout' %}">LOG OUT</a>
+                      </li>
+                        {% elif not request.session.username %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration:login_display' %}">LOG IN</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration:register_display' %}">SIGN UP</a>
+                      </li>
+                        {% endif %}
+                    </ul>
+                  </div>
+                </nav>
+            </div>
+        </div>
+        <!--NAVIGATION END-->
+    </header>
+
     <center>
 <div class="div1">
 
@@ -63,10 +161,13 @@
             Enter amount to redeem : <br>
             <input type="number" step="any" required name="redeem_amount" id="redeem_amount" value="{{ amount }}" readonly>
             <input type="hidden" name="balance" value="{{ bal }}">
-            <h6> You need to have atleast 200 credits to redeem </h6>
-            <br><input type="submit" class="button3" value="Redeem"><br><br>
+            <div class="container-contact100-form-btn">
+            <br><input type="submit" class="contact100-form-btn" value="Redeem"><br><br>
+            </div>
+            <input type="submit" class="button3" style="margin-left: 10px;" value="submit">
+
         </form>
 <br> <br>
 </div>
     </center>
-{% endblock %}
+{% endblock body %}

@@ -325,6 +325,28 @@ def activate(request, uidb64, token):
             },
             ReturnValues="UPDATED_NEW"
         )
+        dynamodb = boto3.resource('dynamodb')
+        table_balance = dynamodb.Table('Balances')
+        ids = table_balance.scan(
+            FilterExpression=Attr('email').eq(request.session['email'])
+
+        )['Items']
+        if not ids:
+            ids = table_balance.scan()['Items']
+            all_idds = [int(i['id']) for i in ids]
+            print(all_idds)
+            id = max(all_idds) + 1
+            table_balance.put_item(
+                Item={
+                    'email': request.session['email'],
+                    'balance': 0,
+                    'id': id,
+                    'user': request.session['username']
+                }
+            )
+        else:
+            print('yes balance')
+
         request.session['username'] = user['username']
         request.session['email'] = user['email']
         return redirect('landing')
