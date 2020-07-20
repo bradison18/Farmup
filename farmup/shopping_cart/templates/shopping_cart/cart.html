@@ -5,25 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'cart/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'cart/font-awesome.min.css' %}">
     <title>Cart</title>
-    <style>
-        {#.input1 {#}
-        {#    display: block;#}
-        {#margin: 2em auto;#}
-        {#    border: none;#}
-        {#    padding: 0;#}
-        {#    width: 9ch;#}
-        {#    background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/ 8.5ch 2px no-repeat;#}
-        {#    font: 5ch droid sans mono, consolas, monospace;#}
-        {#    letter-spacing: 0.5ch;#}
-        {#}#}
-        {#.input1:focus {#}
-        {#    outline: none;#}
-        {#    color: dodgerblue;#}
-        {#}#}
+    {#        <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600&display=swap" rel="stylesheet">#}
 
-        .mar{
-            margin-left: 150px
-        }
+    <style>
+
     </style>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -44,7 +29,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
 
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    {#    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">#}
 
     <!-- ==============================================
     CSS
@@ -80,8 +65,11 @@
                     </td>
                     <td data-th="Price" ><h4 class="nomargin">{{crops_ordered_cost}}</h4></td>
                     <td data-th="Quantity">
-                        {#								<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" >#}
-                        <h4 class="nomargin">{{crops_quant}}</h4>
+                        {#<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" >#}
+                        <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant %}"><i class="fas fa-plus ml-2"></i></a>
+
+                        <h4 >{{crops_quant}}</h4>
+                <a href="{% url 'shopping_cart:decrease' crops_ordered_names crops_quant %}"><i class="fas fa-minus mr-2"></i></a>
 
                     </td>
                     <td data-th="Subtotal" class="text-center" >

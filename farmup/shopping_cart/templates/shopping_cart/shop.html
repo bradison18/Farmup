@@ -33,13 +33,13 @@
         .value {
         {#border-bottom: 4px dashed #bdc3c7;#}
             text-align: center;
-            {#font-weight: bold;#}
+        {#font-weight: bold;#}
             font-size: 50px;
             width: 50px;
             height: 50px;
-            {#line-height: 30px;#}
+        {#line-height: 30px;#}
             margin: 10px auto;
-            {#letter-spacing: -.07em;#}
+        {#letter-spacing: -.07em;#}
             text-shadow: white 2px 2px 2px;
         }
         input[type="range"] {
@@ -62,16 +62,16 @@
             cursor: pointer;
             transition: .3s ease-in-out;
         }​
-          input[type="range"]::-webkit-slider-thumb:hover {
-              background-color: white;
-              border: 2px solid #e74c3c;
-          }
-         input[type="range"]::-webkit-slider-thumb:active {
-             transform: scale(1.6);
+         input[type="range"]::-webkit-slider-thumb:hover {
+             background-color: white;
+             border: 2px solid #e74c3c;
          }
-    .value1{
-        font-size: 40px;
-    }
+        input[type="range"]::-webkit-slider-thumb:active {
+            transform: scale(1.6);
+        }
+        .value1{
+            font-size: 40px;
+        }
     </style>
     <!-- Favicon Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -97,11 +97,12 @@
             {% csrf_token %}
             <input type="text" id="myInput" placeholder="Search for names.." title="Type in a name" name="crop_name"><br>
 
+            <td style="width: 20%;">
                 <table width="700px">
                     <tr>
                         <td>
                             <div class="value1">Max Price Range</div>
-{#                            <label for="range"> Maximum Price Range </label>#}
+                            {#                            <label for="range"> Maximum Price Range </label>#}
                         </td>
                         <td>
                             <div class="value"> <span id="demo"></span></div>
@@ -139,7 +140,7 @@
                                         <a href="{% url 'shopping_cart:cart'%}">
                                             <button type="button" class="btn btn-secondary btn-sm float-right" > Go To Cart <i class="fa fa-shopping-cart" style="font-size:15px"></i>
                                             </button>
-                                        </a>
+                                        </a><br><br>
                                     {% else %}
                                         <form action="{% url 'shopping_cart:add_to_cart' %}" method="post">
                                             {% csrf_token %}
@@ -151,8 +152,8 @@
                                                     </td>
                                                     <td>
                                                         <input type="hidden" name="crop_name" value="{{ crop_name }}">
-                                                        <input type="number" style="width: 70px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required max="{{ crop_amount }}" min="1">
-                                                        <input type="submit" class="btn btn-secondary btn-sm float-right" value="Add to Cart" >
+                                                        <input type="number" style="width: 150px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required max="{{ crop_amount }}" min="1">
+                                                        <input type="submit" class="btn btn-secondary btn-sm float-right" value="Add to Cart" style="margin-left: 100px">
 
                                                     </td>
                                                 </tr>

@@ -1,5 +1,22 @@
-{% extends 'registration/base.html' %}
+{#{% extends 'registration/base.html' %}#}
+{% load static %}
 {% block headblock %}
+            <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/home-1-styles.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/fonts/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/slick.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/animation.aos.min.css' %}">
+        <link rel="stylesheet" href="{% static 'homepage/css/animate.min.css' %}">
+        <script src="{% static 'homepage/js/modernizr-custom.js' %}"></script>
+
+        <script>document.getElementsByTagName("html")[0].className += " js";</script>
+
+
     <style>
         .input1 {
 	 display: block;
@@ -15,6 +32,78 @@
 	 outline: none;
 	 color: #070709;
 }
+input {
+	outline: none;
+	border: none;
+}
+input:focus {
+  border-color: transparent !important;
+}
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; }
+input:focus::-moz-placeholder { color:transparent; }
+input:focus:-ms-input-placeholder { color:transparent; }
+
+textarea:focus::-webkit-input-placeholder { color:transparent; }
+textarea:focus:-moz-placeholder { color:transparent; }
+textarea:focus::-moz-placeholder { color:transparent; }
+textarea:focus:-ms-input-placeholder { color:transparent; }
+
+input::-webkit-input-placeholder { color: #adadad;}
+input:-moz-placeholder { color: #adadad;}
+input::-moz-placeholder { color: #adadad;}
+input:-ms-input-placeholder { color: #adadad;}
+
+
+    .container-contact100-form-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 23px;
+}
+
+.contact100-form-btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 200px;
+  height: 50px;
+  border-radius: 2px;
+  background: #00ad5f;
+
+  font-family: Montserrat-Bold;
+  font-size: 12px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.contact100-form-btn:hover {
+  background: #333333;
+}
+        body{
+        background-image: url("{% static  'credits/payment.jpeg' %}");
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
 
     </style>
     <script>
@@ -27,16 +116,68 @@
     <title>Title</title>
 {% endblock %}
 {% block body %}
-    Please Enter the verification code below.
+            <header>
+        <!--NAVIGATION-->
+        <div class="main-nav">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg">
+                  <a class="navbar-brand" href="{% url 'landing' %}"><div class="logo-brand"><img src="{% static 'homepage/img/images/logo1.png' %}" alt=""></div></a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link  dropdown-toggle" href="{% url 'landing' %}" data-toggle="dropdown">HOME<span class="caret-drop"></span></a>
+                        <ul class="dropdown-menu">
+                          <li class="divider-top"></li>
+                          <li><a class="dropdown-item" href="#">Homepage One</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shopping_cart:buyingpage' %}">Store</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tracking:track' %}">Track</a>
+                      </li>
+                        {% if request.session.username %}
+                             <li class="nav-item">
+                        <a href="{% url 'registration:my_profile' %}" class="nav-link" >Welcome {{ request.session.username }}</a>
+                      </li>
+                            <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration:logout' %}">LOG OUT</a>
+                      </li>
+                        {% elif not request.session.username %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration:login_display' %}">LOG IN</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration:register_display' %}">SIGN UP</a>
+                      </li>
+                        {% endif %}
+                    </ul>
+                  </div>
+                </nav>
+            </div>
+        </div>
+        <!--NAVIGATION END-->
+    </header>
+<center>
+    Please Enter the verification code sent to your registered mobile number.
+
     <form action="{% url 'verify_sms' %}" method="post">
         {% csrf_token %}
-        Enter the code<br>
-        <input name="code" id="code" type="text" class="input1">
-        <input type="submit" value="Submit">
-        <input type="submit" class="btn btn-secondary btn-sm float-right" style="margin-left: 10px;border-radius:30px" value="submit">
 
-        <a href="/credits/redeem_cancel">
-        <input type="button" value="Cancel">
-        </a>
+        <input name="code" id="code" type="text" class="input1" maxlength="6">
+        <div class="container-contact100-form-btn">
+
+        <input class="contact100-form-btn" type="submit" value="Submit">
+        <a href="/credits/cancel/">
+        <input type="button" value="Cancel" class="contact100-form-btn" style="margin-left: 5px">
+
+        </a> </div>
     </form>
+   </center>
 {% endblock body %}

@@ -56,7 +56,7 @@ def pending_redeem(request):
         if int(balance) - int(amount) < 0:
             return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits/add_balance/"> You can add balance here. </a></html>')
         # auth_token = '55f9a8db2286ced48a7203fd9b06b512'
-        auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
+        auth_token = '515b1c72219b2b7904e4d56a88dfd69c'
         account_sid = 'ACb702ef99316a96af55ee6415656e9486'
         # account_sid = ''
         client = Client(account_sid, auth_token)
@@ -274,13 +274,12 @@ def success(request,session_id,trans_id):
         },
         ReturnValues="UPDATED_NEW"
     )
-    return render(request,'credits/success.html')
+    return redirect('home')
 def cancel(request):
     dynamodb = boto3.resource('dynamodb')
     table_balance = dynamodb.Table('Balances')
     ids = table_balance.scan(
         FilterExpression=Attr('email').eq(request.session['email'])
-
     )['Items']
     if not ids:
         ids = table_balance.scan()['Items']
@@ -307,3 +306,20 @@ def transactions(request):
     )['Items']
     # print(transactions)
     return render(request,'credits/transaction.html',{'context':transactions})
+
+def redeem_cancel(request):
+    dynamodb = boto3.resource('dynamodb')
+    table_transactions = dynamodb.Table('pending_redeem')
+    redeems = table_transactions.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )['Items'][0]['transaction_id']
+    table_transactions.delete_item(
+        Key={
+            'transaction_id':redeems
+        }
+    )
+    print(redeems)
+    return redirect('shopping_cart:cart')
+
+def trans_cancel(request):
+    return redirect('shopping_cart:cart')
