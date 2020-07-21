@@ -8,6 +8,7 @@ from registration.login_required import is_loggedin
 import uuid
 from django.utils.crypto import get_random_string
 import datetime
+
 def add(request):
     dynamodb=boto3.resource('dynamodb')
     table=dynamodb.Table('cropinfo')

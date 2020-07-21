@@ -67,6 +67,7 @@
     <br><br>
     <center>
     <form method="post">
+    {% csrf_token %}
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
     <input type="submit" value="submit">
     </form>
