@@ -1,72 +1,98 @@
-<head>
+{% extends 'registration/base.html' %}
+
+{% block head %}
     <style>
 
         .table1{
-            width: 100%;
+            width: 80%;
             font-size: 25px;
-            border-collapse: separate;
             border-spacing: 0 1em;
-            }
+            border-collapse: collapse;
+        {#border-radius: 100px;#}
+            border: 1px solid black;
+            border-radius: 15px 50px 30px;
+        }
         tr{
             padding: 100px ;
+            border: 1px solid black;
+
         }
         .cred{
-    background: linear-gradient(to bottom right,#618685 0%, #80ced6 100%)
+        {#background: linear-gradient(to bottom right,#618685 0%, #80ced6 100%)#}
+            background-color: #999999;
+        }
+        .cred:hover{
+            -webkit-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+            background-color: #00ad5f;
+
+        }
+        .deb:hover{
+            -webkit-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+            background-color: #e74c3c;
+
         }
         .deb {
-            background: linear-gradient(to bottom right, #99ff99 27%, #ffffcc 102%);
+            background-color: #cccccc;
+        {#background: linear-gradient(to bottom right, #99ff99 27%, #ffffcc 102%);#}
         }
         .tra{
-            background-color: black;
+            background-color: #3fb31b;
         }
         body{
-            color: #A950A1;
-            {#background-color:#00B7D4;#}
+        {#color: #A950A1;#}
+        {#background-color:#00B7D4;#}
         }
     </style>
-</head>
-<body>
-<table class="table1">
-    <tr>
-        <td style="padding: 10px">
-            Transaction ID
-        </td>
-        <td>
-            Amount
-        </td>
-        <td>
-            Date
-        </td>
-        <td>
-            Time
-        </td>
-        <td>
-            Transaction Type
-        </td>
-    </tr>
-    {% for i in context %}
-        <tr class="{% if i.type == 'credit' %} cred {% else %} deb {% endif %}">
-            <td style="padding: 10px">
-                {{ i.transaction_id }}
-            </td>
-            <td>
-                {{ i.amount }}
-            </td>
-            <td>
-                {{ i.date }}
-            </td>
-            <td>
-                {{ i.time }}
-            </td>
-            <td>
-                {#            {% if i.type == 'credit'%}#}
-                {#                credit#}
-                {#            {% endif %}#}
-                {{ i.type|title }}
-            </td>
-        </tr>
+
+{% endblock %}
+{% block body %}
+    <center>
+        <table class="table1">
+            <tr class="tra">
+                <td style="padding: 10px">
+                    Transaction ID
+                </td>
+                <td>
+                    Amount
+                </td>
+                <td>
+                    Date
+                </td>
+                <td>
+                    Time
+                </td>
+                <td>
+                    Transaction Type
+                </td>
+            </tr>
+            {% for i in context %}
+                <tr class="{% if i.type == 'credit' %} cred {% else %} deb {% endif %}">
+                    <td style="padding: 10px">
+                        {{ i.transaction_id }}
+                    </td>
+                    <td>
+                        {{ i.amount }}
+                    </td>
+                    <td>
+                        {{ i.date }}
+                    </td>
+                    <td>
+                        {{ i.time }}
+                    </td>
+                    <td>
+                        {#            {% if i.type == 'credit'%}#}
+                        {#                credit#}
+                        {#            {% endif %}#}
+                        {{ i.type|title }}
+                    </td>
+                </tr>
 
 
-    {% endfor %}
-</table>
-</body>
+            {% endfor %}
+        </table>
+    </center>
+{% endblock body %}
