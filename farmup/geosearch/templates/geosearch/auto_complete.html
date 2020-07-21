@@ -6,18 +6,18 @@
 
 </head>
 <body>
-<form>
+<form action="{% url 'geosearch:map_search' %}" method="post">
+    {% csrf_token %}
 <input id="autocomplete"
              placeholder="Enter your address"
-             type="text"/>
+             type="text" name="address" value="{{ address }}"/>
+    <button type="submit">Search</button>
 </form>
 <script>
     function initAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('autocomplete'), {types: ['geocode']});
 
-  // Avoid paying for data that you don't need by restricting the set of
-  // place fields that are returned to just the address components.
   autocomplete.setFields(['address_component']);
 
 }

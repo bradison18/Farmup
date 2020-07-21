@@ -16,15 +16,8 @@ from geopy.geocoders import Nominatim
 
 def gmaps(request):
     if is_loggedin(request):
-        email = request.session['email']
-        dynamodb = boto3.resource('dynamodb')
-        table = dynamodb.Table('user')
-        response = table.scan(FilterExpression=Attr('email').eq(email))
-        if (len(response['Items']) != 0):
-            user = response['Items'][0]
-        else:
-            user = None
-        address = user['address']
+        address = request.POST.get('address')
+        print(address)
         geolocator = Nominatim(user_agent="farmup")
         location = geolocator.geocode(address)
         center = (location.latitude, location.longitude)
@@ -38,4 +31,19 @@ def gmaps(request):
 
         return render(request,'geosearch/g_search.html',{'lat':location.latitude,'lng':location.longitude,'display_lands':json.dumps(display_lands)})
     else:
-        return redirect('home')
+        return redirect('registration:login_display')
+
+def get_address(request):
+    if is_loggedin(request):
+        email = request.session['email']
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('user')
+        response = table.scan(FilterExpression=Attr('email').eq(email))
+        if (len(response['Items']) != 0):
+            user = response['Items'][0]
+        else:
+            user = None
+        address = user['address']
+        return render(request,'geosearch/auto_complete.html',{'address':address})
+    else:
+        return redirect('registration:login_display')

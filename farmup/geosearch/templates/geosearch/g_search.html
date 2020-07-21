@@ -27,27 +27,44 @@
     var max_zoom = 15;
     var marker, i;
     all_markers = [];
+    city_circle = null;
     function initMap() {
+        function addMarkerWithTimeout(position, timeout) {
+          window.setTimeout(function() {
+            all_markers.push(
+              new google.maps.Marker({
+                position: position,
+                map: map,
+                animation: google.maps.Animation.DROP
+              })
+            );
+          }, timeout);
+        }
+
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: Number(c_lat), lng: Number(c_lng)},
-            zoom: 10
+            zoom: 12
         });
 
-        var iconBase =
-            'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+       var image =
+            "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 
         var home_marker = new google.maps.Marker({
             position: {lat: Number(c_lat), lng: Number(c_lng)},
             map: map,
-            icon: iconBase + 'homegardenbusiness.png'
+            icon: image,
+            info
         });
 
         for (i = 0; i < lands.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(lands[i]['lat'], lands[i]['lng']),
-                map: map
-            });
-            all_markers.push(marker);
+
+            addMarkerWithTimeout({lat:lands[i]['lat'],lng:lands[i]['lng']},i*200);
+            // marker = new google.maps.Marker({
+            //     position: new google.maps.LatLng(lands[i]['lat'], lands[i]['lng']),
+            //     map: map,
+            //     animation: google.maps.Animation.DROP
+            // });
+            // all_markers.push(marker);
         }
         google.maps.event.addListener(marker, 'click', function (event) {
       if (marker!=null) {
@@ -62,8 +79,22 @@
     }
     function setNewmarker(){
         var d = document.getElementById('distance').value;
-
+        
         var d = Number(d);
+        if(city_circle!=null){
+        city_circle.setMap(null);
+        }
+        var radius = d*1000;
+        city_circle = new google.maps.Circle({
+            strokeColor: "#40ff00",
+            strokeOpacity: 0.35,
+            strokeWeight: 0,
+            fillColor: "#40ff00",
+            fillOpacity: 0.35,
+            map: map,
+            center: {lat: Number(c_lat), lng: Number(c_lng)},
+            radius: radius
+        });
         var new_markers=[];
         console.log(d);
         for(i=0;i<lands.length;i++){
@@ -76,7 +107,10 @@
             }
         }
         // all_markers = new_markers;
-        map.setZoom(max_zoom-d);
+        d = d/1.60934;
+        var new_zoom = Math.round(14-Math.log(d)/Math.LN2);
+        map.setZoom(new_zoom);
+        console.log(new_zoom);
         map.setCenter({lat: Number(c_lat), lng: Number(c_lng)})
         }
 

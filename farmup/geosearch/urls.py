@@ -6,5 +6,6 @@ from django.conf.urls import url
 app_name = "geosearch"
 
 urlpatterns = [
-    path('map_search/',views.gmaps,name='map_search')
+    path('map_search/',views.gmaps,name='map_search'),
+    path('get_address/',views.get_address,name="get_address")
     ]
