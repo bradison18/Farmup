@@ -9,6 +9,7 @@ import boto3
 import stripe
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import pandas as pd
 # Create your views here.
 
 try:
@@ -298,14 +299,21 @@ def cancel(request):
         print('yes balance')
     return render(request,'credits/cancelled.html')
 
-def transactions(request):
+def transactions(request,par='date'):
+    print(par)
     dynamodb = boto3.resource('dynamodb')
     table_transactions = dynamodb.Table('transactions')
     transactions = table_transactions.scan(
         FilterExpression=Attr('email').eq(request.session['email'])
     )['Items']
-    # print(transactions)
-    return render(request,'credits/transaction.html',{'context':transactions})
+    df = pd.DataFrame(columns=['date','time','email','amount','transaction_id','type','username'])
+    for i in transactions:
+        df = df.append({'date':i['date'],'time':i['time'],'username':i['username'],'amount':int(i['amount']),'transaction_id':i['transaction_id'],'type':i['type'],'email':i['email']},ignore_index=True)
+    print(df)
+    df = df.sort_values(by=[par],ascending=False)
+    print(df)
+    # print(transaction
+    return render(request,'credits/transaction.html',{'context':transactions,'context1':df})
 
 def redeem_cancel(request):
     dynamodb = boto3.resource('dynamodb')

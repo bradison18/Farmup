@@ -9,6 +9,7 @@ import uuid
 from django.utils.crypto import get_random_string
 import datetime
 import textdistance
+import pandas
 def add(request):
     dynamodb=boto3.resource('dynamodb')
     table=dynamodb.Table('cropinfo')
@@ -329,3 +330,8 @@ def decrease_quantity(request,cropname,quan):
 
         )
     return redirect('shopping_cart:cart')
+
+def pan(request):
+    df = pandas.DataFrame({'col1':[6,3,5],'col2':[7,9,2],'col3':[8,13,1]})
+    context = {'df':df}
+    return render(request,'shopping_cart/pandas.html',context)
