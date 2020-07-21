@@ -1,8 +1,6 @@
+venv/*
 *.pyc
 .idea*
 *.log*
 *pycache*
 *migrations*
-venv/*
-*.pyc
-*.pyc
