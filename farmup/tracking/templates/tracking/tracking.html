@@ -2,122 +2,196 @@
 {% load static %}
 {% block head %}
     <meta charset="UTF-8">
-{#    <link rel="stylesheet" type="text/css" href="{% static 'tracking/track.css' %}">#}
-{#    <script src="{% static 'tracking/track.js' %}"></script>#}
-{#    <link rel="stylesheet" type="">#}
-{#    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'tracking/track.css' %}">#}
+    {#    <script src="{% static 'tracking/track.js' %}"></script>#}
+    {#    <link rel="stylesheet" type="">#}
+    {#    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">#}
     <link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'cart/slide.css' %}">
     <style>
-    body{
-        font-family:'Vollkorn', serif;
-        font-size: 15px;
-    }
-    #div1{
-        background-color: brown;
-    }
-        .table1{
-            width: 100%;
-        {#background-color: black;#}
-            font-size: 25px;
-            border-collapse: separate;
-            border-spacing: 0 1em;
+
+        .contact100-form-btn {
+            {#display: -webkit-box;#}
+            {#display: -webkit-flex;#}
+            {#display: -moz-box;#}
+            {#display: -ms-flexbox;#}
+            {#display: flex;#}
+            justify-content: center;
+            {#align-items: center;#}
+            {#padding: 0 20px;#}
+            min-width: 200px;
+            height: 50px;
+            border-radius: 2px;
+            background: #00ad5f;
+
+            font-family: Montserrat-Bold;
+            font-size: 12px;
+            color: #fff;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            -webkit-transition: all 0.4s;
+            -o-transition: all 0.4s;
+            -moz-transition: all 0.4s;
+            transition: all 0.4s;
         }
+
+        .contact100-form-btn:hover {
+            background: #333333;
+        }
+input {
+	outline: none;
+	border: none;
+}
+
+        body{
+            font-family:'Vollkorn', serif;
+            font-size: 15px;
+        }
+        #div1{
+            background-color: brown;
+        }
+        .table1{
+
+            width: 90%;
+            font-size: 25px;
+            border-spacing: 0 1em;
+            border-collapse: collapse;
+        }
+        tr{
+            padding: 100px ;
+        }
+
+        .tra{
+            background-color: #00ad5f;
+
+        }
+        .cred{
+            background-color: #cccccc;
+            margin-bottom: 100px;
+        }
+
+        .cred:hover{
+            -webkit-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+            background-color: #00ad5f;
+            box-shadow: inset 0 0 0 5px #53a7ea;
+        }
+        .drop{
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
     </style>
 {% endblock head %}
 {#<body>#}
 {% block body %}
-    <table class="table1">
-        <tr>
-            <td style="padding: 10px">
-                Username
-            </td>
-            <td style="padding: 10px">
-                Product Name
-            </td>
-            <td style="padding: 10px">
-                Cost
-            </td>
-            <td style="padding: 10px">
-                Quantity
-            </td>
-            <td>
-                Amount
-            </td>
-            <td>
-                Date
-            </td>
-            <td>
-                Time
-            </td>
-            <td>
-                Delivery Status
-            </td>
-        </tr>
 
-        {% for i in orders %}
-            {% for j in crop_orders%}
-                {#            {{ if i.crop_id ==  }}#}
-                {% if i.crop_id == j.crop_id|add:"0" %}
-                    <tr class="" >
-                        <td style="padding: 10px">
-                            {{ j.name|title }}
-                        </td>
-                        <td style="padding: 10px">
-                            {{ i.username|title }}
-                        </td>
-                        <td>
-                            {{ j.cost }}
-                        </td>
-                        <td>
-                            {{ i.quantity }}
-                        </td>
-                        <td>
-                            {{ i.cost }}
-                        </td>
-                        <td>
-                            {{ i.ordered_date }}
-                        </td>
-                        <td>
-                            {{ i.ordered_time }}
-
-                        </td>
-                        <td>
-                            {% if is_admin %}
-                                <form method="post" id="order-form" action="{% url 'tracking:change' %}" name="change">
-                                    {% csrf_token %}
-                                    <input type="hidden" value="{{ i.order_id }}" name="order_id">
-                                    <select name="change" id="change" >
-                                        <option> Purchased </option>
-                                        <option> Order Confirmed </option>
-                                        <option> Order arrived at nearest godown </option>
-                                        <option> Expected to Delivery Soon </option>
-                                        <option> Out for Delivery </option>
-                                        <option> Out for Delivery </option>
-                                        <option> Delivered </option>
-                                    </select>
-                                    <input id='submit' type="submit" name="submit" value="Submit">
-
-                                </form>
-                            {% else %}
-                            {% endif %}
-                        </td>
-
-                    </tr>
-                    <tr>
-                    <td colspan="8">
-                    <div style="display: block" id="div-{{ forloop.counter }}">
-                                    This is my DIV element.
-                                </div>
+    <center>
+        <table class="table1">
+            <tr class="tra">
+                <td style="padding: 10px">
+                    Product Name
+                </td>
+                {% if is_admin %}
+                    <td style="padding: 10px">
+                        User Name
                     </td>
-                    </tr>
-
                 {% endif %}
+                <td style="padding: 10px">
+                    Cost
+                </td>
+                <td style="padding: 10px">
+                    Quantity
+                </td>
+                <td>
+                    Amount
+                </td>
+                <td>
+                    Date
+                </td>
+                <td>
+                    Time
+                </td>
+                <td>
+                    Order Status
+                </td>
+            </tr>
+
+            {% for i in orders %}
+                {% for j in crop_orders%}
+                    {#            {{ if i.crop_id ==  }}#}
+                    {% if i.crop_id == j.crop_id|add:"0" %}
+                        <tr class="cred">
+                            <td style="padding: 10px">
+                                {{ j.name|title }}
+                            </td>
+                            {% if is_admin %}
+                                <td style="padding: 10px">
+                                    {{ i.username|title }}
+                                </td>
+                            {% endif %}
+                            <td>
+                                {{ j.cost }}
+                            </td>
+                            <td>
+                                {{ i.quantity }}
+                            </td>
+                            <td>
+                                {{ i.cost }}
+                            </td>
+                            <td>
+                                {{ i.ordered_date }}
+                            </td>
+                            <td>
+                                {{ i.ordered_time }}
+
+                            </td>
+                            <td>
+                                {{ i.delivery_status }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="7" class="drop">
+                                {% if is_admin %}
+                                    <form method="post" id="order-form" action="{% url 'tracking:change' %}" name="change">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{ i.order_id }}" name="order_id">
+                                        <select name="change" id="change" required>
+                                            <option selected disabled> Change Status </option>
+                                            <option> Order Confirmed </option>
+                                            <option> Order arrived at nearest godown </option>
+                                            <option> Expected to Delivery Soon </option>
+                                            <option> Out for Delivery </option>
+                                            <option> Delivered </option>
+                                        </select>
+                                        <input id='submit' type="submit" name="submit" value="Submit" class="contact100-form-btn">
+
+                                    </form>
+
+                                {% else %}
+
+                                    <td>
+
+                                    </td>
+                                {% endif %}
+
+                        </tr>
+
+                    {% endif %}
+
+                {% endfor %}
 
             {% endfor %}
 
-        {% endfor %}
-
-    </table>
+        </table>
+    </center>
     <script>
         function myFunction1() {
             var x = document.getElementById("div-1");
@@ -141,11 +215,4 @@
 
     </script>
 
-{#    <script>#}
-{#        $(document).ready(function() {#}
-{#            $('#change').on('change', function() {#}
-{#                document.forms['change'].submit();#}
-{#            });#}
-{#        });#}
-{#    </script>#}
 {% endblock body %}

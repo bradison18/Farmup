@@ -172,8 +172,6 @@ def delete_from_cart(request,item_name):
 def checkout_sub(request):
     dynamodb = boto3.resource('dynamodb')
     amount = request.POST.get('amounts')
-    username = request.POST.get('username')
-    email = request.POST.get('email')
     address1 = request.POST.get('Address1')
     address2 = request.POST.get('Address2')
     state = request.POST.get('state')
