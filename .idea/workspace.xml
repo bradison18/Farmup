@@ -2,207 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c09b5e3c-b76b-47be-aa96-c79a3c88c855" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/base_layout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/static/cart/font-awesome.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/static/cart/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/static/credits/payment.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/static/fruit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/static/tracking/track.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/farmup/static/tracking/track.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/credits/templates/credits/add_balance.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/add_balance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/credits/templates/credits/cancelled.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/cancelled.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/credits/templates/credits/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/credits/templates/credits/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/credits/templates/credits/pending_redeem.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/templates/credits/pending_redeem.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/credits/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/credits/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/credits/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/auto_complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/auto_complete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/g_search.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/g_search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/animate.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/animation.aos.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/custom.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/home-1-styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/home-2-styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/home-3-styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/magnific-popup.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/magnific.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/normalize.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/owl.carousel.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/owl.video.play.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/responsive.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/slick.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/stylesheet.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/css/timeline.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/css/all.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/font-awesome/css/font-awesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/font-awesome/fonts/fontawesome-webfont3e6e.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/font-awesome/fonts/fontawesome-webfont3e6e.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/font-awesome/fonts/fontawesome-webfont3e6e.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/font-awesome/fonts/fontawesome-webfont3e6e.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/font-awesome/fonts/fontawesome-webfont3e6e.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/font-awesome/fonts/fontawesome-webfontd41d.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-brands-400.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-brands-400.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-brands-400.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-brands-400.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-brands-400.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-brands-400d41d.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-regular-400.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-regular-400.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-regular-400.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-regular-400.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-regular-400.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-regular-400d41d.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-solid-900.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-solid-900.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-solid-900.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-solid-900.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-solid-900.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/fonts/webfonts/fa-solid-900d41d.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/cd-icon-arrow.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/404-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/avatar1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/avatar2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/avatar3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog-grid-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog-single-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blog9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/blogs-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/client-1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/client-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/client-3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/client-5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/client-6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/client-7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/faq-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/farm-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/farmer1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/farmer2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/farmer3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/farmer4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/fruit1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/fruit3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/fruits2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/fruts1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/gallery-1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/gallery-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/gallery2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/gallery3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/gallery4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/gallery5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/gallery6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/image2vector.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/img9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/logo1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/logo1.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/media-thumb1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/media-thumb2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/media-thumb3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/media-thumb4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/organic-bg-2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/organic-bg-3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/organic-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/organic10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/organic11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/organic12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/pages-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/post-avatar1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/post-avatar2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/post-avatar3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/post-avatar4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/product-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/product1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/product2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/product3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/product4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/services-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/signature.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/slider-bg-1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/slider-bg-2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/slider-bg-3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/slider-bg-5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/images/slider-bg-6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/apple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/carrot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/cd-arrow.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/cd-top-arrow.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/corn.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/cow-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/cow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/fruits.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/left-arrow.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/logo-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/mail.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/map.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/pepper.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/phone.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/potato.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/right-arrow.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/seeding-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/seeding.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/strawberry.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/truck.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/wheat-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/wheat.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/img/master/wheat.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/agrom.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/jquery.magnific-popup.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/jquery.mixitup.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/magnific.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/main-filter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/modernizr-custom.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/plugins.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/swipe-content.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/homepage/js/util.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/registration/css/admin-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/registration/css/test.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/registration/images/confirm.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/registration/images/forgot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/registration/images/reset.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/static/registration/js/admin-script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/edit_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/edit_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/farmup/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farmup/farmup/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/farmup/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/templates/registration/verify_lands.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/templates/registration/verify_lands.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/registration/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/templates/shopping_cart/shop.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/shopping_cart/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/shopping_cart/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/tracking/templates/tracking/tracking.html" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/tracking/templates/tracking/tracking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/tracking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/tracking/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farmup/tracking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/farmup/tracking/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -239,26 +42,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/verify_lands.html">
+        <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="109" column="69" selection-start-line="109" selection-start-column="69" selection-end-line="109" selection-end-column="69" />
+            <state relative-caret-position="221">
+              <caret line="227" column="109" selection-start-line="227" selection-start-column="109" selection-end-line="227" selection-end-column="109" />
               <folding>
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="e#5419#5425#0" expanded="true" />
-                <element signature="e#5431#5437#0" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/profile.html">
+        <entry file="file://$PROJECT_DIR$/farmup/farmup/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
-              <caret line="96" column="61" selection-start-line="96" selection-start-column="61" selection-end-line="96" selection-end-column="61" />
+            <state relative-caret-position="165">
+              <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
               <folding>
-                <element signature="e#1723#1745#0" expanded="true" />
+                <element signature="e#630#662#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -286,7 +87,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" />
         <option value="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/gmaps.html" />
         <option value="$PROJECT_DIR$/farmup/farmup/urls.py" />
         <option value="$PROJECT_DIR$/farmup/registration/login_required.py" />
@@ -304,6 +104,7 @@
         <option value="$PROJECT_DIR$/farmup/geosearch/templates/geosearch/auto_complete.html" />
         <option value="$PROJECT_DIR$/farmup/registration/templates/registration/profile.html" />
         <option value="$PROJECT_DIR$/farmup/registration/templates/registration/verify_lands.html" />
+        <option value="$PROJECT_DIR$/farmup/registration/templates/registration/index.html" />
       </list>
     </option>
   </component>
@@ -322,6 +123,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -332,6 +134,12 @@
             <path>
               <item name="Farmup" type="b2602c69:ProjectViewProjectNode" />
               <item name="Farmup" type="462c0819:PsiDirectoryNode" />
+              <item name="farmup" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Farmup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Farmup" type="462c0819:PsiDirectoryNode" />
+              <item name="farmup" type="462c0819:PsiDirectoryNode" />
               <item name="farmup" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -380,7 +188,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -441,17 +248,18 @@
       <workItem from="1595399354724" duration="6909000" />
       <workItem from="1595420525320" duration="4433000" />
       <workItem from="1595437327691" duration="4824000" />
+      <workItem from="1595501711593" duration="1853000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104076000" />
+    <option name="totallyTimeSpent" value="105929000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="25" width="1309" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.34204274" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3475851" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -465,7 +273,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32736155" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32736155" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -551,16 +359,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/farmup/farmup/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding>
-            <element signature="e#630#662#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/farmup/registration/login_required.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -599,17 +397,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="87" column="72" selection-start-line="87" selection-start-column="72" selection-end-line="87" selection-end-column="72" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#li#5;n#ul#0;n#div#0;n#nav#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#li#6;n#ul#0;n#div#0;n#nav#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/registration.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -619,16 +406,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/email_confirmation.html">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1245">
-          <caret line="83" column="86" lean-forward="true" selection-start-line="83" selection-start-column="86" selection-end-line="83" selection-end-column="86" />
-          <folding>
-            <element signature="e#3272#3315#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/login2.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -649,37 +426,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="167" column="71" selection-start-line="167" selection-start-column="71" selection-end-line="167" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/farmup/geosearch/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="30" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/farmup/geosearch/templates/geosearch/g_search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/farmup/registration/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="29" column="49" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -696,14 +446,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="941">
+          <caret line="87" column="45" selection-start-line="87" selection-start-column="45" selection-end-line="87" selection-end-column="45" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#li#5;n#ul#0;n#div#0;n#nav#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#li#6;n#ul#0;n#div#0;n#nav#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1245">
+          <caret line="83" column="86" selection-start-line="83" selection-start-column="86" selection-end-line="83" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/farmup/geosearch/templates/geosearch/g_search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/verify_lands.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
+        <state relative-caret-position="1635">
           <caret line="109" column="69" selection-start-line="109" selection-start-column="69" selection-end-line="109" selection-end-column="69" />
           <folding>
             <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#5419#5425#0" expanded="true" />
-            <element signature="e#5431#5437#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/farmup/registration/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="29" column="49" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/farmup/farmup/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding>
+            <element signature="e#630#662#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/farmup/registration/templates/registration/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="227" column="109" selection-start-line="227" selection-start-column="109" selection-end-line="227" selection-end-column="109" />
+          <folding>
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

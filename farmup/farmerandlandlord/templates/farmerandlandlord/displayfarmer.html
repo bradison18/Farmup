@@ -1,0 +1,81 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% block head %}
+
+
+<style>
+.card {
+  box-shadow: 5px 10px 18px #888888;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  font-family: inherit;
+}
+.card:hover{
+  box-shadow: 10px 10px 5px grey;
+}
+.title {
+  color: grey;
+  font-size: 18px;
+}
+.column {
+  float: left;
+  width: 40%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+.butn-submit {
+  display: block;
+  margin-top: 32px;
+  width: 100%;
+  line-height: 50px;
+  font-family: inherit;
+  background: #008000;
+  color: #fff;
+  font-size: 16px;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+</style>
+{% endblock %}
+{% block body %}
+
+<h2 style="text-align:center">Farmer Requests</h2>
+{% if d %}
+<div class="row">
+  {% for key,value in d.items %}
+<div class="column">
+<div class="card z-depth-5">
+  <img src="{% static 'img/farmer.jpg' %}" style="width:100%">
+  <ul>
+  <p>{{value.un}}</p>
+  <p>{{value.ue}}</p>
+  <p>{{value.uadd}}</p>
+  <p>{{value.uph}}</p>
+  <p>{{value.lid}}</p>
+  <p>{{value.toc}}</p>
+  <p>{{value.tos}}</p>
+  <p>{{value.lpc}}</p>
+  <p>{{value.la}}</p>
+  </ul>
+  
+  <a href="{% url 'farmerandlandlord:acceptrequest' value.lid value.uid value.un  %}"><button class="butn-submit" style="font-size:24px">Accept</button></a>
+</div>
+
+</div>
+{% endfor %}
+</div>
+{% else %}
+<h2 style="text-align:center">No Requests</h2>
+
+{% endif %}
+
+{% endblock %}
