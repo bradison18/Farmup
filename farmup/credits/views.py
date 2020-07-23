@@ -9,6 +9,7 @@ import boto3
 import stripe
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import pandas as pd
 # Create your views here.
 
 try:
@@ -109,10 +110,8 @@ def verify_sms(request):
         FilterExpression=Attr('email').eq(cur) and Attr('is_purchased').eq(False)
     )['Items']
     order_ids = []
-    print(user_orders)
     for i in user_orders:
         order_ids.append(i['order_id'])
-    print(order_ids)
     for i in order_ids:
         res = table_order.update_item(
             Key={
@@ -199,7 +198,6 @@ def create_checkout_session(request):
                 FilterExpression=Attr('email').eq(request.session['email'])
             )['Items']
             trans_id = pending_redeems[0]['transaction_id']
-            print('amount',pending_redeems[0]['amount'])
             amt = int(pending_redeems[0]['amount'])*100
             # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
             checkout_session = stripe.checkout.Session.create(
@@ -228,7 +226,6 @@ def create_checkout_session(request):
                     'transaction_id':trans_id
                 }
             )
-            print(checkout_session)
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:
             return JsonResponse({'error': str(e)})
@@ -236,8 +233,6 @@ def create_checkout_session(request):
 
 
 def success(request,session_id,trans_id):
-    print(session_id)
-    print(trans_id)
     dynamodb = boto3.resource('dynamodb')
     table_balance = dynamodb.Table('Balances')
     balance = table_balance.scan(
@@ -251,7 +246,6 @@ def success(request,session_id,trans_id):
     )['Items']
     stripe.api_key = settings.STRIPE_SECRET_KEY
     x = stripe.checkout.Session.retrieve(session_id)
-    print(x['display_items'][0]['amount'])
     table_transaction.put_item(
         Item={
             'transaction_id':trans_id,
@@ -284,7 +278,6 @@ def cancel(request):
     if not ids:
         ids = table_balance.scan()['Items']
         all_idds = [int(i['id']) for i in ids]
-        print(all_idds)
         id = max(all_idds)+1
         table_balance.put_item(
             Item={
@@ -298,14 +291,17 @@ def cancel(request):
         print('yes balance')
     return render(request,'credits/cancelled.html')
 
-def transactions(request):
+def transactions(request,par='date'):
     dynamodb = boto3.resource('dynamodb')
     table_transactions = dynamodb.Table('transactions')
     transactions = table_transactions.scan(
         FilterExpression=Attr('email').eq(request.session['email'])
     )['Items']
-    # print(transactions)
-    return render(request,'credits/transaction.html',{'context':transactions})
+    df = pd.DataFrame(columns=['date','time','email','amount','transaction_id','type','username'])
+    for i in transactions:
+        df = df.append({'date':i['date'],'time':i['time'],'username':i['username'],'amount':int(i['amount']),'transaction_id':i['transaction_id'],'type':i['type'],'email':i['email']},ignore_index=True)
+    df = df.sort_values(by=[par],ascending=False)
+    return render(request,'credits/transaction.html',{'context':transactions,'context1':df})
 
 def redeem_cancel(request):
     dynamodb = boto3.resource('dynamodb')
@@ -318,7 +314,6 @@ def redeem_cancel(request):
             'transaction_id':redeems
         }
     )
-    print(redeems)
     return redirect('shopping_cart:cart')
 
 def trans_cancel(request):

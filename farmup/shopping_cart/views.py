@@ -9,6 +9,7 @@ import uuid
 from django.utils.crypto import get_random_string
 import datetime
 import textdistance
+import pandas
 def add(request):
     dynamodb=boto3.resource('dynamodb')
     table=dynamodb.Table('cropinfo')
@@ -84,9 +85,11 @@ def checkout(request):
     items = table_order.scan(
         FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False)
     )
-    for i in items['Items']:
-        crops_quant.append(i['quantity'])
-        crops_order_sub_cost.append(int(i['cost']))
+    for i in crops['Items']:
+        for j in items['Items']:
+            if Decimal(i['crop_id'])==j['crop_id']:
+                crops_quant.append(j['quantity'])
+                crops_order_sub_cost.append(int(j['quantity'])*int(i['cost']))
     for i in range(len(items['Items'])):
         ord_id.append(items["Items"][i]['crop_id'])
 
@@ -169,8 +172,6 @@ def delete_from_cart(request,item_name):
 def checkout_sub(request):
     dynamodb = boto3.resource('dynamodb')
     amount = request.POST.get('amounts')
-    username = request.POST.get('username')
-    email = request.POST.get('email')
     address1 = request.POST.get('Address1')
     address2 = request.POST.get('Address2')
     state = request.POST.get('state')
@@ -247,7 +248,6 @@ def search(request):
     name = request.POST['crop_name']
     quan = request.POST['range']
     for i in range(len(crop_table_elements)):
-        # print(crop_table_elements[i]['name'])
         if (name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8) and crop_table_elements[i]['cost'] <quan:
             crop_id.append(crop_table_elements[i]['crop_id'])
             crop_name.append(crop_table_elements[i]['name'])
@@ -266,58 +266,58 @@ def search(request):
 def distance(word1,word2):
     return textdistance.jaro_winkler(word1,word2)
 
-def increase_quantity(request,cropname,quan):
+def change_quantity(request,cropname,quan,oper):
     dynamodb = boto3.resource('dynamodb')
     crop_table = dynamodb.Table('cropinfo')
     order_table = dynamodb.Table('Order')
-    print(cropname)
+    print(oper)
     id = crop_table.scan(
         FilterExpression = Attr('name').eq(cropname)
     )['Items'][0]['crop_id']
-    print(id)
-
     order_ids = order_table.scan(
         FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False) & Attr('crop_id').eq(Decimal(id))
     )['Items'][0]['order_id']
-    print(order_ids)
-    order_table.update_item(
-        Key={
-            # 'email':request.session['email'],
-            # 'is_purchased':False,
-            # 'crop_id':id
-            'order_id':order_ids
-        },
-     UpdateExpression = "set quantity = :r",
-    ExpressionAttributeValues={
-        ':r': int(quan)+1,
-        },
-        ReturnValues="UPDATED_NEW"
+    if oper=='add':
+        order_table.update_item(
+            Key={
+                'order_id':order_ids
+            },
+         UpdateExpression = "set quantity = :r",
+        ExpressionAttributeValues={
+            ':r': int(quan)+1,
+            },
+            ReturnValues="UPDATED_NEW"
 
-    )
+        )
+    elif oper=='minus':
+        if int(quan) > 1:
+            order_table.update_item(
+                Key={
+                    'order_id': order_ids
+                },
+                UpdateExpression="set quantity = :r",
+                ExpressionAttributeValues={
+                    ':r': int(quan) - 1,
+                },
+                ReturnValues="UPDATED_NEW"
+
+            )
+
     return redirect('shopping_cart:cart')
 def decrease_quantity(request,cropname,quan):
     dynamodb = boto3.resource('dynamodb')
     crop_table = dynamodb.Table('cropinfo')
     order_table = dynamodb.Table('Order')
-    print(cropname)
-    # if quan==1:
-    #     return HttpResponse('<html><p> Minimum number of products should be 1.  </p><a href="/credits/add_balance/"> You can add balance here. </a></html>')
-
     if int(quan) >1:
         id = crop_table.scan(
             FilterExpression = Attr('name').eq(cropname)
         )['Items'][0]['crop_id']
-        print(id)
 
         order_ids = order_table.scan(
             FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False) & Attr('crop_id').eq(Decimal(id))
         )['Items'][0]['order_id']
-        print(order_ids)
         order_table.update_item(
             Key={
-                # 'email':request.session['email'],
-                # 'is_purchased':False,
-                # 'crop_id':id
                 'order_id':order_ids
             },
          UpdateExpression = "set quantity = :r",
@@ -328,3 +328,8 @@ def decrease_quantity(request,cropname,quan):
 
         )
     return redirect('shopping_cart:cart')
+
+def pan(request):
+    df = pandas.DataFrame({'col1':[6,3,5],'col2':[7,9,2],'col3':[8,13,1]})
+    context = {'df':df}
+    return render(request,'shopping_cart/pandas.html',context)

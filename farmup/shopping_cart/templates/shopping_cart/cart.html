@@ -29,7 +29,6 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
 
-    {#    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">#}
 
     <!-- ==============================================
     CSS
@@ -66,10 +65,10 @@
                     <td data-th="Price" ><h4 class="nomargin">{{crops_ordered_cost}}</h4></td>
                     <td data-th="Quantity">
                         {#<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" >#}
-                        <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant %}"><i class="fas fa-plus ml-2"></i></a>
+                        <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant 'add' %}"><i class="fas fa-plus ml-2"></i></a>
 
                         <h4 >{{crops_quant}}</h4>
-                <a href="{% url 'shopping_cart:decrease' crops_ordered_names crops_quant %}"><i class="fas fa-minus mr-2"></i></a>
+                <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant 'minus' %}"><i class="fas fa-minus mr-2"></i></a>
 
                     </td>
                     <td data-th="Subtotal" class="text-center" >
@@ -102,22 +101,6 @@
                 </tr>
 
                 <table style="width:100%">
-                    <tr>
-                        <td>
-                            <label class="label-input100" for="user-name">Username *</label>
-                            <div class="wrap-input100 validate-input" data-validate="Type first name">
-                                <input id="user-name" class="input100" type="text" name="username" placeholder="Username">
-                                <span class="focus-input100"></span>
-                            </div>
-                        </td>
-                        <td>
-                            <label class="label-input100" for="email">Email *</label>
-                            <div class="wrap-input100 validate-input" data-validate="Type first name">
-                                <input id="email" class="input100" type="text" name="email" placeholder="abc@gmail.com">
-                                <span class="focus-input100"></span>
-                            </div>
-                        </td>
-                    </tr>
                     <tr>
                         <td>
                             <label class="label-input100" for="add1">Address Line1</label>
