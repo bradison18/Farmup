@@ -1,8 +1,8 @@
 {% extends 'registration/base.html' %}
 {% load static %}
 {% block head %}
-	
-	
+
+
     <style type="text/css">
     	.butn-submit {
   display: block;
@@ -89,7 +89,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
+
 /* The Modal Close Button (x) */
 .close {
   position: absolute;
@@ -159,10 +159,10 @@ a{
         <div class="card-image" style=" ">
           <img src="{% static 'img/paddy.jpg ' %}">
           <span class="card-title">Card Title</span>
-          
+
         </div>
         <div class="card-content">
-          
+
 		<ul>
       <li>{{d.lid}}</li>
 			<li>{{d.toc}}</li>
@@ -183,7 +183,7 @@ a{
     <div class="container">
       <h1>Leave Land</h1>
       <p>Are you sure you want to stop working for this land?</p>
-    
+
       <div class="clearfix ">
         <div class="butn-group">
         <button type="submit" onclick="document.getElementById('id01').style.display='none'" class="butn-submit" style="font-size:24px">Cancel</button>
@@ -202,7 +202,7 @@ a{
     </a>
   </div>
   {% endif %}
-  
+
   {% if t %}
   <h3>Lands worked</h3>
   <div class="row">
@@ -213,10 +213,10 @@ a{
         <div class="card-image" style=" ">
           <img src="{% static 'img/paddy.jpg ' %}">
           <span class="card-title">Card Title</span>
-          
+
         </div>
         <div class="card-content">
-          
+
     <ul>
       <li>{{value.toc}}</li>
       <li>{{value.wd}}</li>
@@ -239,6 +239,3 @@ a{
       </a>
       </div>
   {% endblock %}
-
-
-

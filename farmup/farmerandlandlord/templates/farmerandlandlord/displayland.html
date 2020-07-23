@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-	
+
 	    <style type="text/css">
     	.butn-submit {
   display: block;
@@ -35,7 +35,7 @@ a{
   {% endblock %}
 
 	{% block body %}
-	
+
 	<div class="row">
 		{% for key, value in d.items %}
 	<a href="{% url 'farmerandlandlord:infoland' value.lid %}">
@@ -43,10 +43,10 @@ a{
       <div class="card large z-depth-5">
         <div class="card-image" style=" ">
           <img src="{% static 'img/paddy.jpg ' %}">
-          
+
         </div>
         <div class="card-body">
-          
+
 		<ul>
 			<li>{{value.toc}}</li>
 			<li>{{value.wd}}</li>
@@ -68,8 +68,5 @@ a{
     </a>
     {% endfor %}
 
-  </div>	
+  </div>
 	{% endblock %}
-
-
-

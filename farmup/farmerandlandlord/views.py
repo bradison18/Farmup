@@ -1,5 +1,4 @@
 
-
 # Create your views here.
 from django.shortcuts import render
 import boto3
@@ -28,12 +27,12 @@ def farmersearch(request):
 		
 		#isa=True
 		type_of_crop=request.POST.get('type_of_crop')
-		dynamodb = boto3.resource('dynamodb',
-		aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-		aws_secret_access_key='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',
-		region_name='ap-south-1')
-		dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-		aws_secret_access_key='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',region_name='ap-south-1')
+		dynamodb = boto3.resource('dynamodb'
+		
+		
+		)
+		dynamodb_client=boto3.client('dynamodb'
+		)
 		email=request.session['email']
 		table=dynamodb.Table('user')
 		response=table.scan(FilterExpression=Attr('email').eq(email))
@@ -95,12 +94,12 @@ def farmersearch(request):
 def filterfarmer(request):  
 	return render(request,"farmerandlandlord/farmersearch.html") 
 def farmerrequest(request,land_id,user_id):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	table=dynamodb.Table('FarmerRequest')
 	table2=dynamodb.Table('FarmerInfo')
 	response=table2.scan(FilterExpression=Attr('farmer_id').eq(user_id))
@@ -113,12 +112,12 @@ def farmerrequest(request,land_id,user_id):
 					})
 	return redirect('farmerandlandlord:dashboardfarmer')
 def acceptrequest(request,land_id,user_id,username):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	table=dynamodb.Table('FarmerInfo')
 	response=table.scan(FilterExpression=Attr('farmer_id').eq(user_id))
 	if response['Count']==0:
@@ -188,12 +187,12 @@ def acceptrequest(request,land_id,user_id,username):
 def formaddland(request):  
 	return render(request,"farmerandlandlord/formaddland.html")
 def addland(request):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	table=dynamodb.Table('LandInfo')
 	response=table.scan()
 	if request.method=="POST":
@@ -270,12 +269,12 @@ def addland(request):
 def formeditland(request,land_id):  
 	return render(request,"farmerandlandlord/formeditland.html",{'land_id':land_id})
 def editland(request,land_id):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	table=dynamodb.Table('LandInfo')
 	response=table.scan(FilterExpression=Attr('land_id').eq(land_id))
 	if request.method=="POST":
@@ -299,12 +298,12 @@ def editland(request,land_id):
 
 
 def deleteland(request,land_id):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	email=request.session['email']
 	table=dynamodb.Table('user')
 	response=table.scan(FilterExpression=Attr('email').eq(email))
@@ -355,12 +354,12 @@ def deleteland(request,land_id):
 					"land_working":""})
 	return redirect('farmerandlandlord:dashboardlandlord')
 def leaveland(request,lwg):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	#farmer_id="1e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f178"
 	email=request.session['email']
 	table=dynamodb.Table('user')
@@ -425,12 +424,12 @@ def leaveland(request,lwg):
 	
 def infoland(request,land_id):
 	#print(param)
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	table=dynamodb.Table('LandInfo')
 	response=table.scan(FilterExpression=Attr('land_id').eq(land_id))
 	d={}
@@ -473,12 +472,12 @@ def infoland(request,land_id):
 
 	return render(request,"farmerandlandlord/infoland.html",{'d':d})
 def landlordsearch(request):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	table=dynamodb.Table('user')
 	farmer=True
 	pincode='522006'
@@ -500,12 +499,12 @@ def landlordsearch(request):
 	print(d)
 	return render(request,'farmerandlandlord/displayfarmer.html',{'d':d})
 def dashboardlandlord(request):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	if is_loggedin(request):
 		email=request.session['email']
 		table=dynamodb.Table('user')
@@ -538,12 +537,12 @@ def dashboardlandlord(request):
 	else:
 		return redirect('registration:login_display')
 def dashboardfarmer(request):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	#farmer_id="1e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f178"
 	if is_loggedin(request):
 		email=request.session['email']
@@ -626,12 +625,12 @@ def dashboardfarmer(request):
 	else:
 		return redirect('registration:login_display')
 def landlordviewrequest(request):
-	dynamodb = boto3.resource('dynamodb',
-	aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',
-	region_name='ap-south-1')
-	dynamodb_client=boto3.client('dynamodb',aws_access_key_id='AKIAJIJIVDPBPUMLU37Q',
-	aws_secret_access_key='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',region_name='ap-south-1')
+	dynamodb = boto3.resource('dynamodb'
+	
+	
+	)
+	dynamodb_client=boto3.client('dynamodb'
+	)
 	#land_lord_id="2e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f1780"
 	email=request.session['email']
 	table=dynamodb.Table('user')
@@ -678,26 +677,4 @@ def landlordviewrequest(request):
 	else:
 		return render(request,'farmerandlandlord/displayfarmer.html')
 
-		
-
-
-
-
-
-
-
-
-
-	
-
-		
-	
-	
-	
-
-
-
-
-
-	
 	
