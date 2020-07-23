@@ -30,7 +30,8 @@ urlpatterns = [
     path('crop_selling/',include('shopping_cart.urls')),
     path('geo_search/',include('geosearch.urls')),
     path('credits/',include('credits.urls')),
-    path('tracking/',include('tracking.urls'))
+    path('tracking/',include('tracking.urls')),
+    path('fertilizer_shop/',include('fertilizer_shop.urls'))
 ]+ static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

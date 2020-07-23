@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'shopping_cart',
     'geosearch',
     'credits',
-    'tracking'
+    'tracking',
+    'fertilizer_shop'
 ]
 
 MIDDLEWARE = [

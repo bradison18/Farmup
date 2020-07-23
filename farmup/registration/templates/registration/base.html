@@ -4,6 +4,7 @@
 
 <!-- Mirrored from quickdevs.com/templates/agrom/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Feb 2020 05:48:32 GMT -->
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,17 +27,26 @@
     <!-- ==============================================
     CSS
     =============================================== -->
-    <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+    {% block head %}
+    
+    
     <link rel="stylesheet" href="{% static 'homepage/css/home-1-styles.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/fonts/font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/css/slick.min.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/css/animation.aos.min.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
+
+    <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">    
+    <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
+    
+    {% endblock %}
+
+    
+    
     <script src="{% static 'homepage/js/modernizr-custom.js' %}"></script>
     {#            <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600&display=swap" rel="stylesheet">#}
 
@@ -47,8 +57,6 @@
         }
 
     </style>
-    {% block head %}
-    {% endblock %}
 
 </head>
 
@@ -62,14 +70,14 @@
     <div class="main-nav">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="{% url 'landing' %}"><div class="logo-brand"><img src="{% static 'homepage/img/images/logo1.png' %}" alt=""></div></a>
+                <a href="{% url 'landing' %}"><div><img src="{% static 'homepage/img/images/logo1_new.png' %}" alt=""></div></a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'landing' %}" style="color:green;">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'shopping_cart:buyingpage' %}" style="color:green;">Store</a>
+                            <a class="nav-link" href="{% url 'shopping_cart:buyingpage' %}" style="color:green;">STORE</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" style="color:green;">SERVICES</a>
@@ -78,7 +86,7 @@
                             <a class="nav-link" href="#" style="color:green;">BLOG</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'shopping_cart:cart' %}" style="color:green;">Cart</a>
+                            <a class="nav-link" href="{% url 'shopping_cart:cart' %}" style="color:green;">CART</a>
                         </li>
                         {% if request.session.username %}
                             <li class="nav-item">

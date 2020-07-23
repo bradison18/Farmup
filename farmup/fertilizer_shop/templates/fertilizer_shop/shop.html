@@ -1,0 +1,105 @@
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+
+  {% block head%}
+  <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/new_fertilizer/shop.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  {% endblock %}
+  
+  
+  {% block body%}
+      <div class="search-container">
+        <form action>
+          <input type="text" placeholder="Search.." name="search">
+          <button  type="submit"><i class="fa fa-search fa-2x"></i></button>
+          </form>
+      </div>
+      
+        <div class="filters" style="float: left;width: 23%;height:100%;padding: 2%;">
+            <div class="row">
+                <div class="col-12">
+                    <form class="form1" action="{% url 'fertilizer_shop:shop' %}" method="post">
+                        {% csrf_token %}
+                        <h5> Price </h5>
+                        <hr>
+                        <input type="checkbox" name="a" value="<100"> &ltRs.100 <br>
+                        <input type="checkbox" name="a" value="100-200"> Rs.100 - Rs.200<br>
+                        <input type="checkbox" name="a" value="200-300"> Rs.200 - Rs.300<br>
+                        <input type="checkbox" name="a" value="300-400"> Rs.300 - Rs.400<br>
+                        <input type="checkbox" name="a" value=">400"> &gtRs400<br><br>
+                        <h5> Type Of Soil </h5>
+                        <hr>
+                        <input type="checkbox" name="b" value="Black"> Black<br>
+                        <input type="checkbox" name="b" value="Red"> Red<br>
+                        <input type="checkbox" name="b" value="Alluvial"> Alluvial<br><br>
+                        <h5> Fertilizer Type </h5>
+                        <hr>
+                        <input type="checkbox" name="c" value="Solid"> Soild<br>
+                        <input type="checkbox" name="c" value="Liquid"> Liquid<br><br>
+                        <input type="submit"  class="btn btn-info" style="width: 100%;">
+                     </form>   
+                </div>
+            </div>
+        </div>
+       
+        <div class="information" style="float: left;width: 70%;padding: 2%;position:relative;">
+            <div class="row">
+                {% for fer in fer_info %}
+                    <div class="col-4">
+                        <div class="card" style="width:90%">
+                            <img class="card-img-top" src={{fer.img_url}} alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">
+                                <span style="font-weight:bold;font-size:20px">{{fer.fertilizer_name}}</span><br>
+                                Soil Type : <span style="font-weight:bold">{{fer.soiltype}}</span><br>
+                                <span style="color:red;float:right;font-weight:bold;font-size:20px">Rs.{{fer.cost}}</span>
+                                </p>
+                                <form action="{% url 'fertilizer_shop:iteminfo' fer.fertilizer_id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary" value="More Info">More Info</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row" style="display:block;text-align:center">
+                <div>
+                    {% if fer_info.has_other_pages %}
+                    <ul class="pagination" style="width:100%;font-size:30px;padding-left:40%">
+                        {% if fer_info.has_previous %}
+                        <li style="margin:3%"><a href="?page={{ fer_info.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="disabled" style="margin:3%"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in fer_info.paginator.page_range %}
+                        {% if fer_info.number == i %}
+                            <li class="active" style="margin:3%"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li style="margin:3%"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if fer_info.has_next %}
+                        <li style="margin:3%"><a href="?page={{ fer_info.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled" style="margin:3%"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+            <div>
+        </div>   
+
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="bootstrap4/js/bootstrap.min.js"></script>
+  {% endblock %}

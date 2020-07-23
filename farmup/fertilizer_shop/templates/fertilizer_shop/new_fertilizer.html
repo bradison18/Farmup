@@ -1,0 +1,187 @@
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+
+  {% block head%}
+  <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/new_fertilizer/new_fertilizer.css' %}">
+    <style>
+      .fertilizer_info{
+        background-image: url("{% static 'fertilizer_shop/images/image2.jpg'%}");
+        background-size: cover;
+        overflow-y:hidden;
+        padding-top:2%;
+      }
+    </style>
+  {% endblock %}
+
+  {% block body%}
+  <div class="fertilizer_info">
+      <section class="services">
+        <div class="container">
+          <div class="header">
+            <h3>New Fertilizer</h3>
+          </div>
+            <div class="media-object">
+                
+                <div class="blurb-wrapper-right">
+                  <div class="container1">
+                  
+                  
+                  {% if added == checker %}
+
+                      <div class="icon-left" style="float: left">
+                        <img  class="icon" src={{img_url}} alt="graph chart">
+                      </div>
+                      
+                      <form action="{% url 'fertilizer_shop:createnew' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="quantity" value="{{quantity}}">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Quantity</label>
+                        </div>
+                          
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="name" value={{fertilizer_name}}>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Name</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="cost" value={{cost}}>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Cost</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="type" value={{soiltype}}>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Type Of Soil</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="phyform" value={{physicalform}}>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Physical Form</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="perpackqty" value={{perpackquantity}}>
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Per Pack Quantity</label>
+                        </div>
+
+                        <div class="group" style="float: left;">      
+                          <input type="file" name="img_file" class="btn btn-info">
+                        </div>
+
+                        <div class="wrapper">
+                          <div class="form-group">
+                            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" cols="20" name="info">
+                              {{info}} 
+                            </textarea>
+                          </div>
+                        </div>
+                    
+
+                        <div style="float: right;padding-bottom: 2%;width:40%;padding-right:20%" >     
+                          <input type="submit" value="Another Fertilizer" required class="btn btn-info" >
+                        </div>
+                        
+                      </form>
+
+                    {% else %}
+                      <div class="icon-left" style="float: left">
+                        <img  class="icon" src="{% static 'images/default_img.png'%}" alt="graph chart">
+                      </div>
+                      
+                      <form action="{% url 'fertilizer_shop:addfertilizer' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="quantity">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Quantity</label>
+                        </div>
+                          
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="name">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Name</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="cost">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Cost</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="type">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Type Of Soil</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="phyform">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Physical Form</label>
+                        </div>
+
+                        <div class="group" style="float: right">      
+                          <input type="text" required name="perpackqty">
+                          <span class="highlight"></span>
+                          <span class="bar"></span>
+                          <label>Per Pack Quantity</label>
+                        </div>
+
+                        <div class="group" style="float: left;">      
+                          <input type="file" name="img_file" class="btn btn-info">
+                        </div>
+
+                        <div class="wrapper">
+                          <div class="form-group">
+                            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" cols="20" name="info">
+                              Enter Fertilizer Information 
+                            </textarea>
+                          </div>
+                        </div>
+                        
+                        <div style="float: right;padding-bottom: 2%;width:40%;padding-right:20%" >     
+                          <input type="submit" required class="btn btn-info" >
+                        </div>
+                        
+                      </form>
+                  {% endif %}
+                        
+                    
+                  </div>
+                </div>
+            </div>
+         
+
+  </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="bootstrap4/js/bootstrap.min.js"></script>
+
+  {% endblock %}

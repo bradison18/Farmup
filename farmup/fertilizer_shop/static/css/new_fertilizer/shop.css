@@ -1,0 +1,77 @@
+.search-container {
+    margin: 10px 280px;
+    
+  }
+
+input[type=text]  {
+    padding: 3px;
+    margin-top: 15px;
+    font-size: 17px;
+    border: 2px solid black;
+    width:90%;
+   
+  }
+.search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background:white;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .row{
+    width:100%;
+    display:flex;
+}
+
+.row::after{
+    display:block;
+    clear:both;/*to avoid float properties from anything above*/
+    content:"";/*to get any new object in*/
+}
+/*generally a row consists of 12 coloums if u want 3 colums then add col-4 three times similarly if u take col-2 add it 6 times....*/
+.col-1{width:8.33%;}
+.col-2{width:16.66%;}
+.col-3{width:25%;}
+.col-4{width:33.33%;}
+.col-5{width:41.66%;}
+.col-6{width:50%;}
+.col-7{width:58.33%;}
+.col-8{width:66.66%;}
+.col-9{width:75%;}
+.col-10{width:83.33%;}
+.col-11{width:91.66%;}
+.col-12{width:100%;}
+
+
+*{
+    box-sizing: border-box;
+}
+
+.card{
+  padding:1%;
+  margin:30px 40px;
+  border:2px solid black;
+  box-shadow: 3px 3px 3px 3px rgb(0,0,0,1);
+}
+.heading{
+  display:block;
+  text-align: center;
+  padding:40px;
+}
+.form1{
+  margin:30px;
+}
+.col-12{
+  background-color:#eceeef;
+  border-radius: 10px;
+}
+
+.card{
+  -moz-box-shadow:    inset 0 0 5px #000000;
+  -webkit-box-shadow: inset 0 0 5px #000000;
+  box-shadow:         inset 0 0 5px #000000;
+}
