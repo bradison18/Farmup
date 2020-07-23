@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends 'registration/base.html' %}
 {% load static %}
 {% block head %}
@@ -8,7 +7,6 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 </html>
-<!------ Include the above in your HEAD tag ---------->
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
@@ -79,85 +77,3 @@ h1, h2, h3, h4, h5, h6 {
 </div>
 {% endblock %}
 
-=======
-{% extends 'registration/base.html' %}
-{% load static %}
-{% block head %}
-	<title>info</title>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-</html>
-<!------ Include the above in your HEAD tag ---------->
-<!DOCTYPE html>
-<html>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-body {font-family: "Times New Roman", Georgia, Serif;}
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Playfair Display";
-  letter-spacing: 2px;
-}
-
-</style>
-{% endblock %}
-{% block body %}
-
-<!-- Navbar (sit on top) -->
-
-<!-- Header -->
-
-<!-- Page content -->
-<div class="w3-content" style="max-width:1100px">
-
-  <!-- About Section -->
-  <div class="w3-row w3-padding-64" id="about">
-    <div class="w3-col m6 w3-padding-large w3-hide-small">
-     <img src="{% static 'img/wheat2.jpeg ' %}" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750">
-    </div>
-
-    <div class="w3-col m6 w3-padding-large">
-      <h1 class="w3-center">About Catering</h1><br>
-      <h5 class="w3-center">Tradition since 1889</h5>
-      <p class="w3-large">The Catering was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute iruredolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.We only use <span class="w3-tag w3-light-grey">seasonal</span> ingredients.</p>
-      <p class="w3-large w3-text-grey w3-hide-medium">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-  </div>
-  
-  <hr>
-  
-  <!-- Menu Section -->
-  <div class="w3-row w3-padding-64" id="menu">
-    <div class="w3-col l6 w3-padding-large">
-      <h1 class="w3-center">Our Menu</h1><br>
-      <ul>
-    	    <h4><li>Land id <b>:</b> {{d.lid}}</li></h4>
-    	    <h4><li>Landlord name : {{d.lad}}</li></h4>
-			<h4><li>Type of crop  : {{d.toc}}</li></h4>
-			<h4><li>Wages         : {{d.wd}}</li></h4>
-			<h4><li>Land pincode  :{{d.lpc}}</li></h4>
-			<h4><li>Land area     :{{d.la}}</li></h4>
-			<h4><li>Type of soil  :{{d.tos}}</li></h4>
-			<h4><li>Latitude      :{{d.lat}}</li></h4>
-            <h4><li>longitude     :{{d.lgt}}</li></h4>
-            <h4><li>City     :{{d.city}}</li></h4>
-            <h4><li>State     :{{d.state}}</li></h4>
-            <h4><li>Farmers working   :{{d.a}}</li></h4>
-	    </ul>
-      
-    </div>
-    
-    <div class="w3-col l6 w3-padding-large">
-      <img src="{% static 'img/paddy2.jpg ' %}" class="w3-round w3-image w3-opacity-min" alt="Menu" style="width:100%">
-    </div>
-  </div>
-
-  <hr>
-</div>
-{% endblock %}
-
->>>>>>> 8eb17c4ea19341b7b31051556e0cbc6c2306e44c
