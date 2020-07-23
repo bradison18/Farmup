@@ -16,7 +16,8 @@ urlpatterns = [
     path('buyingportal/checkout/',views.checkout_sub,name='checkout'),
     path('buyingportal/tempcheck/',views.add_items,name='temp'),
     path('search',views.search,name='search'),
-    path('increase_quan/<cropname>/<quan>',views.increase_quantity,name='increase'),
-    path('decrease_quan/<cropname>/<quan>',views.decrease_quantity,name='decrease')
+    path('increase_quan/<cropname>/<quan>/<oper>',views.change_quantity,name='increase'),
+    path('decrease_quan/<cropname>/<quan>',views.decrease_quantity,name='decrease'),
+    path('pand',views.pan)
     # path('verify_sms/',views.)
 ]

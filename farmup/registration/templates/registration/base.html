@@ -93,7 +93,7 @@
                                 <a href="{% url 'registration:my_profile' %}" class="nav-link" style="color:green;">Welcome {{ request.session.username }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'registration:logout' %}">LOG OUT</a>
+                                <a class="nav-link" style="color:green;" href="{% url 'registration:logout' %}">LOG OUT</a>
                             </li>
                         {% elif not username %}
                             <li class="nav-item">

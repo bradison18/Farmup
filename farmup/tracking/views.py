@@ -27,7 +27,10 @@ def track(request):
                 FilterExpression=Attr('email').eq(cur)
             )['Items']
         else:
-            order_items = table_order.scan()['Items']
+            order_items = table_order.scan(
+                FilterExpression=Attr('is_purchased').eq(True)
+
+            )['Items']
         # print(order_items)
         crop_orders = []
         crop_order_id = []
@@ -71,4 +74,4 @@ def change_status(request):
             },
             ReturnValues="UPDATED_NEW"
         )
-    return HttpResponse('ad')
+    return redirect('tracking:track')

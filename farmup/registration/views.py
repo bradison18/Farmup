@@ -211,7 +211,7 @@ def login(request):
                             request.session['is_admin']=True
                             return redirect('registration:verify_lands')
                     except:
-                        request.session['is_admin'] = True
+                        request.session['is_admin']=False
                         return redirect('landing')
                 else:
                     messages.success(request, 'User not activated please confirm the email')
