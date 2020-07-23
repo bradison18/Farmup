@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block head %}
-	
-	  
+
+
 
     <style type="text/css">
 
@@ -100,7 +100,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
+
 /* The Modal Close Button (x) */
 .close {
   position: absolute;
@@ -145,7 +145,7 @@ a{
 
 	<div class="row">
 		{% for key, value in d.items %}
-    
+
     {% with id=value.lid %}
 	<a href="{% url 'farmerandlandlord:infoland' value.lid %}">
     <div class="col-sm-3">
@@ -154,7 +154,7 @@ a{
           <img src="{% static 'img/paddy.jpg ' %}">
         </div>
         <div class="card-body">
-          
+
 		<ul>
 			<li>{{id}}</li>
 			<li>{{value.toc}}</li>
@@ -162,9 +162,9 @@ a{
 			<li>{{value.lpc}}</li>
 			<li>{{value.la}}</li>
 			<li>{{value.tos}}</li>
-      
+
 	    </ul>
-	    
+
         </div>
         </a>
         <div class="butn-group">
@@ -179,7 +179,7 @@ a{
       <h1>Delete Land</h1>
       <p>{{id}}</p>
       <p>Are you sure you want to delete your land?</p>
-    
+
       <div class="clearfix">
         <button type="submit" onclick="document.getElementById('id01').style.display='none'" class="butn-submit" style="font-size:24px">Cancel</button>
         <a href="{% url 'farmerandlandlord:deleteland' id  %}">
@@ -207,10 +207,10 @@ window.onclick = function(event) {
 </div>
       </div>
       </div>
-        
-        
+
+
     </div>
-    
+
 <!-- Code begins here -->
 
     {% endfor %}
@@ -251,7 +251,3 @@ function drawChart() {
 </script>
 
 {% endblock %}
-	
-
-
-
