@@ -6,6 +6,7 @@
 <style>
     .bg_class{
         background-image: url("{% static 'geosearch/images/blog-grid-bg.jpg' %}");
+        overflow-y:hidden;
     }
     .button {
   background-color: #4CAF50; /* Green */
@@ -57,7 +58,7 @@
 
 {% endblock %}
 {% block body %}
-<div class="newsletter-col col bg_class">
+<div class="newsletter-col col bg_class" style="overflow-y:hidden">
         <div class="newsletter middle">
             <form action="{% url 'geosearch:map_search' %}" method="post">
                 {% csrf_token %}
