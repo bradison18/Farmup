@@ -8,6 +8,7 @@ from registration.login_required import is_loggedin
 import uuid
 from django.utils.crypto import get_random_string
 import datetime
+import textdistance
 def add(request):
     dynamodb=boto3.resource('dynamodb')
     table=dynamodb.Table('cropinfo')
@@ -58,7 +59,9 @@ def addCropElements(request):
             'quantity':quantity,
             'cost':int(quantity)*order_cost,
             'is_purchased':False,
-            'delivery_status':'Not Purchased'
+            'delivery_status':'Not Purchased',
+            'ordered_date':datetime.date.today().strftime('%B %d,%Y'),
+            'ordered_time':datetime.datetime.now().time().strftime('%H:%M:%S')
 
         }
     )
@@ -79,7 +82,7 @@ def checkout(request):
     crops_order_sub_cost = []
     ord_id = []
     items = table_order.scan(
-        FilterExpression = Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
+        FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False)
     )
     for i in items['Items']:
         crops_quant.append(i['quantity'])
@@ -116,7 +119,7 @@ def buyingpage(request):
         order_table = dynamodb.Table('Order')
 
         responses = order_table.scan(
-            FilterExpression = Attr('email').eq(request.session['email']) and Attr('is_purchased').eq(False)
+            FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False)
         )
         order_ids = []
         for i in responses['Items']:
@@ -173,7 +176,6 @@ def checkout_sub(request):
     state = request.POST.get('state')
     city = request.POST.get('city')
     pincode = request.POST.get('pincode')
-    print('username',username)
     billing_table = dynamodb.Table('billing_address')
     billing_adds = billing_table.scan(
         FilterExpression=Attr('email').eq(request.session['email'])
@@ -221,4 +223,108 @@ def checkout_sub(request):
 def add_items(request):
     item = request.POST['quantity']
     id = request.POST['crop_name']
+    return redirect('shopping_cart:cart')
+
+
+def search(request):
+    dynamodb = boto3.resource('dynamodb')
+    crop_table = dynamodb.Table('cropinfo')
+    order_table = dynamodb.Table('Order')
+
+    responses = order_table.scan(
+        FilterExpression=Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False)
+    )
+    order_ids = []
+    for i in responses['Items']:
+        order_ids.append(str(i['crop_id']))
+    crop_table_elements = crop_table.scan()['Items']
+    crop_id = []
+    crop_name = []
+    crop_cost = []
+    crop_amount = []
+    crop_image_link = []
+
+    name = request.POST['crop_name']
+    quan = request.POST['range']
+    for i in range(len(crop_table_elements)):
+        # print(crop_table_elements[i]['name'])
+        if (name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8) and crop_table_elements[i]['cost'] <quan:
+            crop_id.append(crop_table_elements[i]['crop_id'])
+            crop_name.append(crop_table_elements[i]['name'])
+            crop_cost.append(crop_table_elements[i]['cost'])
+            crop_amount.append(crop_table_elements[i]['stock'])
+            crop_image_link.append(crop_table_elements[i]['image_link'])
+
+    crop_info = zip(crop_id, crop_name, crop_cost, crop_amount, crop_image_link)
+    context = {
+        'crop_info': crop_info,
+        'order_ids': order_ids
+    }
+
+    return render(request,'shopping_cart/shop.html',context)
+
+def distance(word1,word2):
+    return textdistance.jaro_winkler(word1,word2)
+
+def increase_quantity(request,cropname,quan):
+    dynamodb = boto3.resource('dynamodb')
+    crop_table = dynamodb.Table('cropinfo')
+    order_table = dynamodb.Table('Order')
+    print(cropname)
+    id = crop_table.scan(
+        FilterExpression = Attr('name').eq(cropname)
+    )['Items'][0]['crop_id']
+    print(id)
+
+    order_ids = order_table.scan(
+        FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False) & Attr('crop_id').eq(Decimal(id))
+    )['Items'][0]['order_id']
+    print(order_ids)
+    order_table.update_item(
+        Key={
+            # 'email':request.session['email'],
+            # 'is_purchased':False,
+            # 'crop_id':id
+            'order_id':order_ids
+        },
+     UpdateExpression = "set quantity = :r",
+    ExpressionAttributeValues={
+        ':r': int(quan)+1,
+        },
+        ReturnValues="UPDATED_NEW"
+
+    )
+    return redirect('shopping_cart:cart')
+def decrease_quantity(request,cropname,quan):
+    dynamodb = boto3.resource('dynamodb')
+    crop_table = dynamodb.Table('cropinfo')
+    order_table = dynamodb.Table('Order')
+    print(cropname)
+    # if quan==1:
+    #     return HttpResponse('<html><p> Minimum number of products should be 1.  </p><a href="/credits/add_balance/"> You can add balance here. </a></html>')
+
+    if int(quan) >1:
+        id = crop_table.scan(
+            FilterExpression = Attr('name').eq(cropname)
+        )['Items'][0]['crop_id']
+        print(id)
+
+        order_ids = order_table.scan(
+            FilterExpression = Attr('email').eq(request.session['email']) & Attr('is_purchased').eq(False) & Attr('crop_id').eq(Decimal(id))
+        )['Items'][0]['order_id']
+        print(order_ids)
+        order_table.update_item(
+            Key={
+                # 'email':request.session['email'],
+                # 'is_purchased':False,
+                # 'crop_id':id
+                'order_id':order_ids
+            },
+         UpdateExpression = "set quantity = :r",
+        ExpressionAttributeValues={
+            ':r': int(quan)-1,
+            },
+            ReturnValues="UPDATED_NEW"
+
+        )
     return redirect('shopping_cart:cart')

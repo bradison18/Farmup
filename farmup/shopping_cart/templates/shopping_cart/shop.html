@@ -1,3 +1,4 @@
+{% extends 'registration/base.html' %}
 {% load static %}
 <!-- Mirrored from askbootstrap.com/preview/osahan-grocery-v1-4/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Apr 2020 16:22:55 GMT -->
 {% block head %}
@@ -6,6 +7,72 @@
     <meta name="description" content="Askbootstrap">
     <meta name="author" content="Askbootstrap">
     <title>Cart</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+            width: 75%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        body {
+            font-family: "Dosis", Helvetica, Arial, sans-serif;
+            background: #ecf0f1;
+            color: #34495e;
+        {#padding-top: 40px;#}
+            text-shadow: white 1px 1px 1px;
+        }
+        .value {
+        {#border-bottom: 4px dashed #bdc3c7;#}
+            text-align: center;
+        {#font-weight: bold;#}
+            font-size: 50px;
+            width: 50px;
+            height: 50px;
+        {#line-height: 30px;#}
+            margin: 10px auto;
+        {#letter-spacing: -.07em;#}
+            text-shadow: white 2px 2px 2px;
+        }
+        input[type="range"] {
+            display: block;
+            -webkit-appearance: none;
+            background-color: #bdc3c7;
+            width: 300px;
+            height: 5px;
+            border-radius: 5px;
+            margin: 0 auto;
+            outline: 0;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background-color: #e74c3c;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: .3s ease-in-out;
+        }​
+         input[type="range"]::-webkit-slider-thumb:hover {
+             background-color: white;
+             border: 2px solid #e74c3c;
+         }
+        input[type="range"]::-webkit-slider-thumb:active {
+            transform: scale(1.6);
+        }
+        .value1{
+            font-size: 40px;
+        }
+    </style>
     <!-- Favicon Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -20,235 +87,112 @@
     <!-- Custom styles for this template -->
     <link href="https://askbootstrap.com/preview/osahan-grocery-v1-4/css/osahan.css" rel="stylesheet">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/owl-carousel/owl.theme.css">
+
 {% endblock %}
 {% block body %}
 
-    <section class="shop-list section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="shop-filters">
-                        <div id="accordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Category <span class="mdi mdi-chevron-down float-right"></span>
-                                        </button>
-                                    </h5>
+    <br><br>
+    <center>
+        <form method="post" action="{% url 'shopping_cart:search' %}">
+            {% csrf_token %}
+            <input type="text" id="myInput" placeholder="Search for names.." title="Type in a name" name="crop_name"><br>
+
+            <td style="width: 20%;">
+                <table width="700px">
+                    <tr>
+                        <td>
+                            <div class="value1">Max Price Range</div>
+                            {#                            <label for="range"> Maximum Price Range </label>#}
+                        </td>
+                        <td>
+                            <div class="value"> <span id="demo"></span></div>
+
+                            <input type="range" min="0" max="100" value="50" class="slider" id="myRange" name="range">
+
+                        </td>
+                        <td style="margin-left: 10px">
+                            <input type="submit" class="btn btn-secondary btn-sm float-right" style="margin-left: 10px;border-radius:30px" value="submit">
+
+                        </td>
+                    </tr>
+                </table>
+
+        </form>
+    </center>
+    <div class="container">
+        <div class="">
+            <div>
+                <div class="row no-gutters" id="myUL">
+
+                    {% for crop_id,crop_name,crop_cost,crop_amount,crop_image_link in crop_info %}
+                        <div class="col-md-4">
+                            <div class="product">
+                                <!--                           <a href="https://askbootstrap.com/preview/osahan-grocery-v1-4/single.html">-->
+                                <div class="product-header">
+                                    <img class="img-fluid" src={{ crop_image_link }} alt="" onerror=this.src="{% static 'fruit.png' %}">
                                 </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body card-shop-filters">
-                                        <form class="form-inline mb-3">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Search By Category">
-                                                <button type="submit" class="pl-2 pr-2 btn btn-secondary btn-lg"><i class="mdi mdi-file-find"></i></button>
-                                            </div>
+                                <div class="product-body">
+                                    <h5> {{ crop_name}}</h5>
+                                    <h6><strong><span class="mdi mdi-approval"></span> Available in</strong> {{ crop_amount }} kg</h6>
+                                </div>
+                                <div class="product-footer">
+                                    {% if crop_id in order_ids %}
+                                        <a href="{% url 'shopping_cart:cart'%}">
+                                            <button type="button" class="btn btn-secondary btn-sm float-right" > Go To Cart <i class="fa fa-shopping-cart" style="font-size:15px"></i>
+                                            </button>
+                                        </a><br><br>
+                                    {% else %}
+                                        <form action="{% url 'shopping_cart:add_to_cart' %}" method="post">
+                                            {% csrf_token %}
+
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <p class="offer-price mb-0">Rs. {{ crop_cost }}<br><br></p>
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden" name="crop_name" value="{{ crop_name }}">
+                                                        <input type="number" style="width: 150px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required max="{{ crop_amount }}" min="1">
+                                                        <input type="submit" class="btn btn-secondary btn-sm float-right" value="Add to Cart" style="margin-left: 100px">
+
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </form>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb1">
-                                            <label class="custom-control-label" for="cb1">All Fruits </label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb8">
-                                            <label class="custom-control-label" for="cb8">Fresh & Herbs</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb2">
-                                            <label class="custom-control-label" for="cb2">Seasonal Fruits</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb3">
-                                            <label class="custom-control-label" for="cb3">Imported Fruits</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb4">
-                                            <label class="custom-control-label" for="cb4">Citrus</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb5">
-                                            <label class="custom-control-label" for="cb5">Cut Fresh & Herbs</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb6">
-                                            <label class="custom-control-label" for="cb6">Seasonal Fruits</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="cb7">
-                                            <label class="custom-control-label" for="cb7">Fresh & Herbs</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Price <span class="mdi mdi-chevron-down float-right"></span>
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body card-shop-filters">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="1">
-                                            <label class="custom-control-label" for="1">Rs.68 to Rs.659</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="2">
-                                            <label class="custom-control-label" for="2">Rs.660 to Rs.1014</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="3">
-                                            <label class="custom-control-label" for="3">Rs.1015 to Rs.1679</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="4">
-                                            <label class="custom-control-label" for="4">Rs.1680 to Rs.1856</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Brand <span class="mdi mdi-chevron-down float-right"></span>
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body card-shop-filters">
-                                        <form class="form-inline mb-3">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Search By Brand">
-                                            </div>
-                                            <button type="submit" class="btn btn-secondary ml-2">GO</button>
-                                        </form>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="b1">
-                                            <label class="custom-control-label" for="b1">Imported Fruits</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="b2">
-                                            <label class="custom-control-label" for="b2">Seasonal Fruits</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="b3">
-                                            <label class="custom-control-label" for="b3">Imported Fruits</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="b4">
-                                            <label class="custom-control-label" for="b4">Citrus</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
-                                            Imported Fruits <span class="mdi mdi-chevron-down float-right"></span>
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapsefour" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action">All Fruits</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Imported Fruits</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Seasonal Fruits</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Citrus</a>
-                                            <a href="#" class="list-group-item list-group-item-action disabled">Cut Fresh & Herbs</a>
-                                        </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="left-ad mt-4">
-                        <img class="img-fluid" src="http://via.placeholder.com/254x557" alt="">
-                    </div>
+                    {% endfor %}
                 </div>
-                <div class="col-md-9">
-                    <div class="row no-gutters">
-
-                        {% for crop_id,crop_name,crop_cost,crop_amount,crop_image_link in crop_info %}
-                            <div class="col-md-4">
-                                <div class="product">
-                                    <!--                           <a href="https://askbootstrap.com/preview/osahan-grocery-v1-4/single.html">-->
-                                    <div class="product-header">
-                                        <img class="img-fluid" src={{ crop_image_link }} alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h5> {{ crop_name}}</h5>
-                                        <h6><strong><span class="mdi mdi-approval"></span> Available in</strong> {{ crop_amount }} kg</h6>
-                                    </div>
-                                    <div class="product-footer">
-                                        {% if crop_id in order_ids %}
-                                            <a href="{% url 'shopping_cart:cart'%}">
-                                                <button type="button" class="btn btn-secondary btn-sm float-right" > Go To Cart <i class="fa fa-shopping-cart" style="font-size:15px"></i>
-                                                </button>
-                                            </a>
-                                        {% else %}
-{#                                            <a href="{% url 'shopping_cart:add_to_cart' crop_name %}">#}
-                                        <form action="{% url 'shopping_cart:add_to_cart' %}" method="post">
-{#                                            </a>#}
-                                            {% csrf_token %}
-
-                                    <table>
-                                        <tr>
-                                            <td>
-                                        <p class="offer-price mb-0">Rs. {{ crop_cost }}<br><br></p>
-                                            </td>
-                                            <td>
-{#                                                <label for="quantity" style="margin-left: 0px">Quantity</label>#}
-                                                <input type="hidden" name="crop_name" value="{{ crop_name }}">
-                                                <input type="number" style="width: 70px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required>
-                                                <input type="submit" class="btn btn-secondary btn-sm float-right" value="Add to Cart" >
-
-                                            </td>
-                                        </tr>
-                                    </table>
-                                        </form>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <nav>
-                        <ul class="pagination justify-content-center mt-4">
-                            <li class="page-item disabled">
-                                <span class="page-link">Previous</span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
+                <nav>
+                    <ul class="pagination justify-content-center mt-4">
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active">
                            <span class="page-link">
                            2
                            <span class="sr-only">(current)</span>
                            </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-    </section>
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/jquery/jquery.min.js"></script>
-    <script src="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- select2 Js -->
-    <script src="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/select2/js/select2.min.js"></script>
-    <!-- Owl Carousel -->
-    <script src="https://askbootstrap.com/preview/osahan-grocery-v1-4/vendor/owl-carousel/owl.carousel.js"></script>
-    <!-- Custom -->
-    <script src="https://askbootstrap.com/preview/osahan-grocery-v1-4/js/custom.js"></script>
+    </div>
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+        document.write(output.innerHTML);
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+    </script>
 {% endblock %}
-<!-- Mirrored from askbootstrap.com/preview/osahan-grocery-v1-4/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Apr 2020 16:22:55 GMT -->

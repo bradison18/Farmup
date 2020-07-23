@@ -1,19 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin</title>
-</head>
-<body>
-<table>
+{% extends 'registration/base.html' %}
 
-{% for land in lands %}
-    <tr>
-    <td>{{ land.landlord }}</td><td>{{ land.city }}</td><td>{{ land.state }}</td><td>{{ land.pincode }}</td>
-        <td>{{ land.type_of_soil }}</td><td> <form action="{% url 'registration:accept_land' land.land_id %}">{% csrf_token %} <button type="submit"> accept </button></form> </td><td><form action="{% url 'registration:reject_land' land.land_id %}"><button>reject</button></form></td>
-    </tr>
-{% endfor %}
-    <!--href="url 'registration:accept' {{land.land_id}}"-->
-</table>
-</body>
-</html>
+{% load staticfiles %}
+
+{% block head  %}
+<style>
+#myInput {
+  background-image: url("{% static 'registration/images/search.svg'%}"); /* Add a search icon to input */
+  background-position: 3px 2px; /* Position the search icon */
+    background-size: 9%;
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+
+    .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button3 {
+  background-color: white;
+  color: black;
+  border: 2px solid #f44336;
+}
+
+.button3:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+
+</style>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("customers");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+
+  }
+}
+</script>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'registration/css/theme2.css' %}">
+<script src="{% static 'registration/js/admin-script.js' %}"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+<link href="{% static 'registration/css/admin-style.css' %}" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% endblock %}
+{% block body %}
+<div class="container-fluid p-0 d-flex wrapper">
+        <div id="content">
+
+                <div>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class='alert alert-{{ message.tags }}'>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            <input type="text" style="margin-left: 2%" id="myInput" onkeyup="myFunction()" placeholder="Search for state names..">
+
+            <br>
+            <div class="row">
+            <div class="col-md-12 offset-md-0" style="margin-left:4px;">
+                <div class="content my-3">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card strpied-tabled-with-hover hoverable">
+                                    <div class="card-header ">
+                                        <h4 class="card-title text-center"> Verify Lands </h4>
+                                    </div>
+                                    <div class="card-body table-full-width table-responsive">
+                                        <table class="table table-striped"  id = "customers">
+                                            {% if lands %}
+                                            <thead><tr>
+                                                <th class='cnt'> User </th>
+                                                <th class='cnt'> City </th>
+                                                <th class='cnt'> State </th>
+                                                <th class='cnt'> Pincode </th>
+                                                <th class="cnt col-2">Type of Soil</th>
+                                                <th class='cnt' colspan = '2' > Accept/Reject </th>
+                                            </tr></thead>
+                                            <tbody>
+                                            {% for land in lands %}
+                                            <tr>
+                                                <td class= 'cnt'>{{  land.landlord }}</td>
+                                                <td class= 'cnt'>{{ land.city }}</td>
+                                                <td class="cnt">{{land.state}}</td>
+                                                <td class="cnt">{{ land.pincode }}</td>
+                                                <td class="cnt">{{ land.type_of_soil }}</td>
+                                                <td  class='cnt'>
+                                                <form method="post" action= "{% url 'registration:accept_land' land.land_id %}" autocomplete="off" onsubmit="myButton.disabled = true; return true;">
+                                                    {% csrf_token %}
+                                                    <input class="button button1" type="submit" value="Accept" name ="myButton">
+                                                </form>
+                                                </td>
+                                                <td class='cnt'>
+                                                <form method="post" action= "{% url 'registration:reject_land' land.land_id %}" autocomplete="off" onsubmit="myButton.disabled = true; return true;">
+                                                        {% csrf_token %}
+                                                        <input class="button button3" type="submit" value="Reject" name ="myButton">
+                                                </form>
+                                                </td>
+                                            </tr>
+
+                                            {% endfor %}
+                                            </tbody>
+                                        {% else %}
+                                        <h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No Requests Available </h5>
+                                        {% endif %}
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

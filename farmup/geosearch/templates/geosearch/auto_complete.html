@@ -1,18 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Farmup</title>
+{% extends 'registration/base.html' %}
 
-</head>
-<body>
-<form action="{% url 'geosearch:map_search' %}" method="post">
-    {% csrf_token %}
-<input id="autocomplete"
-             placeholder="Enter your address"
-             type="text" name="address" value="{{ address }}"/>
-    <button type="submit">Search</button>
-</form>
+{% load staticfiles %}
+
+{% block head  %}
+<style>
+    .bg_class{
+        background-image: url("{% static 'geosearch/images/blog-grid-bg.jpg' %}");
+    }
+    .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+
+}
+
+.button:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+}
+    </style>
+     <link rel="shortcut icon" href="{% static 'homepage/img/master/favicon.png' %}">
+
+  <!-- ==============================================
+  CSS
+  =============================================== -->
+      <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %} ">
+      <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+      <link rel="stylesheet" href="{% static 'homepage/css/custom.css' %}">
+      <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
+      <script src="{% static 'homepage/js/modernizr-custom.js' %}"></script>
+
 <script>
     function initAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(
@@ -29,6 +55,23 @@
 
      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-
-</body>
-</html>
+{% endblock %}
+{% block body %}
+<div class="newsletter-col col bg_class">
+        <div class="newsletter middle">
+            <form action="{% url 'geosearch:map_search' %}" method="post">
+                {% csrf_token %}
+                <Label>Enter address you want to search for:</Label>
+                <div class="form-group">
+                    <input id="autocomplete"
+                       class="form-control"
+                             placeholder="Enter your address"
+                             type="text" name="address" value="{{ address }}"/>
+                </div>
+                <div class="btn-more-box">
+                <button class="button" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+</div>
+{% endblock %}

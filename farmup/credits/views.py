@@ -9,7 +9,6 @@ import boto3
 import stripe
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
 # Create your views here.
 
 try:
@@ -55,9 +54,9 @@ def pending_redeem(request):
         amount = request.POST.get('redeem_amount',False)
         balance = request.POST.get('balance',False)
         if int(balance) - int(amount) < 0:
-            return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits"> You can add balance here. </a></html>')
-        auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
-        # auth_token = 'fee9d1c80d8250c006f9c97a67d1115f'
+            return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits/add_balance/"> You can add balance here. </a></html>')
+        # auth_token = '55f9a8db2286ced48a7203fd9b06b512'
+        auth_token = '515b1c72219b2b7904e4d56a88dfd69c'
         account_sid = 'ACb702ef99316a96af55ee6415656e9486'
         # account_sid = ''
         client = Client(account_sid, auth_token)
@@ -107,7 +106,7 @@ def verify_sms(request):
         }
     )
     user_orders = table_order.scan(
-        FilterExpression=Attr('email').eq(cur)
+        FilterExpression=Attr('email').eq(cur) and Attr('is_purchased').eq(False)
     )['Items']
     order_ids = []
     print(user_orders)
@@ -119,13 +118,16 @@ def verify_sms(request):
             Key={
                 'order_id': i
             },
-            UpdateExpression="set is_purchased = :r, is_purchased = :t",
+            UpdateExpression="set is_purchased = :r, delivery_status = :t, ordered_date = :d, ordered_time = :s",
             ExpressionAttributeValues={
                 ':r': True,
-                ':t': 'Purchased'
+                ':t': 'Purchased',
+                ':d': datetime.date.today().strftime('%B %d,%Y'),
+                ':s': datetime.datetime.now().time().strftime('%H:%M:%S')
             },
             ReturnValues="UPDATED_NEW"
         )
+
     table_tr = dynamodb.Table('transactions')
     table_tr.put_item(
         Item={
@@ -136,10 +138,9 @@ def verify_sms(request):
             'time': datetime.datetime.now().time().strftime('%H:%M:%S'),
             'amount':amount,
             'type':'debit'
-
         }
     )
-    return HttpResponse('redeem sucess')
+    return redirect('tracking:track')
 
 
 def add_balance(request):
@@ -273,8 +274,28 @@ def success(request,session_id,trans_id):
         },
         ReturnValues="UPDATED_NEW"
     )
-    return render(request,'credits/success.html')
-def cancel(request,session_id,trans_id):
+    return redirect('home')
+def cancel(request):
+    dynamodb = boto3.resource('dynamodb')
+    table_balance = dynamodb.Table('Balances')
+    ids = table_balance.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )['Items']
+    if not ids:
+        ids = table_balance.scan()['Items']
+        all_idds = [int(i['id']) for i in ids]
+        print(all_idds)
+        id = max(all_idds)+1
+        table_balance.put_item(
+            Item={
+                'email':request.session['email'],
+                'balance':0,
+                'id':id,
+                'user':request.session['username']
+            }
+        )
+    else:
+        print('yes balance')
     return render(request,'credits/cancelled.html')
 
 def transactions(request):
@@ -285,3 +306,20 @@ def transactions(request):
     )['Items']
     # print(transactions)
     return render(request,'credits/transaction.html',{'context':transactions})
+
+def redeem_cancel(request):
+    dynamodb = boto3.resource('dynamodb')
+    table_transactions = dynamodb.Table('pending_redeem')
+    redeems = table_transactions.scan(
+        FilterExpression=Attr('email').eq(request.session['email'])
+    )['Items'][0]['transaction_id']
+    table_transactions.delete_item(
+        Key={
+            'transaction_id':redeems
+        }
+    )
+    print(redeems)
+    return redirect('shopping_cart:cart')
+
+def trans_cancel(request):
+    return redirect('shopping_cart:cart')

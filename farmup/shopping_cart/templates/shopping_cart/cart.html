@@ -1,11 +1,14 @@
+{% extends 'registration/base.html' %}
 {% load static %}
 
 {% block head %}
-    <!-- ==============================================
-    TITLE AND META TAGS
-    =============================================== -->
+    <link rel="stylesheet" type="text/css" href="{% static 'cart/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'cart/font-awesome.min.css' %}">
     <title>Cart</title>
+    {#        <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600&display=swap" rel="stylesheet">#}
+
     <style>
+
     </style>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -15,7 +18,7 @@
     <!-- ==============================================
     FAVICON
     =============================================== -->
-    <link rel="shortcut icon" href="{% static 'homepage/img/master/favicon.png' %}">
+    {#    <link rel="shortcut icon" href="{% static 'homepage/img/master/favicon.png' %}">#}
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -26,7 +29,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
 
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    {#    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">#}
 
     <!-- ==============================================
     CSS
@@ -34,21 +37,6 @@
 {% endblock %}
 
 {% block body %}
-    <!-- LOADER -->
-    {% comment %} <div id="loader-wrapper">
-      <div class="loader">
-        <div class="square" ></div>
-        <div class="square"></div>
-        <div class="square last"></div>
-        <div class="square clear"></div>
-        <div class="square"></div>
-        <div class="square last"></div>
-        <div class="square clear"></div>
-        <div class="square "></div>
-        <div class="square last"></div>
-      </div>
-  </div> {% endcomment %}
-    <!-- LOADER -->
 
     <div class="container">
         {% csrf_token %}
@@ -77,8 +65,11 @@
                     </td>
                     <td data-th="Price" ><h4 class="nomargin">{{crops_ordered_cost}}</h4></td>
                     <td data-th="Quantity">
-                        {#								<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" >#}
-                        <h4 class="nomargin">{{crops_quant}}</h4>
+                        {#<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" >#}
+                        <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant %}"><i class="fas fa-plus ml-2"></i></a>
+
+                        <h4 >{{crops_quant}}</h4>
+                <a href="{% url 'shopping_cart:decrease' crops_ordered_names crops_quant %}"><i class="fas fa-minus mr-2"></i></a>
 
                     </td>
                     <td data-th="Subtotal" class="text-center" >
@@ -96,7 +87,7 @@
             <br>
             <form action="{% url 'shopping_cart:checkout' %}" method="post">
                 {% csrf_token %}
-                <tfoot>
+
 
                 <tr>
 
@@ -104,31 +95,80 @@
                     <td colspan="2" ></td>
 
                     <td class="hidden-xs text-center"><strong>Total {{ total_cost }}</strong> <input type="hidden"  id="amounts"  value="{{ total_cost }}" name="amounts"> </td>
-                    <td><input  class="btn btn-success btn-block" type="submit" value="Checkout"> </td>
+                    <td> </td>
                 </tr>
                 <tr>
 
                 </tr>
-                </tfoot>
-                <table style="width: 100%; background-color: black">
-                    <tr style="width:100% ;">
-                        <input type="text" name="username" placeholder="Username">
-                        <input type="text" name="Email" placeholder="Email">
-                    </tr><br>
-                    <tr style="width:100%;">
-                        <input type="text" name="Address1" placeholder="Address Line 1">
-                    </tr>
-                    <tr style="width:100% ;">
-                        <input type="text" name="Address2" placeholder="Address Line 2">
-                    </tr>
-                    <tr style="width:100% ;">
-                        <input type="text" name="state" placeholder="state">
-                        <input type="text" name="city" placeholder="city">
-                        <input type="number" name="Pincode" placeholder="pincode">
-                    </tr>
-                </table>
-            </form>
 
+                <table style="width:100%">
+                    <tr>
+                        <td>
+                            <label class="label-input100" for="user-name">Username *</label>
+                            <div class="wrap-input100 validate-input" data-validate="Type first name">
+                                <input id="user-name" class="input100" type="text" name="username" placeholder="Username">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <label class="label-input100" for="email">Email *</label>
+                            <div class="wrap-input100 validate-input" data-validate="Type first name">
+                                <input id="email" class="input100" type="text" name="email" placeholder="abc@gmail.com">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label-input100" for="add1">Address Line1</label>
+                            <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                                <input id="add1" class="input100" type="text" name="Address1" placeholder="Eg. Flat No 111, XYZ Cross Road ">
+                            </div>
+                        </td>
+
+                        <td>
+                            <label class="label-input100" for="add2">Address Line2</label>
+                            <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                                <input id="add2" class="input100" type="text" name="Address2" placeholder="Eg. Flat No 111, XYZ Cross Road ">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label-input100" for="state" >State</label>
+                            <div class="wrap-input100" >
+                                <input id="state" class="input100" type="text" name="state" placeholder="Telangana" >
+                                <span class="focus-input100"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <label class="label-input100" for="city" >City</label>
+                            <div class="wrap-input100" >
+                                <input id="city" class="input100" type="text" name="city" placeholder="Hyderabad" >
+                                <span class="focus-input100"></span>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="label-input100" for="pincode" >Pincode</label>
+                            <div class="wrap-input100" >
+                                <input id="pincode" class="input100" type="text" name="pincode" placeholder="Eg. 507372" >
+                                <span class="focus-input100"></span>
+                            </div>
+                        </td>
+
+
+                    </tr>
+
+                </table>
+                {#                    <td><input  class="btn btn-success btn-block" type="submit" value="Checkout"> </td>#}
+                <div class="container-contact100-form-btn">
+                    <input type="submit" value="checkout" class="contact100-form-btn">
+                </div>
+
+            </form>
         </table>
 
     </div>
@@ -139,49 +179,6 @@ JAVASCRIPTS
     <script src="{% static 'homepage/js/plugins.js' %}"></script>
     <script src="{% static 'homepage/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'homepage/js/agrom.js' %}"></script>
-    <script>
-        const quantityInputs = document.querySelectorAll('[data-type="quan"]');
-        const total = document.querySelector('[data-type="total"] span');
-
-        // For simplicity, we calculate the total in a separate function.
-
-        // As above, we use a separate function to calculate the subtotal for a product.
-        const calculateSubtotal = (product) => {
-            // The input event will fire when the value of the quantity field is changed.
-            const subtotals = document.querySelectorAll('[data-type="subtotal"]');
-            product.addEventListener('input', () => {
-                /*
-                 * With multiple prices and subtototals, we need to look for them going
-
-                 * upwards from the quantity field, using the parent elements (first the
-                 * table cell, then the table row).
-                 */
-                const subtotals = document.querySelectorAll('[data-type="subtotal"]');
-                let tl = 0;
-                const parentRow = product.parentNode.parentNode;
-
-
-                // Then find the price and subtotal for this product.
-                const price = parentRow.querySelector('[data-type="price"]');
-                const subtotal = parentRow.querySelector('[data-type="subtotal"]');
-
-                // And finally, update the subtotal and the total.
-                //   tl += price.textContent * product.value;
-                subtotal.textContent = price.textContent * product.value;
-                Array.from(subtotals).forEach((subtotal) => {
-                    tl += Number(subtotal.textContent);
-                });
-
-                total.textContent = tl;
-                {#document.write(tl);#}
-                // document.write(subtotal.value);
-                {#$('input[name=amounts]').val(tl);#}
-                document.getElementById('amounts').value = tl;
-            });
-        };
-        // Loop through all the quantity inputs and wait for the subtotal to change.
-        Array.from(quantityInputs).forEach((element) => calculateSubtotal(element));
-    </script>
     {% comment %}
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -1,0 +1,7 @@
+venv/*
+*.pyc
+.idea*
+*.log*
+*pycache*
+*migrations*
+db.sqlite3

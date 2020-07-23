@@ -11,7 +11,9 @@ urlpatterns = [
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
     path('success/<session_id>/<trans_id>', views.success),
-    path('cancelled/<session_id>/<trans_id>', views.cancel),
-    path('transactions/',views.transactions,name='transactions')
+    path('cancelled', views.cancel),
+    path('transactions/',views.transactions,name='transactions'),
+    path('cancel/',views.redeem_cancel,name="cancel"),
+    path('trans_cancel/',views.trans_cancel,name='trans_cancel')
 
 ]
