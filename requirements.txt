@@ -1,4 +1,4 @@
-django==2.1
+django==2.2.13
 pgeocode==0.2.1
 geopy==2.0.0
 twilio==6.44.0
