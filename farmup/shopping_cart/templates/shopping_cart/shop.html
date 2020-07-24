@@ -2,7 +2,21 @@
 {% load static %}
 <!-- Mirrored from askbootstrap.com/preview/osahan-grocery-v1-4/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Apr 2020 16:22:55 GMT -->
 {% block head %}
+        <link rel="stylesheet" href="{% static 'homepage/css/home-1-style.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/animation.aos.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
+
+    <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
+
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Askbootstrap">
     <meta name="author" content="Askbootstrap">
@@ -85,6 +99,7 @@
         .value1{
             font-size: 40px;
         }
+
     </style>
     <!-- Favicon Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -164,6 +179,7 @@
                                                         <p class="offer-price mb-0">Rs. {{ crop_cost }}<br><br></p>
                                                     </td>
                                                     <td>
+                                                        <input>
                                                         <input type="hidden" name="crop_name" value="{{ crop_name }}">
                                                         <input type="number" style="width: 150px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required max="{{ crop_amount }}" min="1">
                                                         <input type="submit" class="btn btn-secondary btn-sm float-right" value="Add to Cart" style="margin-left: 100px">

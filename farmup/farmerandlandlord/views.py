@@ -31,12 +31,8 @@ def farmersearch(request):
 		
 		#isa=True
 		type_of_crop=request.POST.get('type_of_crop')
-		dynamodb = boto3.resource('dynamodb'
+		dynamodb = boto3.resource('dynamodb')
 		
-		
-		)
-		dynamodb_client=boto3.client('dynamodb'
-		)
 		email=request.session['email']
 		table=dynamodb.Table('user')
 		response=table.scan(FilterExpression=Attr('email').eq(email))
@@ -98,12 +94,7 @@ def farmersearch(request):
 def filterfarmer(request):  
 	return render(request,"farmerandlandlord/farmersearch.html") 
 def farmerrequest(request,land_id,user_id):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('FarmerRequest')
 	table2=dynamodb.Table('FarmerInfo')
 	response=table2.scan(FilterExpression=Attr('farmer_id').eq(user_id))
@@ -116,12 +107,7 @@ def farmerrequest(request,land_id,user_id):
 					})
 	return redirect('farmerandlandlord:dashboardfarmer')
 def acceptrequest(request,land_id,user_id,username):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('FarmerInfo')
 	response=table.scan(FilterExpression=Attr('farmer_id').eq(user_id))
 	if response['Count']==0:
@@ -191,12 +177,7 @@ def acceptrequest(request,land_id,user_id,username):
 def formaddland(request):  
 	return render(request,"farmerandlandlord/formaddland.html")
 def addland(request):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('LandInfo')
 	response=table.scan()
 	if request.method=="POST":
@@ -273,12 +254,7 @@ def addland(request):
 def formeditland(request,land_id):  
 	return render(request,"farmerandlandlord/formeditland.html",{'land_id':land_id})
 def editland(request,land_id):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('LandInfo')
 	response=table.scan(FilterExpression=Attr('land_id').eq(land_id))
 	if request.method=="POST":
@@ -302,12 +278,7 @@ def editland(request,land_id):
 
 
 def deleteland(request,land_id):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	email=request.session['email']
 	table=dynamodb.Table('user')
 	response=table.scan(FilterExpression=Attr('email').eq(email))
@@ -358,12 +329,7 @@ def deleteland(request,land_id):
 					"land_working":""})
 	return redirect('farmerandlandlord:dashboardlandlord')
 def leaveland(request,lwg):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	#farmer_id="1e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f178"
 	email=request.session['email']
 	table=dynamodb.Table('user')
@@ -428,12 +394,7 @@ def leaveland(request,lwg):
 	
 def infoland(request,land_id):
 	#print(param)
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('LandInfo')
 	response=table.scan(FilterExpression=Attr('land_id').eq(land_id))
 	d={}
@@ -476,12 +437,7 @@ def infoland(request,land_id):
 
 	return render(request,"farmerandlandlord/infoland.html",{'d':d})
 def landlordsearch(request):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('user')
 	farmer=True
 	pincode='522006'
@@ -503,12 +459,7 @@ def landlordsearch(request):
 	print(d)
 	return render(request,'farmerandlandlord/displayfarmer.html',{'d':d})
 def dashboardlandlord(request):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	if is_loggedin(request):
 		email=request.session['email']
 		table=dynamodb.Table('user')
@@ -523,30 +474,50 @@ def dashboardlandlord(request):
 			lands_owned=response['Items'][0]['lands_owned']
 			d={}
 			table=dynamodb.Table('LandInfo')
+			c=0
+			l=[]
+			f=0
 			for k in lands_owned:
 				new2=table.scan(FilterExpression=Attr('land_id').eq(str(k)))
 				#print(new2)
 				if new2['Count']==1:
+					c+=1
 					lid=new2['Items'][0]['land_id']
 					toc=new2['Items'][0]['type_of_crop']
+					if toc not in l:
+						l.append(toc)
 					wd=new2['Items'][0]['wages_description']
 					lpc=new2['Items'][0]['land_pin_code']
 					la=new2['Items'][0]['land_area']
 					tos=new2['Items'][0]['type_of_soil']
+					fw=new2['Items'][0]['farmers_working']
+					for x in fw:
+						if x!=0:
+							f+=1
 					d[k]={'lid':lid,'toc':toc,'wd':wd,'lpc':lpc,'la':la,'tos':tos}
 			#print(d)
-			return render(request,'farmerandlandlord/dashboardlandlord.html',{'d':d})
+			#print(c,len(l),f)
+			table=dynamodb.Table('FarmerRequest')
+			response=table.scan()
+			if response['Count']>0:
+				l=[]
+				for i in range(response['Count']):
+					l.append(response['Items'][i]['land_id'])
+				#print(l)
+				table=dynamodb.Table('Landlord')
+				response2=table.scan(FilterExpression=Attr('land_lord_id').eq(land_lord_id))
+				r=0
+				for i in response2['Items'][0]['lands_owned']:
+					if str(i) in l:
+						r+=1
+				print(r,l)
+			return render(request,'farmerandlandlord/dashboardlandlord.html',{'d':d,'c':c,'t':len(l),'f':f,'r':r})
 		else:
 			return render(request,'farmerandlandlord/dashboardlandlord.html')
 	else:
 		return redirect('registration:login_display')
 def dashboardfarmer(request):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	#farmer_id="1e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f178"
 	if is_loggedin(request):
 		email=request.session['email']
@@ -581,10 +552,12 @@ def dashboardfarmer(request):
 				return render(request,'farmerandlandlord/dashboardfarmer.html',{'d':d,'lwg':land_working})
 			if lands_worked!={0} and land_id=="":
 				t={}
+				c=0
 				for k in lands_worked:
 					new2=table.scan(FilterExpression=Attr('land_id').eq(str(k)))
 					#print(new2)
 					if new2['Count']==1:
+						c+=1
 						lid=new2['Items'][0]['land_id']
 						toc=new2['Items'][0]['type_of_crop']
 						wd=new2['Items'][0]['wages_description']
@@ -593,7 +566,7 @@ def dashboardfarmer(request):
 						tos=new2['Items'][0]['type_of_soil']
 						t[k]={'lid':lid,'toc':toc,'wd':wd,'lpc':lpc,'la':la,'tos':tos}
 						print(t)
-				return render(request,'farmerandlandlord/dashboardfarmer.html',{'t':t,'lwg':land_working})
+				return render(request,'farmerandlandlord/dashboardfarmer.html',{'t':t,'lwg':land_working,'c':c})
 
 				#print(d)
 			if lands_worked!={0} and land_id!="":
@@ -622,19 +595,14 @@ def dashboardfarmer(request):
 						tos=new2['Items'][0]['type_of_soil']
 						t[k]={'lid':lid,'toc':toc,'wd':wd,'lpc':lpc,'la':la,'tos':tos}
 						print(t)
-				return render(request,'farmerandlandlord/dashboardfarmer.html',{'d':d,'t':t,'lwg':land_working})
+				return render(request,'farmerandlandlord/dashboardfarmer.html',{'d':d,'t':t,'lwg':land_working,'c':c})
 				
 		else:
 			return render(request,'farmerandlandlord/dashboardfarmer.html')
 	else:
 		return redirect('registration:login_display')
 def landlordviewrequest(request):
-	dynamodb = boto3.resource('dynamodb'
-	
-	
-	)
-	dynamodb_client=boto3.client('dynamodb'
-	)
+	dynamodb = boto3.resource('dynamodb')
 	#land_lord_id="2e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f1780"
 	email=request.session['email']
 	table=dynamodb.Table('user')
