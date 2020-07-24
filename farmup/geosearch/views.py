@@ -17,19 +17,37 @@ from geopy.geocoders import Nominatim
 def gmaps(request):
     if is_loggedin(request):
         address = request.POST.get('address')
-        print(address)
-        geolocator = Nominatim(user_agent="farmup")
-        location = geolocator.geocode(address)
-        center = (location.latitude, location.longitude)
-        locs = [(16.325369,80.423197),(16.333173,80.420688),(16.321788,80.412736),(16.312505, 80.427527),(16.311515,80.441133)]
-        display_lands = []
-        for land in locs:
-            dist = geodesic(center,land).kilometers
-            lat = land[0]
-            lng = land[1]
-            display_lands.append({'lat':lat,'lng':lng,'dist':dist})
 
-        return render(request,'geosearch/g_search.html',{'lat':location.latitude,'lng':location.longitude,'display_lands':json.dumps(display_lands)})
+        geolocator = Nominatim(user_agent="farmup01")
+        location = geolocator.geocode(address)
+        print(location)
+        center = (location.latitude, location.longitude)
+        new_location = geolocator.reverse(str(location.latitude)+','+str(location.longitude), exactly_one=True)
+        address = new_location.raw['address']
+        print(address)
+        city = address.get('city', '')
+        state = address.get('state', '')
+        if not city:
+            city = address.get('village', '')
+        if not city:
+            city = address.get('town', '')
+
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('LandInfo')
+        response = table.scan(FilterExpression=Attr('city').eq(city))
+
+        if (len(response['Items'])>0):
+            locs = response['Items'];
+            display_lands = []
+            for land in locs:
+                position = (float(land['latitude']),float(land['longitude']))
+                dist = geodesic(center,position).kilometers
+                lat = position[0]
+                lng = position[1]
+
+                display_lands.append({'lat':lat,'lng':lng,'dist':dist,'land_id':land['land_id']})
+            print(display_lands)
+            return render(request,'geosearch/g_search.html',{'lat':center[0],'lng':center[1],'display_lands':json.dumps(display_lands)})
     else:
         return redirect('registration:login_display')
 

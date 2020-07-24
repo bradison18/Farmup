@@ -782,6 +782,48 @@ def tofarm(request):
 	}
 	return render(request,'farmerandlandlord/tofarm.html',context)
 
-def new_dash(request):
 
+def tofarm_map(request,id):
+	dynamodb=boto3.resource("dynamodb")
+	table=dynamodb.Table("LandInfo")
+	information=table.scan()["Items"]
+
+	crops=[]
+	land_info=[]
+
+	items=table.scan(
+			FilterExpression=Attr('land_id').eq(id)
+	)["Items"][0]
+
+
+	data={
+			"land_id":items["land_id"],
+			"city":items["city"],
+			"farmers_working":len(items["farmers_working"]),
+			"is_active":items["is_active"],
+			"land_area":items["land_area"],
+			"land_pin_code":items["land_pin_code"],
+			"latitude":items["latitude"],
+			"longitude":items["longitude"],
+			"state":items["state"],
+			"type_of_crop":items["type_of_crop"],
+			"type_of_soil":items["type_of_soil"],
+			"wages_description":items["wages_description"]
+		}
+	land_info.append(data)
+
+	for item in information:
+		if item["type_of_crop"] not in crops:
+			crops.append(item["type_of_crop"])
+
+	context={
+		"l_info":land_info,
+		"crops":crops
+	}
+
+	return render(request,'farmerandlandlord/tofarm.html',context)
+
+
+def new_dash(request):
+	
 	return render(request,'farmerandlandlord/dash_new.html')
