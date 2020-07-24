@@ -5,3 +5,4 @@ venv/*
 *pycache*
 *migrations*
 db.sqlite3
+*.pyc
