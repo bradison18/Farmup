@@ -1,0 +1,111 @@
+{% extends 'registration/base.html' %}
+{% load staticfiles %}
+
+  {% block head%}
+  <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'tofarm.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  {% endblock %}
+  
+  
+  {% block body%}
+      <div class="search-container">
+        <form action>
+          <input type="text" placeholder="Search.." name="search">
+          <button  type="submit"><i class="fa fa-search fa-2x"></i></button>
+          </form>
+      </div>
+      
+        <div class="filters" style="float: left;width: 23%;height:100%;padding: 2%;">
+            <div class="row">
+                <div class="col-12" id="filter">
+                    <form class="form1" action="{% url 'farmerandlandlord:tofarm' %}" method="post">
+                        {% csrf_token %}
+                        <h5> Wages/Day </h5>
+                        <hr>
+                        <input type="checkbox" name="a" value="<100"> &ltRs.100 <br>
+                        <input type="checkbox" name="a" value="100-200"> Rs.100 - Rs.200<br>
+                        <input type="checkbox" name="a" value="200-300"> Rs.200 - Rs.300<br>
+                        <input type="checkbox" name="a" value="300-400"> Rs.300 - Rs.400<br>
+                        <input type="checkbox" name="a" value=">400"> &gtRs.400<br><br>
+                        <h5> Pin Code </h5>
+                        <hr>
+                        <input type="text" name="pincode" placeholder="pincode"> <br><br>
+                        <h5> Crops </h5>
+                        <hr>
+                        {% for crop in crops %}
+                        <input type="checkbox" name="c" value={{ crop }}> {{ crop }}<br>
+                        {% endfor %}
+                        <br>
+                        <input type="submit"  class="btn btn-info" style="width: 100%;">
+                     </form>   
+                </div>
+            </div>
+        </div>
+       
+        <div class="information" style="float: left;width: 70%;padding: 2%;position:relative;overflow-y:scroll;height:650px">
+            
+            {% for land in l_info%}
+            <div class="landinfo">
+                <div class="row" id="land" >
+                    <div class="col-4" style="padding: 2%;">
+                        <img class="image" src="image2.jpg" alt="" style="max-width: 100%;max-height: 100%;">
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-5" style="padding: 2%;padding-top: 5%;">
+                                <h4>{{ land.city }}<br>{{ land.state }}</h4>
+                                <p>
+                                    Land Area : {{ land.land_area }}
+                                </p>
+                            </div>
+                            <div class="col-5" style="padding: 2%;padding-top: 5%;">
+                                <div>
+                                    <ul>
+                                        <li>
+                                            Soil Type : {{ land.type_of_soil }}
+                                        </li>
+                                        <li>
+                                            Crop Grown : {{ land.type_of_crop }}
+                                        </li>
+                                        <li>
+                                            Wage/day : {{ land.wages_description }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-2" style="padding: 2%;padding-top: 8%;">
+                                <button type="button" class="btn btn-primary">Work</button>
+                            </div>
+                        </div>
+                        <div class="row" style="padding: 2%;padding-top: 3%;">
+                            It is a long established fact that a reader 
+                            will be distracted by the readable content of 
+                            a page when looking at its layout. The point of 
+                            using Lorem Ipsum is that it has a more-or-less 
+                            normal distribution of letters, as opposed to 
+                            'Content here, content here', making it look .
+                            a page when looking at its layout. The point of 
+                            using Lorem Ipsum is that it has a more-or-less 
+                            normal distribution of letters, as opposed to 
+                            'Content here, content here', making it look .
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        
+        </div>   
+
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="bootstrap4/js/bootstrap.min.js"></script>
+  {% endblock %}

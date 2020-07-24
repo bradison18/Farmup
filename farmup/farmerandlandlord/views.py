@@ -9,8 +9,12 @@ from django.shortcuts import render, redirect
 from geopy.geocoders import Nominatim
 from registration.login_required import is_loggedin
 
+#For Pagination
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #from rest_framework.response import Response
+
+
 
 def farmersearch(request):
 	#land_area=250
@@ -677,4 +681,139 @@ def landlordviewrequest(request):
 	else:
 		return render(request,'farmerandlandlord/displayfarmer.html')
 
+
+def tofarm(request):
 	
+	dynamodb=boto3.resource("dynamodb")
+	table=dynamodb.Table("LandInfo")
+	information=table.scan()["Items"]
+
+
+
+
+	if request.method=="POST":
+		wagelist=request.POST.getlist("a")
+		pincode=request.POST.get("pincode")
+		cropslist=request.POST.getlist("c")
+
+		datalist1=[]
+		datalist2=[]
+		datalist3=[]
+		
+		if (len(wagelist)!=0):
+			for element in wagelist:
+				if("<" in element):
+					for info in information:
+						if int(info["wages_description"])<100:
+							datalist1.append(info)  
+				elif (">" in element):
+					for info in information:
+						if int(info["wages_description"])>400:
+							datalist1.append(info)
+				else:
+					price=element.split("-")
+					low=int(price[0])
+					high=int(price[1])
+					for info in information:
+						if (int(info["wages_description"])>=low) and (int(info["wages_description"])<=high) :
+							datalist1.append(info)
+		
+		if (pincode != ""):
+			for info in information:
+				if (str(info["land_pin_code"])==pincode) :
+					datalist2.append(info)
+		
+		if (len(cropslist)!=0):
+			for element in cropslist:
+				for info in information:
+					if (info["type_of_crop"]==element) :
+						datalist3.append(info)
+
+		if ((len(wagelist)!=0) and (pincode != "") and (len(cropslist)!=0)):
+			output1=[element1 for element1 in datalist1 for element2 in datalist2 if element1['land_id']==element2['land_id']]
+			filterOutput=[element1 for element1 in output1 for element2 in datalist3 if element1['land_id']==element2['land_id']]
+		elif ((len(wagelist)!=0) and (pincode != "")):
+			filterOutput=[element1 for element1 in datalist1 for element2 in datalist2 if element1['land_id']==element2['land_id']]
+		elif ((len(wagelist)!=0) and (len(cropslist)!=0)):
+			filterOutput=[element1 for element1 in datalist1 for element2 in datalist3 if element1['land_id']==element2['land_id']]
+		elif ((pincode != "") and (len(cropslist)!=0)):
+			filterOutput=[element1 for element1 in datalist2 for element2 in datalist3 if element1['land_id']==element2['land_id']]
+		elif ((len(wagelist)!=0)):
+			filterOutput=datalist1
+		elif ((pincode != "")):
+			filterOutput=datalist2
+		elif ((len(cropslist)!=0)):
+			filterOutput=datalist3
+		else:
+			filterOutput=information
+
+
+		land_info=[]
+		crops=[]
+		
+		for item in filterOutput:
+			data={
+				"land_id":item["land_id"],
+				"city":item["city"],
+				"farmers_working":len(item["farmers_working"]),
+				"is_active":item["is_active"],
+				"land_area":item["land_area"],
+				"land_pin_code":item["land_pin_code"],
+				"latitude":item["latitude"],
+				"longitude":item["longitude"],
+				"state":item["state"],
+				"type_of_crop":item["type_of_crop"],
+				"type_of_soil":item["type_of_soil"],
+				"wages_description":item["wages_description"]
+			}
+			
+			land_info.append(data)
+		
+		print(land_info)
+
+		for item in information:
+			if item["type_of_crop"] not in crops:
+				crops.append(item["type_of_crop"])
+
+
+		context={
+			"l_info":land_info,
+			"crops":crops
+		}
+
+		return render(request,'farmerandlandlord/tofarm.html',context)
+
+	
+	land_info=[]
+	crops=[]
+	
+	for item in information:
+		data={
+			"land_id":item["land_id"],
+			"city":item["city"],
+			"farmers_working":len(item["farmers_working"]),
+			"is_active":item["is_active"],
+			"land_area":item["land_area"],
+			"land_pin_code":item["land_pin_code"],
+			"latitude":item["latitude"],
+			"longitude":item["longitude"],
+			"state":item["state"],
+			"type_of_crop":item["type_of_crop"],
+			"type_of_soil":item["type_of_soil"],
+			"wages_description":item["wages_description"]
+		}
+
+		if item["type_of_crop"] not in crops:
+			crops.append(item["type_of_crop"])
+		
+		land_info.append(data)
+
+	context={
+		"l_info":land_info,
+		"crops":crops
+	}
+	return render(request,'farmerandlandlord/tofarm.html',context)
+
+def new_dash(request):
+
+	return render(request,'farmerandlandlord/dash_new.html')
