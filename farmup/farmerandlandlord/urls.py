@@ -24,7 +24,7 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     url('^$',views.farmersearch,name='farmersearch'),
     url('^filterfarmer/',views.filterfarmer,name='filterfarmer'),
-    url('^landlordsearch/',views.landlordsearch),
+    # url('^landlordsearch/',views.landlordsearch),
     path('dashboardlandlord/',views.dashboardlandlord,name='dashboardlandlord'),
     path('dashboardfarmer/',views.dashboardfarmer,name='dashboardfarmer'),
     url('^formaddland/',views.formaddland,name='formaddland'),
@@ -33,12 +33,12 @@ urlpatterns = [
     path('editland/<str:land_id>/',views.editland,name='editland'),
     path('acceptrequest/<str:land_id>/<str:user_id>/<str:username>/',views.acceptrequest,name='acceptrequest'),
     url('^landlordviewrequest/',views.landlordviewrequest,name='landlordviewrequest'),
-    path('infoland/<str:land_id>/',views.infoland,name='infoland'),
+    # path('infoland/<str:land_id>/',views.infoland,name='infoland'),
     path('leaveland/<str:lwg>/',views.leaveland,name='leaveland'),
     path('deleteland/<str:land_id>/',views.deleteland,name='deleteland'),
     path('farmerrequest/<str:land_id>/<str:user_id>/',views.farmerrequest,name='farmerrequest'),
     path('tofarm',views.tofarm,name="tofarm"),
-    path('new_dash',views.new_dash,name="new_dash"),
+    path('addcrop/<id>',views.addcrop,name="addcrop"),
     path('tofarm_map/<id>',views.tofarm_map,name="tofarm_map")
 
 ]

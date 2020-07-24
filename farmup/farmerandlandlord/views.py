@@ -14,7 +14,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #from rest_framework.response import Response
 
+#For storing image
+from django.core.files.storage import FileSystemStorage
 
+import random
 
 def farmersearch(request):
 	#land_area=250
@@ -176,6 +179,8 @@ def acceptrequest(request,land_id,user_id,username):
 
 def formaddland(request):  
 	return render(request,"farmerandlandlord/formaddland.html")
+
+
 def addland(request):
 	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('LandInfo')
@@ -196,9 +201,21 @@ def addland(request):
 		land_pin_code=request.POST.get('land_pin_code')
 		latitude=request.POST.get('lat')
 		longitude=request.POST.get('long')
+		info=request.POST.get('info')
+
 		is_active=False
 	
-	
+		img_url=["https://mediacdn.99acres.com/media1/11509/11/230191522T-1590937910302.jpg",
+			"https://mediacdn.99acres.com/media1/9524/11/190491195T-1568192438225.jpeg",
+			"https://mediacdn.99acres.com/media1/9524/7/190487543T-1568191830940.jpeg",
+			"https://mediacdn.99acres.com/media1/11913/9/238269165T-1595408941546.jpg",
+			"https://mediacdn.99acres.com/media1/11486/3/229723778T-1590480794237.jpg",
+			"https://mediacdn.99acres.com/media1/11509/11/230191522T-1590937910302.jpg",
+			"https://mediacdn.99acres.com/media1/7827/16/156556115T-1569598029091.jpeg",
+			"https://mediacdn.99acres.com/media1/11024/8/220488103O-1581953983240.jpeg",
+			"https://mediacdn.99acres.com/media1/11556/18/231138858T-1591705705752.jpg",
+			"https://mediacdn.99acres.com/media1/11564/6/231286302T-1591791449389.jpg"
+			]
 		
 		geolocator = Nominatim(user_agent="bobo")
 		location = geolocator.reverse(str(latitude) +","+ str(longitude),exactly_one=True)
@@ -208,9 +225,6 @@ def addland(request):
 		pin = address.get('postcode','')
 		if not city:
 			city = address.get('village','')
-		print(str(latitude) +","+ str(longitude))
-		print(city)
-		print(address)
 		if address and city:
 			table.put_item(Item={
 			  "is_active": is_active,
@@ -224,8 +238,11 @@ def addland(request):
 			  "longitude": longitude,
 			  "city":city,
 			  "state":state,
-			  "farmers_working":{0}
+			  "farmers_working":{0},
+			  "img_url":random.choice(img_url),
+			  "info":info
 			})
+
 			email=request.session['email']
 			table=dynamodb.Table('user')
 			response=table.scan(FilterExpression=Attr('email').eq(email))
@@ -253,6 +270,8 @@ def addland(request):
 	return redirect('farmerandlandlord:dashboardlandlord')
 def formeditland(request,land_id):  
 	return render(request,"farmerandlandlord/formeditland.html",{'land_id':land_id})
+
+
 def editland(request,land_id):
 	dynamodb = boto3.resource('dynamodb')
 	table=dynamodb.Table('LandInfo')
@@ -272,7 +291,10 @@ def editland(request,land_id):
 				  "longitude": response['Items'][0]['longitude'],
 				  "city":response['Items'][0]['city'],
 				  "state":response['Items'][0]['state'],
-				  "farmers_working":response['Items'][0]['farmers_working']
+				  "farmers_working":response['Items'][0]['farmers_working'],
+				  "img_url":response['Items'][0]['img_url'],
+				  "info":response['Items'][0]['info']
+
 			})
 	return redirect('farmerandlandlord:dashboardlandlord')
 
@@ -284,17 +306,17 @@ def deleteland(request,land_id):
 	response=table.scan(FilterExpression=Attr('email').eq(email))
 	land_lord_id=response['Items'][0]['land_lord_id']
 	table=dynamodb.Table('LandInfo')
-	#table.delete_item(
-	#	Key={
-	#	'land_id':land_id
-	#	})
+	table.delete_item(
+		Key={
+		'land_id':land_id
+		})
 	table=dynamodb.Table('Landlord')
 	response=table.scan(FilterExpression=Attr('land_lord_id').eq(land_lord_id))
-	#for i in range(len(response['Items'])):
+
 	lands_owned=response['Items'][0]['lands_owned']
 	land_lord_name=response['Items'][0]['land_lord_name']
 	land_lord_id=response['Items'][0]['land_lord_id']
-	#print(lands_owned)
+	
 	print(land_id)
 	if int(land_id) in lands_owned:
 		lands_owned.remove(int(land_id))
@@ -304,13 +326,6 @@ def deleteland(request,land_id):
 				Key={
 				'land_lord_id':land_lord_id
 				})
-		#else:
-			#table.put_item(Item={
-			#	"land_lord_id": land_lord_id,
-			#	"land_lord_name":land_lord_name ,
-				#"lands_owned":"{" + str(response['Items'][0]['lands_owned'])+"," + str(land_id) + "}"
-			#	"lands_owned":lands_owned
-			#})
 
 	table=dynamodb.Table('FarmerInfo')
 	response=table.scan(FilterExpression=Attr('land_working').eq(land_id))
@@ -328,6 +343,8 @@ def deleteland(request,land_id):
 					"lands_worked":a|b,
 					"land_working":""})
 	return redirect('farmerandlandlord:dashboardlandlord')
+
+
 def leaveland(request,lwg):
 	dynamodb = boto3.resource('dynamodb')
 	#farmer_id="1e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f178"
@@ -391,73 +408,34 @@ def leaveland(request,lwg):
 
 
 	return redirect('farmerandlandlord:dashboardfarmer')
-	
-def infoland(request,land_id):
-	#print(param)
-	dynamodb = boto3.resource('dynamodb')
-	table=dynamodb.Table('LandInfo')
-	response=table.scan(FilterExpression=Attr('land_id').eq(land_id))
-	d={}
-	lid=response['Items'][0]['land_id']
-	toc=response['Items'][0]['type_of_crop']
-	wd=response['Items'][0]['wages_description']
-	lpc=response['Items'][0]['land_pin_code']
-	la=response['Items'][0]['land_area']
-	tos=response['Items'][0]['type_of_soil']
-	lat=response['Items'][0]['latitude']
-	logt=response['Items'][0]['longitude']
-	city=response['Items'][0]['city']
-	state=response['Items'][0]['state']
-	farmers_working=response['Items'][0]['farmers_working']
-	
-	#print(wd)
-	table=dynamodb.Table('Landlord')
-	#AttributesToGet=['lands_owned']
-	response=table.scan()
-	#print(response)
-	for i in range(len(response['Items'])):
-		lands_owned=response['Items'][i]['lands_owned']
-		#print(lands_owned)
-		for x in lands_owned:
-			#print(x)
-			if str(x)==land_id:
-				land_lord_name=response['Items'][i]['land_lord_name']
-				#print(land_lord_name)
-				break
-	if farmers_working!={0}:
-		table=dynamodb.Table('FarmerInfo')
-		a=set()
-		for x in farmers_working:
-			response=table.scan(FilterExpression=Attr('farmer_id').eq(x))
-			b={response['Items'][0]['username']}
-			a=a|b	
-		d={'lid':lid,'toc':toc,'wd':wd,'lpc':lpc,'la':la,'tos':tos,'lad':land_lord_name,'lat':lat,'lgt':logt,'city':city,'state':state,'a':a}
-	else:
-		d={'lid':lid,'toc':toc,'wd':wd,'lpc':lpc,'la':la,'tos':tos,'lad':land_lord_name,'lat':lat,'lgt':logt,'city':city,'state':state}
 
-	return render(request,"farmerandlandlord/infoland.html",{'d':d})
-def landlordsearch(request):
-	dynamodb = boto3.resource('dynamodb')
-	table=dynamodb.Table('user')
-	farmer=True
-	pincode='522006'
-	response=table.scan(FilterExpression=Attr('is_farmer').eq(farmer) & Attr('pincode').eq(pincode))
-	#print(response)
-	l={}
-	for i in range(len(response['Items'])):
-		l[i]=response['Items'][i]['farmer_id']
-	table=dynamodb.Table('FarmerInfo')
-	print(l)
-	d={}
-	for j in range(len(l)):
-		new=table.scan(FilterExpression=Attr('farmer_id').eq(l[j]))
-		print(new)
-		farmer_id=new['Items'][0]['farmer_id']
-		farmer_name=new['Items'][0]['farmer_name']
-		lands_worked=new['Items'][0]['lands_worked']
-		d[j]={'farmer_id':farmer_id,'farmer_name':farmer_name,'lands_worked':lands_worked}
-	print(d)
-	return render(request,'farmerandlandlord/displayfarmer.html',{'d':d})
+
+# def landlordsearch(request):
+# 	dynamodb = boto3.resource('dynamodb')
+# 	table=dynamodb.Table('user')
+# 	farmer=True
+# 	pincode='522006'
+# 	response=table.scan(FilterExpression=Attr('is_farmer').eq(farmer) & Attr('pincode').eq(pincode))
+# 	#print(response)
+# 	l={}
+# 	for i in range(len(response['Items'])):
+# 		l[i]=response['Items'][i]['farmer_id']
+# 	table=dynamodb.Table('FarmerInfo')
+# 	print(l)
+# 	d={}
+# 	for j in range(len(l)):
+# 		new=table.scan(FilterExpression=Attr('farmer_id').eq(l[j]))
+# 		print(new)
+# 		farmer_id=new['Items'][0]['farmer_id']
+# 		farmer_name=new['Items'][0]['farmer_name']
+# 		lands_worked=new['Items'][0]['lands_worked']
+# 		d[j]={'farmer_id':farmer_id,'farmer_name':farmer_name,'lands_worked':lands_worked}
+# 	print(d)
+# 	return render(request,'farmerandlandlord/displayfarmer.html',{'d':d})
+
+
+
+
 def dashboardlandlord(request):
 	dynamodb = boto3.resource('dynamodb')
 	if is_loggedin(request):
@@ -475,7 +453,7 @@ def dashboardlandlord(request):
 			d={}
 			table=dynamodb.Table('LandInfo')
 			c=0
-			l=[]
+			lcrop=[]
 			f=0
 			for k in lands_owned:
 				new2=table.scan(FilterExpression=Attr('land_id').eq(str(k)))
@@ -484,18 +462,21 @@ def dashboardlandlord(request):
 					c+=1
 					lid=new2['Items'][0]['land_id']
 					toc=new2['Items'][0]['type_of_crop']
-					if toc not in l:
-						l.append(toc)
+					if toc not in lcrop:
+						lcrop.append(toc)
 					wd=new2['Items'][0]['wages_description']
 					lpc=new2['Items'][0]['land_pin_code']
 					la=new2['Items'][0]['land_area']
 					tos=new2['Items'][0]['type_of_soil']
 					fw=new2['Items'][0]['farmers_working']
+					city=new2['Items'][0]['city']
+					state=new2['Items'][0]['state']
+					img_url=new2['Items'][0]['img_url']
 					for x in fw:
 						if x!=0:
 							f+=1
-					d[k]={'lid':lid,'toc':toc,'wd':wd,'lpc':lpc,'la':la,'tos':tos}
-			#print(d)
+					d[k]={'lid':lid,'toc':toc,'wd':wd,'lpc':lpc,'la':la,'tos':tos,'city':city,'state':state,'image':img_url}
+			
 			#print(c,len(l),f)
 			table=dynamodb.Table('FarmerRequest')
 			response=table.scan()
@@ -503,7 +484,7 @@ def dashboardlandlord(request):
 				l=[]
 				for i in range(response['Count']):
 					l.append(response['Items'][i]['land_id'])
-				#print(l)
+				
 				table=dynamodb.Table('Landlord')
 				response2=table.scan(FilterExpression=Attr('land_lord_id').eq(land_lord_id))
 				r=0
@@ -511,11 +492,15 @@ def dashboardlandlord(request):
 					if str(i) in l:
 						r+=1
 				print(r,l)
-			return render(request,'farmerandlandlord/dashboardlandlord.html',{'d':d,'c':c,'t':len(l),'f':f,'r':r})
+			return render(request,'farmerandlandlord/dashboardlandlord.html',{'d':d,'c':c,'t':len(lcrop),'f':f,'r':r})
 		else:
 			return render(request,'farmerandlandlord/dashboardlandlord.html')
 	else:
 		return redirect('registration:login_display')
+
+
+
+
 def dashboardfarmer(request):
 	dynamodb = boto3.resource('dynamodb')
 	#farmer_id="1e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f178"
@@ -601,6 +586,8 @@ def dashboardfarmer(request):
 			return render(request,'farmerandlandlord/dashboardfarmer.html')
 	else:
 		return redirect('registration:login_display')
+
+
 def landlordviewrequest(request):
 	dynamodb = boto3.resource('dynamodb')
 	#land_lord_id="2e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f1780"
@@ -650,6 +637,9 @@ def landlordviewrequest(request):
 		return render(request,'farmerandlandlord/displayfarmer.html')
 
 
+#***************************************************************
+#***************************************************************
+#***************************************************************
 def tofarm(request):
 	
 	dynamodb=boto3.resource("dynamodb")
@@ -732,12 +722,12 @@ def tofarm(request):
 				"state":item["state"],
 				"type_of_crop":item["type_of_crop"],
 				"type_of_soil":item["type_of_soil"],
-				"wages_description":item["wages_description"]
+				"wages_description":item["wages_description"],
+				"img_url":item["img_url"]
 			}
 			
 			land_info.append(data)
 		
-		print(land_info)
 
 		for item in information:
 			if item["type_of_crop"] not in crops:
@@ -768,7 +758,8 @@ def tofarm(request):
 			"state":item["state"],
 			"type_of_crop":item["type_of_crop"],
 			"type_of_soil":item["type_of_soil"],
-			"wages_description":item["wages_description"]
+			"wages_description":item["wages_description"],
+			"img_url":item["img_url"]
 		}
 
 		if item["type_of_crop"] not in crops:
@@ -824,6 +815,52 @@ def tofarm_map(request,id):
 	return render(request,'farmerandlandlord/tofarm.html',context)
 
 
-def new_dash(request):
+def addcrop(request,id):
+
+	if request.method=="POST":
+		quantity=request.POST.get("quantity")
+		dynamodb=boto3.resource("dynamodb")
+		table=dynamodb.Table("LandInfo")
+
+		cropland=table.scan(
+				FilterExpression=Attr('land_id').eq(id)
+		)["Items"][0]
+
+		cropTable=dynamodb.Table("cropinfo")
+		crop_id=cropTable.scan()['Count']+1
+		
+		crop_name=cropland['type_of_crop']
+
+		crop=cropTable.scan(
+				FilterExpression=Attr('name').eq(crop_name)
+		)["Items"][0]
+		
+		if crop:
+			new_quantity=int(crop["stock"])+int(quantity)
+
+			cropTable.update_item(
+				Key={
+					'crop_id' : crop['crop_id']
+				},
+				UpdateExpression="set stock = :r",
+				ExpressionAttributeValues={
+					':r': new_quantity
+				},
+				ReturnValues="UPDATED_NEW"
+			)
+		else:
+			new_quantity=int(quantity)
+			
+			crop_name=cropland['type_of_crop']
+			cropTable.put_item(
+				Item={
+					"crop_id":str(crop_id),
+					"cost":random.randint(15,80),
+					"image_link":"",
+					"name":crop_name,
+					"stock":new_quantity
+				})
+		
+		return redirect("farmerandlandlord:dashboardlandlord")
 	
-	return render(request,'farmerandlandlord/dash_new.html')
+	return redirect("farmerandlandlord:dashboardlandlord")

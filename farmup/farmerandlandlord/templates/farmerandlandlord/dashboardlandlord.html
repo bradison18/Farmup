@@ -2,18 +2,7 @@
 {% load static %}
 
 {% block head %}
- <link rel="stylesheet" href="{% static 'homepage/css/home-1-styles.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/fonts/font-awesome/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/slick.min.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/animation.aos.min.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/animate.min.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
 
-    <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">    
-    <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
-    <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -917,7 +906,7 @@ input[type=number]::-webkit-outer-spin-button {
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top:2%"> 
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">Landlord Dashboard</h1>
             
           </div>
 
@@ -930,11 +919,8 @@ input[type=number]::-webkit-outer-spin-button {
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">No of Lands owned</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Lands Owned</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{c}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -947,11 +933,8 @@ input[type=number]::-webkit-outer-spin-button {
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Types of Crops(Count)</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Crop Type(Count)</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{t}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -964,20 +947,12 @@ input[type=number]::-webkit-outer-spin-button {
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">No of Farmers workinf</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Farmers(Count)</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{f}}</div>
                         </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
                       </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -992,9 +967,6 @@ input[type=number]::-webkit-outer-spin-button {
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{r}}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -1021,7 +993,7 @@ input[type=number]::-webkit-outer-spin-button {
                 </div>
                 <!-- Card Body -->
                 <div data-spy="scroll" data-target="#myScrollspy" data-offset="20">
-                <div class="card-body" style="overflow-y:scroll; height: 800px ">
+                <div class="card-body" style="overflow-y:scroll; height: 500px ">
                     <div class="input-group">
                         <label class="label">type of crop</label>
                         <input class="input--style-1" type="text" name="type_of_crop" placeholder="enter crop name" required="required">
@@ -1052,29 +1024,159 @@ input[type=number]::-webkit-outer-spin-button {
                           <input class="input--style-1" type="" id="long" name="long" placeholder="Longitude" required="required">
                       </div>
                       
+                      <div class="input-group">
+                      <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" cols="20" name="info">
+                        Enter Fertilizer Information 
+                      </textarea>
+                      </div>
+                      
+                      
                       
                       <button class="btn-submit" type="submit">Add Land</button>
                 </div>
               </div>
               </div>
             </div>
-            
+        </form>
+
             <!-- Pie Chart -->
             <div class="col-xl-6 mb-4">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Owned Lands</h6>
                   
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
-                  
+                <div class="card-body" style="overflow-y:scroll;height:500px">
+                  {% for key,value in d.items %}
+                    <div class="row" style='height30%'>
+                        <div class="col-5">
+                            <img src={{value.image}} alt="Image Not Entered" style="width:90%;height:60%">
+                        </div>
+                        <div class="col-4">
+                          <h3>{{ value.city }}
+                          {{ value.state }}</h3>
+                          <ul>
+                            <li>
+                                Crop: {{ value.toc }}
+                            </li>
+                            <li>
+                                Soil: {{ value.tos }}
+                            </li>
+                            <li>
+                                Wage/Day: {{ value.wd }}
+                            </li>                          
+                          <ul>
+                        </div>
+                        <div class="col-3">
+             
+                        <button type="button" style="height:13%;padding-left:4%;padding-right:1%;padding-top:0%;padding-botom:0%" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{value.lid}}">
+                        Edit&nbsp&nbsp&nbsp&nbsp
+                        </button><br><br>
+                        <button type="button" style="height:13%;padding-left:4%;padding-right:1%;padding-top:0%;padding-botom:0%" class="btn btn-info" data-toggle="modal" data-target="#exampleModal1{{value.lid}}">
+                        Sell&nbsp&nbsp&nbsp&nbsp&nbsp
+                        </button><br><br>
+                        <button type="button" style="height:13%;padding-left:3%;padding-right:3%;padding-top:0%;padding-botom:0%" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2{{value.lid}}">
+                        Delete
+                        </button>
+
+                      <div class="modal fade" id="exampleModal{{value.lid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Edit Info</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            
+                            <form action="{% url 'farmerandlandlord:editland' value.lid %}" method="post">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                              <div class="input-group">
+                                    <label class="label">New Crop</label>
+                                    <input class="input--style-1" type="text" name="type_of_crop" placeholder="enter crop name" required="required">
+                                </div>
+                               
+                                <div class="input-group">
+                                    <label class="label">Updated Wages</label>
+                                    <input class="input--style-1" type="text" name="wages_description" placeholder="enter money in rupees" required="required">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                          
+                            </form>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal fade" id="exampleModal1{{value.lid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Sell Crops</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            
+                            <form action="{% url 'farmerandlandlord:addcrop' value.lid %}" method="post" >
+                              {% csrf_token %}
+
+                              <div class="modal-body">
+                                <div class="input-group">
+                                    <label class="label">Quantity in KG</label>
+                                    <input class="input--style-1" type="text" name="quantity" placeholder="Enter Quantity" required="required">
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Sell</button>
+                              </div>
+
+                            </form>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal fade" id="exampleModal2{{value.lid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            
+                            <form  action="{% url 'farmerandlandlord:deleteland' value.lid %}" method="post">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                              Are you sure, you want to remove the land?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger">Remove Land</button>
+                            </div>
+                          
+                            </form>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      </div>
+
+
+                    </div>
+                    <br>
+                  {% endfor %}  
+                
                 </div>
               </div>
             </div>
           </div>
-        </form>
         </div>
           
 
@@ -1082,5 +1184,9 @@ input[type=number]::-webkit-outer-spin-button {
         <!-- /.container-fluid -->
 
       </div>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       
 {% endblock %}
