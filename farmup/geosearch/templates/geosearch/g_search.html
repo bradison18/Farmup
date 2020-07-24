@@ -231,12 +231,13 @@
     city_circle = null;
     Zoom = 0;
     function initMap() {
-        function addMarkerWithTimeout(position, timeout) {
+        function addMarkerWithTimeout(position,url, timeout) {
           window.setTimeout(function() {
             all_markers.push(
               new google.maps.Marker({
                 position: position,
                 map: map,
+				  url: url,
                 animation: google.maps.Animation.DROP
               })
             );
@@ -255,25 +256,27 @@
             position: {lat: Number(c_lat), lng: Number(c_lng)},
             map: map,
             icon: image,
-
+			url: '',
         });
 
         for (i = 0; i < lands.length; i++) {
 
-            addMarkerWithTimeout({lat:lands[i]['lat'],lng:lands[i]['lng']},i*200);
-            // marker = new google.maps.Marker({
-            //     position: new google.maps.LatLng(lands[i]['lat'], lands[i]['lng']),
-            //     map: map,
-            //     animation: google.maps.Animation.DROP
-            // });
-            // all_markers.push(marker);
-        }
-        google.maps.event.addListener(marker, 'click', function (event) {
-      if (marker!=null) {
-        marker.setMap(null);
-      }
+            //addMarkerWithTimeout({lat:lands[i]['lat'],lng:lands[i]['lng']},lands[i]['id'],i*200);
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lands[i]['lat'], lands[i]['lng']),
+                map: map,
+				url:lands[i]['land_id'],
+                animation: google.maps.Animation.DROP
+            });
+            all_markers.push(marker);
+			google.maps.event.addListener(marker, 'click', function (event) {
+
+				var new_url = 'http://127.0.0.1:8000/farmerandlandlord/infoland/'+ this.url;
+				window.location.href = new_url
 
     });
+        }
+
     }
     function setNewmarker(d){
         var d = Number(d);
@@ -359,8 +362,9 @@
 			<div id="debt-amount-pos"></div>
 		</div>
 	</form>
-	<br><br>
+	<div style="margin-top: 4%">
 	<h5> Click on the circle marker to get the Lands in that selected radius </h5>
+	</div>
 </div>
 </div>
 

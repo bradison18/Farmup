@@ -23,6 +23,19 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe2otGPKiUf4Qq35MmOfDWHaQm-Cjtopw&libraries=places&callback=initAutocomplete"
             async defer></script>
 
+    <link rel="stylesheet" href="{% static 'homepage/css/home-1-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/animation.aos.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
+
+    <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
+
      <script>
          var autocomplete;
             function initAutocomplete() {
@@ -52,7 +65,7 @@
 {% endif %}
 
 
-
+ <div id="content" >
             <div class="content my-3">
                 <div class="row">
                     <div class="col">
@@ -78,7 +91,7 @@
                                             </div>
                                           </div>
                                         <div class="row">
-                                          <div class="col-md-12">
+                                          <div class="col-md-12 pr-1">
                                             <div class="form-group">
                                               <label>Address</label>
                                               <input type="text" class="form-control" id="autocomplete" placeholder="Home Address" value="{{address}}" name="address">
@@ -103,10 +116,10 @@
                     </div>
                 </div>
             </div>
+</div>
 
 
 
-</form>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -223,6 +223,8 @@ def addland(request):
 		pin = address.get('postcode','')
 		if not city:
 			city = address.get('village','')
+		if not city:
+			city = address.get('town','')
 		print(str(latitude) +","+ str(longitude))
 		print(city)
 		print(address)
