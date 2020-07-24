@@ -270,7 +270,7 @@ def success(request,session_id,trans_id):
         },
         ReturnValues="UPDATED_NEW"
     )
-    return redirect('home')
+    return redirect('transactions')
 def cancel(request):
     dynamodb = boto3.resource('dynamodb')
     table_balance = dynamodb.Table('Balances')
@@ -296,6 +296,10 @@ def cancel(request):
 def transactions(request,par='date'):
     dynamodb = boto3.resource('dynamodb')
     table_transactions = dynamodb.Table('transactions')
+    table_balance = dynamodb.Table('Balances')
+    balance = table_balance.scan(
+        FilterExpression = Attr('email').eq(request.session['email'])
+    )['Items'][0]['balance']
     transactions = table_transactions.scan(
         FilterExpression=Attr('email').eq(request.session['email'])
     )['Items']
@@ -303,7 +307,7 @@ def transactions(request,par='date'):
     for i in transactions:
         df = df.append({'date':i['date'],'time':i['time'],'username':i['username'],'amount':int(i['amount']),'transaction_id':i['transaction_id'],'type':i['type'],'email':i['email']},ignore_index=True)
     df = df.sort_values(by=[par],ascending=False)
-    return render(request,'credits/transaction.html',{'context':transactions,'context1':df})
+    return render(request,'credits/transaction.html',{'context':balance,'context1':df})
 
 def redeem_cancel(request):
     dynamodb = boto3.resource('dynamodb')

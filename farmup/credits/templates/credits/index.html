@@ -28,7 +28,8 @@
     <style>
 
         body{
-            background-image: url("{% static  'credits/payment.jpeg' %}");
+            {#background-image: url("{% static  'credits/payment.jpeg' %}");#}
+            background-color: #b3d7ff; background-color: ;
             position: relative;
             background-repeat: no-repeat;
             background-size: 100%;
@@ -109,7 +110,7 @@
                                     <li class="divider-top"></li>
                                     <li><a class="dropdown-item" href="#">Homepage One</a></li>
                                 </ul>
-                            </li>
+                            </li>   
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'shopping_cart:buyingpage' %}">Store</a>
                             </li>
@@ -168,11 +169,11 @@
                 <input type="submit" class="contact100-form-btn" value="Pay Now">
                 <br>
             </form>
-            <a href="{% url 'add_balance' %}">  <button class="contact100-form-btn" value="Add Balance"> Add Balance</button><br><br> </a>
+            <a href="{% url 'add_balance' %}">  <button class="contact100-form-btn" value="Add Balance"> Add Balance</button><br> </a>
 
             <a href="{% url 'trans_cancel' %}">  <button class="contact100-form-btn" value="Cancel"> Cancel</button><br><br> </a>
 
-            <br> <br>
+
         </div>
     </center>
 {% endblock body %}

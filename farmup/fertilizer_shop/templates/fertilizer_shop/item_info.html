@@ -3,93 +3,100 @@
 
 
 {% block head%}
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'css/new_fertilizer/item_info.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/new_fertilizer/item_info.css' %}">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 
 {% block body %}
 
-<div class="description"">
+    <div class="description"">
     <div class="info1" style="width:60%;float: left;padding: 2%;">
         <div class="col-12" id="center">
             <img class="dark" src={{ img_url }} style="width:30%">
         </div>
         <div class="write">
             <p>
-            <span style="font-weight:bold;font-size:30px">Description</span><br>
-              {{ info }}
+                <span style="font-weight:bold;font-size:30px">Description</span><br>
+                {{ info }}
             </p>
         </div>
-    
+
     </div>
 
     <div class="info2" style="width:37%;float: left;">
         <div class="row">
             <div class="col-12">
                 <p>
-                <span style="font-weight: bold;font-size: 40px;">{{ name }}</span> <br>
-                <span style="font-size: 15px;">{{perpackquantity}} {{measure}} per pack</span> <br>
-                <span style="font-size: 20px">Available Quantity: {{available}} packs</span> <br>
-                <span style="font-weight: bold;font-size: 25px;color: red;">Rs.{{ price }}</span>-Per Pack <br>
-                <span style="font-weight: bold;font-size: 20px;color: brown;">Soil Type: {{ soiltype }}</span><br>
+                    <span style="font-weight: bold;font-size: 40px;">{{ name }}</span> <br>
+                    <span style="font-size: 15px;">{{perpackquantity}} {{measure}} per pack</span> <br>
+                    <span style="font-size: 20px">Available Quantity: {{available}} packs</span> <br>
+                    <span style="font-weight: bold;font-size: 25px;color: red;">Rs.{{ price }}</span>-Per Pack <br>
+                    <span style="font-weight: bold;font-size: 20px;color: brown;">Soil Type: {{ soiltype }}</span><br>
+                    <span style="font-weight: bold;font-size: 20px;color: brown;">Soil Type: {{ fertilizer_id }}</span><br>
                 </p>
-                
-                <form action="{% url 'shopping_cart:add_to_cart' %}" method="post">
-                  {% csrf_token %}
-                  <input type="hidden" name="crop_name" value={{name}}>
-                  <input type="hidden" name="id" value={{fertilizer_id}}>
-                  <div class="input-group input-number-group" style="padding-right: 50%;">
-                  <div class="input-group-button">
-                      <span class="input-number-decrement">-</span>
-                  </div>
-                  <input class="input-number" type="number" name="quantity" value="1" min="0" max="1000">
-                  <div class="input-group-button">
-                      <span class="input-number-increment">+</span>
-                  </div>
-                  </div>
-                  <br>
-                  
-                  <button type="submit" class="btn btn-info" style="margin-left: 8%;width: 40%;">Add To Cart</button>
-                </form>
+                {% if not is_ordered %}
+
+                    <form action="{% url 'shopping_cart:add_to_cart' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="fertilizer" name="type">
+                        <input type="hidden" name="crop_name" value={{name}}>
+                        <input type="hidden" name="id" value={{fertilizer_id}}>
+                        <div class="input-group input-number-group" style="padding-right: 50%;">
+                            <div class="input-group-button">
+                                <span class="input-number-decrement">-</span>
+                            </div>
+                            <input class="input-number" type="number" name="quantity" value="1" min="0" max="1000">
+                            <div class="input-group-button">
+                                <span class="input-number-increment">+</span>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-info" style="margin-left: 8%;width: 40%;">Add To Cart</button>
+                    </form>
+
+                {% else %}
+                    <a href="{% url 'shopping_cart:cart' %}">  <button type="button" class="btn btn-info" style="margin-left: 8%;width: 40%;">Go To Cart</button> </a>
+
+                {% endif %}
             </div>
-        </div> 
+        </div>
     </div>
 
-</div>
+    </div>
 
 
-<script
-  src="https://code.jquery.com/jquery-3.5.1.js"
-  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
 
-<script>
-   $('.input-number-increment').click(function() {
-  var $input = $(this).parents('.input-number-group').find('.input-number');
-  var val = parseInt($input.val(), 10);
-  $input.val(val + 1);
-});
+    <script>
+        $('.input-number-increment').click(function() {
+            var $input = $(this).parents('.input-number-group').find('.input-number');
+            var val = parseInt($input.val(), 10);
+            $input.val(val + 1);
+        });
 
-$('.input-number-decrement').click(function() {
-  var $input = $(this).parents('.input-number-group').find('.input-number');
-  var val = parseInt($input.val(), 10);
-  if(val===1){
-    $input.val(val);
-  }
-  else{
-    $input.val(val - 1);
-  }
-  
-})
+        $('.input-number-decrement').click(function() {
+            var $input = $(this).parents('.input-number-group').find('.input-number');
+            var val = parseInt($input.val(), 10);
+            if(val===1){
+                $input.val(val);
+            }
+            else{
+                $input.val(val - 1);
+            }
 
-</script>
+        })
+
+    </script>
 
 {% endblock %}

@@ -179,7 +179,8 @@
                                                         <p class="offer-price mb-0">Rs. {{ crop_cost }}<br><br></p>
                                                     </td>
                                                     <td>
-                                                        <input>
+                                                        <input type="hidden" name="type" value="crops">
+                                                        <input type="hidden" name="id" value="{{ crop_id }}">
                                                         <input type="hidden" name="crop_name" value="{{ crop_name }}">
                                                         <input type="number" style="width: 150px;margin-left: 10px" id="quantity" placeholder="quantity" name="quantity" required max="{{ crop_amount }}" min="1">
                                                         <input type="submit" class="btn btn-secondary btn-sm float-right" value="Add to Cart" style="margin-left: 100px">

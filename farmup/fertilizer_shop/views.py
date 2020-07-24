@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
+from decimal import *
 # Create your views here.
 
 #For storing images
@@ -210,11 +211,19 @@ def shop(request):
 def iteminfo(request,id):
     dynamodb=boto3.resource("dynamodb")
     table=dynamodb.Table("fertilizer_info")
-
+    table_order = dynamodb.Table('Order')
     info = table.scan(
             FilterExpression = Attr('fertilizer_id').eq(id)
         )
-    
+    is_ordered = table_order.scan(
+        FilterExpression = Attr('crop_id').eq(Decimal(id)) & Attr('type').eq('fertilizer')
+    )['Items']
+    # all_orders = table_order.scan()['Items']
+    if is_ordered:
+        ordered = True
+    else:
+        ordered = False
+    print(ordered)
     data=info["Items"][0]
     available=int(float(data["quantity"])/float(data["perpackquantity"]))
     print(available)
@@ -233,7 +242,8 @@ def iteminfo(request,id):
         "info":data["info"],
         "available":available,
         "measure":measure,
-        "img_url":data["img_url"]
+        "img_url":data["img_url"],
+        "is_ordered":ordered
 
     }
 

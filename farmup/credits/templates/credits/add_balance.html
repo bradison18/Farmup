@@ -2,6 +2,19 @@
 {% load static %}
 {% block head %}
 {#    <link rel="stylesheet" type="text/css" href="{% static 'cart/main.css' %}">#}
+        <link rel="stylesheet" href="{% static 'homepage/css/home-1-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/fonts/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/slick.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/animation.aos.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}">
+
+    <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
+
 <style>
 input[type=submit] {
 	outline: none;
@@ -41,7 +54,7 @@ input:-ms-input-placeholder { color: #adadad;}
   min-width: 200px;
   height: 50px;
   border-radius: 2px;
-  background: linear-gradient(red, white);
+  background: forestgreen;
 
   font-family: Montserrat-Bold;
   font-size: 12px;
@@ -60,7 +73,8 @@ input:-ms-input-placeholder { color: #adadad;}
   background: #333333;
 }
         body{
-        background-image: url("{% static  'credits/payment.jpeg' %}");
+            background-color: #b3d7ff;
+        {#background-image: url("{% static  'credits/payment.jpeg' %}");#}
         position: relative;
         background-repeat: no-repeat;
         background-size: 100%;

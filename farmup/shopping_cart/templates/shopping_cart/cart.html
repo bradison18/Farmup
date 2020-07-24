@@ -68,7 +68,7 @@
                 <tr>
                     <td data-th="Product">
                         <div class="row">
-                            <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                            <div class="col-sm-2 hidden-xs"><img src="{{ crops_ordered_images }}" alt="..." class="img-responsive"/></div>
                             <div class="col-sm-10">
                                 <h4 class="nomargin">{{crops_ordered_names}}</h4>
                                 <p>Available amount: {{crops_ava}}</p>
@@ -79,7 +79,6 @@
                     <td data-th="Quantity">
                         {#<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" >#}
                         <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant 'add' %}"><i class="fas fa-plus ml-2"></i></a>
-
                         <h4 >{{crops_quant}}</h4>
                 <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant 'minus' %}"><i class="fas fa-minus mr-2"></i></a>
 

@@ -77,16 +77,16 @@
                             <a class="nav-link" href="{% url 'landing' %}" style="color:green;">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'shopping_cart:buyingpage' %}" style="color:green;">STORE</a>
+                            <a class="nav-link" href="{% url 'shopping_cart:buyingpage' %}" style="color:green;">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:green;">SERVICES</a>
+                            <a class="nav-link" href="{% url 'transactions' 'date' %}" style="color:green;">Transactions</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" style="color:green;">BLOG</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'shopping_cart:cart' %}" style="color:green;">CART</a>
+                            <a class="nav-link" href="{% url 'shopping_cart:cart' %}" style="color:green;">Cart</a>
                         </li>
                         {% if request.session.username %}
                             <li class="nav-item">
