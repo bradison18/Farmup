@@ -38,5 +38,7 @@ urlpatterns = [
     path('deleteland/<str:land_id>/',views.deleteland,name='deleteland'),
     path('farmerrequest/<str:land_id>/<str:user_id>/',views.farmerrequest,name='farmerrequest'),
     path('tofarm',views.tofarm,name="tofarm"),
-    path('new_dash',views.new_dash,name="new_dash")
+    path('new_dash',views.new_dash,name="new_dash"),
+    path('tofarm_map/<id>',views.tofarm_map,name="tofarm_map")
+
 ]

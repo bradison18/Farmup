@@ -160,7 +160,7 @@ def shop(request):
                 "img_url":item["img_url"]
             }
             fertilizer_info.append(data)
-        
+    
         
 
         paginator = Paginator(fertilizer_info, 6)
