@@ -370,7 +370,7 @@ def search(request):
     name = request.POST['crop_name']
     quan = request.POST['range']
     for i in range(len(crop_table_elements)):
-        if (name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8) and crop_table_elements[i]['cost'] <quan:
+        if (name.lower() == crop_table_elements[i]['name'].lower()  or name.lower() in crop_table_elements[i]['name'].lower() or distance(name.lower(),crop_table_elements[i]['name'].lower()) > 0.8) and int(crop_table_elements[i]['cost']) <int(quan):
             crop_id.append(crop_table_elements[i]['crop_id'])
             crop_name.append(crop_table_elements[i]['name'])
             crop_cost.append(crop_table_elements[i]['cost'])

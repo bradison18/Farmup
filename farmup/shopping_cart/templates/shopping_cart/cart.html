@@ -79,6 +79,7 @@
                     <td data-th="Quantity">
                         {#<input type="number" class="form-control text-center" data-type="quan"  min="1" max="{{crops_ava}}" >#}
                         <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant 'add' %}"><i class="fas fa-plus ml-2"></i></a>
+
                         <h4 >{{crops_quant}}</h4>
                 <a href="{% url 'shopping_cart:increase' crops_ordered_names crops_quant 'minus' %}"><i class="fas fa-minus mr-2"></i></a>
 

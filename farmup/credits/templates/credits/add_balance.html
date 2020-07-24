@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'homepage/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/css/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'homepage/css/responsive.css' %}">
-
+    <script src="{% static 'credits/main.js' %}"></script>
 <style>
 input[type=submit] {
 	outline: none;
@@ -90,7 +90,7 @@ input:-ms-input-placeholder { color: #adadad;}
     <label for="number"> Enter amount to be added </label><br>
     <input type="number" placeholder="Amount" id="number" name="amount">
     <br><br>
-        <input type="submit" class="contact100-form-btn">
+        <input type="submit" class="contact100-form-btn" id="submitBtn">
 </form>
 </center>
 {% endblock body %}

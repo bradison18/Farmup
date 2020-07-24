@@ -57,16 +57,31 @@ def pending_redeem(request):
         if int(balance) - int(amount) < 0:
             return HttpResponse('<html><p> you have insufficient balanace.  </p><a href="/credits/add_balance/"> You can add balance here. </a></html>')
         # auth_token = '55f9a8db2286ced48a7203fd9b06b512'
-        # auth_token = '515b1c72219b2b7904e4d56a88dfd69c'
+        auth_token = '515b1c72219b2b7904e4d56a88dfd69c'
         account_sid = 'ACb702ef99316a96af55ee6415656e9486'
-        auth_token = '524a22e06c5fa10d3e9e31bb98bf6c4f'
+        # auth_token = '0fc2aaf55cca11d1771c8d669c32f25c'
 
         # account_sid = ''
+        dynamodb = boto3.resource('dynamodb')
+        table_balance = dynamodb.Table('user')
+        cur_user = table_balance.scan(
+            FilterExpression = Attr('email').eq(request.session['email'])
+        )['Items'][0]
+        print(cur_user)
+        try:
+            phone_number = cur_user['phone_number']
+        except:
+            return redirect('registration:display_edit_profile')
         client = Client(account_sid, auth_token)
-        client.messages.create(
-            to="+91" + str(9121467576),
-            from_="+12025190638",
-            body="Use {} code for verification.Amount requested to redeem is {}".format(responses_redeem['Items'][0]['code'], amount))
+        try:
+            print(phone_number)
+            client.messages.create(
+                to="+91" + str(phone_number),
+                from_="+12025190638",
+                body="Use {} code for verification.Amount requested to redeem is {}".format(responses_redeem['Items'][0]['code'], amount))
+        except:
+            return HttpResponse('<html><script>alert("Invalid phone number");window.location="/credits";</script></html>')
+
     return render(request,'credits/pending_redeem.html')
 
 def verify_sms(request):
@@ -177,8 +192,6 @@ def home(request):
 
         }
     )
-
-
     return render(request,'credits/home.html')
 
 @csrf_exempt
@@ -270,7 +283,7 @@ def success(request,session_id,trans_id):
         },
         ReturnValues="UPDATED_NEW"
     )
-    return redirect('transactions')
+    return redirect('transactions',par='date')
 def cancel(request):
     dynamodb = boto3.resource('dynamodb')
     table_balance = dynamodb.Table('Balances')
